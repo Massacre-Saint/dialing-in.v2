@@ -1,0 +1,182 @@
+{
+  "tYp1ZY1V9I": {
+    "fbKey":"tYp1ZY1V9I",
+    "type": "Any",
+    "name": "Stove",
+    "methodId":"NHxS8YhCOs"
+  },
+  "uyaCSnx1F6": {
+    "fbKey":"uyaCSnx1F6",
+    "type": "Cold",
+    "name": "Water",
+    "methodId":"NHxS8YhCOs"
+  },
+  "7m6kJO0MoR": {
+    "fbKey":"7m6kJO0MoR",
+    "type": "Paper",
+    "name": "AeroPress Filter",
+    "methodId":"6uzMhuhbCv"
+  },
+  "8w9onep8id": {
+    "fbKey":"8w9onep8id",
+    "type": "Metal",
+    "name": "AeroPress Filter",
+    "methodId":"6uzMhuhbCv"
+  },
+  "cwFff4eLqp": {
+    "fbKey":"cwFff4eLqp",
+    "type": "Utensil",
+    "name": "Spoon",
+    "methodId":"6uzMhuhbCv"
+  },
+  "uNW2lFHVbu": {
+    "fbKey":"uNW2lFHVbu",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"6uzMhuhbCv"
+  },
+  "0kOCqMvuY2": {
+    "fbKey":"0kOCqMvuY2",
+    "type": "Utensil",
+    "name": "Spoon",
+    "methodId":"6RgaO8rJVy"
+  },
+  "sJ91flWYSL": {
+    "fbKey":"sJ91flWYSL",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"6RgaO8rJVy"
+  },
+  "FzDy5hRPRf": {
+    "fbKey":"FzDy5hRPRf",
+    "type": "Any",
+    "name": "Kettle",
+    "methodId":"6RgaO8rJVy"
+  },
+  "BaWv6N74ji": {
+    "fbKey":"BaWv6N74ji",
+    "type": "Paper",
+    "name": "Chemex Filter",
+    "methodId":"NvDtuJVFJi"
+  },
+  "YJQyhXFxPy": {
+    "fbKey":"YJQyhXFxPy",
+    "type": "Metal",
+    "name": "Chemex Filter",
+    "methodId":"NvDtuJVFJi"
+  },
+  "ngsSujYJIl": {
+    "fbKey":"ngsSujYJIl",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"NvDtuJVFJi"
+  },
+  "IEGnyLZBen": {
+    "fbKey":"IEGnyLZBen",
+    "type": "Utensil",
+    "name": "Spoon",
+    "methodId":"NvDtuJVFJi"
+  },
+  "st3Z14qOEz": {
+    "fbKey":"st3Z14qOEz",
+    "type": "Gooseneck",
+    "name": "Kettle",
+    "methodId":"NvDtuJVFJi"
+  },
+  "h2kSYF9uo4": {
+    "fbKey":"h2kSYF9uo4",
+    "type": "",
+    "name": "Measuring Sppon",
+    "methodId":"j95EoGcuvw"
+  },
+  "sYNOson4lQ": {
+    "fbKey":"sYNOson4lQ",
+    "type": "Gooseneck",
+    "name": "Kettle",
+    "methodId":"DQdwihRKwl"
+  },
+  "IqexkD6p9p": {
+    "fbKey":"IqexkD6p9p",
+    "type": "Paper",
+    "name": "Kalita 185 Filter",
+    "methodId":"DQdwihRKwl"
+  },
+  "DVGA2h7woV": {
+    "fbKey":"DVGA2h7woV",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"DQdwihRKwl"
+  },
+  "Maq7BgHas9": {
+    "fbKey":"Maq7BgHas9",
+    "type": "Paper Filter",
+    "name": "V60 Filter",
+    "methodId":"N8kJJM5nBq"
+  },
+  "VXzEnfUfPj": {
+    "fbKey":"VXzEnfUfPj",
+    "type": "Metal",
+    "name": "V60 Filter",
+    "methodId":"N8kJJM5nBq"
+  },
+  "Idgc961U43": {
+    "fbKey":"Idgc961U43",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"N8kJJM5nBq"
+  },
+  "C2rgPeHmwl": {
+    "fbKey":"C2rgPeHmwl",
+    "type": "Utensil",
+    "name": "Spoon",
+    "methodId":"N8kJJM5nBq"
+  },
+  "S0PYLk4FL6": {
+    "fbKey":"S0PYLk4FL6",
+    "type": "Gooseneck",
+    "name": "Kettle",
+    "methodId":"N8kJJM5nBq"
+  },
+  "kd5MmeLjFI": {
+    "fbKey":"kd5MmeLjFI",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"gtCvnZVtJY"
+  },
+  "4bm7RoIkf3": {
+    "fbKey":"4bm7RoIkf3",
+    "type": "Utensil",
+    "name": "Spoon",
+    "methodId":"gtCvnZVtJY"
+  },
+  "dr0iC4UpJm": {
+    "fbKey":"dr0iC4UpJm",
+    "type": "Paper",
+    "name": "Filter",
+    "methodId":"OnXRMvsa1o"
+  },
+  "DBwFtJdcse": {
+    "fbKey":"DBwFtJdcse",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"OnXRMvsa1o"
+  },
+  "k9oYyBTl6W": {
+    "fbKey":"k9oYyBTl6W",
+    "type": "Digital",
+    "name": "Scale",
+    "methodId":"fzv7rFn0Ch"
+  },
+  "LzseduBm6p": {
+    "fbKey":"LzseduBm6p",
+    "type": "Specality pot",
+    "name": "Cezve",
+    "methodId":"fzv7rFn0Ch"
+  },
+  "xznE6C9r3u": {
+    "fbKey":"xznE6C9r3u",
+    "type": "",
+    "name": "Measuring Sppon",
+    "methodId":"fzv7rFn0Ch"
+  }
+}

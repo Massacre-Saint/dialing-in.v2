@@ -1,0 +1,112 @@
+{
+  "xYvKu4obPT": {
+    "fbKey": "xYvKu4obPT",
+    "brewTime": 120,
+    "grindId": "ErS72K4ETv",
+    "amount": 220,
+    "methodId": "NHxS8YhCOs",
+    "recipeName": "Bialetti 2-cup",
+    "dose": 20,
+    "waterTemp": 32,
+    "favorite": false
+  },
+  "xyVKfeeNiv": {
+    "fbKey": "xyVKfeeNiv",
+    "brewTime": 60,
+    "grindId": "hznSYnsW9T",
+    "weiamountht": 200,
+    "methodId": "6uzMhuhbCv",
+    "recipeName": "James Hoffman: Short & Strong",
+    "dose": 15,
+    "waterTemp": 205,
+    "favorite": false
+  },
+  "RcYvDBpHjs": {
+    "fbKey": "RcYvDBpHjs",
+    "brewTime": 300,
+    "grindId": "tz0QsB0Amn",
+    "amount": 500,
+    "methodId": "6RgaO8rJVy",
+    "recipeName": "Standard Ratio",
+    "dose": 30,
+    "waterTemp": 205,
+    "favorite": true
+  },
+  "toWtn71aE8": {
+    "fbKey": "toWtn71aE8",
+    "brewTime": 180,
+    "grindId": "MyhOOSSEKv",
+    "amount": 680,
+    "methodId": "NvDtuJVFJi",
+    "recipeName": "Frothy Monkey Guide",
+    "dose": 40,
+    "waterTemp": 205,
+    "favorite": true
+  },
+  "B44eiyPAPl": {
+    "fbKey": "B44eiyPAPl",
+    "brewTime": 480,
+    "grindId": "tz0QsB0Amn",
+    "amount": 946,
+    "methodId": "j95EoGcuvw",
+    "recipeName": "4-cup Serving",
+    "dose": 22,
+    "waterTemp": 34,
+    "favorite": false
+  },
+  "kOxico68GU": {
+    "fbKey": "kOxico68GU",
+    "brewTime": 180,
+    "grindId": "hznSYnsW9T",
+    "amount": 400,
+    "methodId": "DQdwihRKwl",
+    "recipeName": "Frothy Monkey Guide",
+    "dose": 25,
+    "waterTemp": 205,
+    "favorite": true
+  },
+  "PKbnh0hJPh": {
+    "fbKey": "PKbnh0hJPh",
+    "brewTime": 240,
+    "grindId": "ErS72K4ETv",
+    "amount": 360,
+    "methodId": "N8kJJM5nBq",
+    "recipeName": "Stumptown Coffee's Method",
+    "dose": 21,
+    "waterTemp": 205,
+    "favorite": false
+  },
+  "P6uBYHFbaW": {
+    "fbKey": "P6uBYHFbaW",
+    "brewTime": 1440,
+    "grindId": "KLbAL6ccqN",
+    "amount": 1899,
+    "methodId": "gtCvnZVtJY",
+    "recipeName": "Toddy: At Home",
+    "dose": 340,
+    "waterTemp": 34,
+    "favorite": true
+  },
+  "JWuSgc9xoL": {
+    "fbKey": "JWuSgc9xoL",
+    "brewTime": 300,
+    "grindId": "MyhOOSSEKv",
+    "amount": 4,
+    "methodId": "OnXRMvsa1o",
+    "recipeName": "4 cup Auto Drip",
+    "dose": 60,
+    "waterTemp": 34,
+    "favorite": false
+  },
+  "bTdaBRgtI0": {
+    "fbKey": "bTdaBRgtI0",
+    "brewTime": 320,
+    "grindId": "ixX4sDCLoD",
+    "amount": 2,
+    "methodId": "fzv7rFn0Ch",
+    "recipeName": "Traditional Method",
+    "dose": 44,
+    "waterTemp": 34,
+    "favorite": false
+  }
+}
