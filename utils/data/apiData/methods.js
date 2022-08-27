@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { clientCredentials } from '../../utils/client';
+import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
@@ -20,3 +20,5 @@ const getSingleMethod = (firebaseKey) => new Promise((resolve, reject) => {
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
+
+export { getMethods, getSingleMethod };
