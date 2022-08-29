@@ -1,20 +1,35 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { signIn, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
+import { createUserProfile, getUser } from '../utils/data/apiData/userData';
 
 function Settings() {
   const { user } = useAuth();
+  const payload = {
+    uid: user.uid,
+    photoUrl: user.photoURL,
+    name: user.displayName,
+  };
   const validateUser = () => {
     if (user.uid) {
-      console.warn('yes');
-    } console.warn('no');
+      getUser(user.uid).then((userObj) => {
+        if (!Object.values(userObj).length) {
+          console.warn(' no user');
+          createUserProfile(payload);
+        }
+      });
+    }
   };
   const handleClick = () => {
     if (!user) {
-      signIn(() => validateUser());
-    } signOut(() => validateUser());
+      signIn();
+    } signOut();
   };
+  useEffect(() => {
+    validateUser();
+  }, [user]);
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
