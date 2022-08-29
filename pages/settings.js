@@ -3,8 +3,18 @@ import { Button } from 'react-bootstrap';
 import { signIn, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 
-function Signin() {
+function Settings() {
   const { user } = useAuth();
+  const validateUser = () => {
+    if (user.uid) {
+      console.warn('yes');
+    } console.warn('no');
+  };
+  const handleClick = () => {
+    if (!user) {
+      signIn(() => validateUser());
+    } signOut(() => validateUser());
+  };
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
@@ -15,23 +25,11 @@ function Signin() {
         margin: '0 auto',
       }}
     >
-      <h1>Hi there!</h1>
-      {
-        !user
-          ? (
-            <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
-              Sign In
-            </Button>
-          )
-          : (
-            <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-              Sign Out
-            </Button>
-          )
-      }
-
+      <Button type="button" size="lg" className="copy-btn" onClick={handleClick}>
+        {!user ? 'Create Account' : 'Sign Out'}
+      </Button>
     </div>
   );
 }
 
-export default Signin;
+export default Settings;

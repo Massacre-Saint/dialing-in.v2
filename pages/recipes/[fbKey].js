@@ -10,15 +10,15 @@ import getMethodRecipesDefault from '../../utils/data/apiData/mergeData';
 
 export default function MethodRecipes() {
   const router = useRouter();
+  const { fbKey } = router.query;
   const [recipes, setRecipes] = useState([]);
-  const [method, setMethod] = useState({});
+  const [method, setMethod] = useState([]);
   const getRoutedRecipes = useCallback(() => {
-    getMethodRecipesDefault(router.query.fbKey).then((methodObj) => {
-      setRecipes(methodObj.defaultRecipes);
+    getMethodRecipesDefault(fbKey).then((methodObj) => {
       setMethod(methodObj);
-      console.warn(methodObj);
+      setRecipes(methodObj.defaultRecipes);
     });
-  }, [router.query.fbKey]);
+  }, [fbKey]);
   useEffect(() => {
     getRoutedRecipes();
   }, [getRoutedRecipes]);
@@ -30,7 +30,7 @@ export default function MethodRecipes() {
           Methods
         </Nav.Link>
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand>
             <Image
               alt=""
               src="/logo.svg"
@@ -47,7 +47,7 @@ export default function MethodRecipes() {
       </Navbar>
       <div>
         {recipes.map((recipe) => (
-          <Recipes key={recipe.fbKey} recipeObj={recipe} methodObj={method} />
+          <Recipes key={recipe.fbKey} methodObj={method} recipeObj={recipe} />
         ))}
       </div>
     </>

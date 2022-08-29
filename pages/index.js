@@ -21,7 +21,7 @@ export default function Methods() {
     <>
       <Navbar>
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand>
             <Image
               alt=""
               src="/logo.svg"
@@ -31,7 +31,7 @@ export default function Methods() {
             />{' '}
             Dialing In
           </Navbar.Brand>
-          <Nav.Link href="/">
+          <Nav.Link href="/settings">
             <IoIosAddCircleOutline />
           </Nav.Link>
         </Container>
