@@ -6,6 +6,7 @@ export default function Recipes({ recipeObj }) {
   return (
     <>
       <Card style={{ width: 'auto' }}>
+        {/* <Image src={methodObj.imageUrl} alt={methodObj.name} width={50} height={50} /> */}
         <Card.Body>
           <Card.Title>{recipeObj.recipeName}</Card.Title>
           <Card.Text />
