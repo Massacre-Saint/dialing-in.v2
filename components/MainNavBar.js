@@ -5,10 +5,10 @@ import {
 } from 'react-bootstrap';
 import { BiBookReader } from 'react-icons/bi';
 import { MdOutlineCoffeeMaker } from 'react-icons/md';
-import { GrFavorite, GrUserSettings } from 'react-icons/gr';
+import { GrFavorite, GrLogin, GrUserSettings } from 'react-icons/gr';
 import { useAuth } from '../utils/context/authContext';
 
-export default function NavBar() {
+export default function MainNavBar() {
   const { user } = useAuth();
   return (
     <Navbar fixed="bottom" collapseOnSelect expand="true" bg="transparent" variant="dark">
@@ -36,7 +36,8 @@ export default function NavBar() {
                 <MdOutlineCoffeeMaker />
               </Nav.Link>
               <Nav.Link href="/settings">
-                <GrUserSettings />
+                Login
+                <GrLogin />
               </Nav.Link>
             </Container>
           )

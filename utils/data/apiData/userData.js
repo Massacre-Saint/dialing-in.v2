@@ -4,25 +4,21 @@ import { clientCredentials } from '../../client';
 const dbUrl = clientCredentials.databaseURL;
 
 const getUser = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/user.json?orderBy="uid"&equalTo="${uid}"`)
+  axios.get(`${dbUrl}/user/${uid}.json`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
-const updateUser = (userObj) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/user/${userObj.firebaseKey}.json`, userObj)
-    .then(() => getUser(userObj.uid).then(resolve))
+const updateUser = (uid, payload) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/user/${uid}.json`, payload)
+    .then(() => getUser(uid).then(resolve))
     .catch(reject);
 });
 
 const createUserProfile = (userObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/user.json`, userObj)
-    .then((response) => {
-      const payload = { firebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/user/${response.data.name}.json`, payload)
-        .then(() => {
-          getUser(userObj.uid).then(resolve);
-        });
+  axios.patch(`${dbUrl}/user/${userObj.uid}.json`, userObj)
+    .then(() => {
+      getUser(userObj.uid).then(resolve);
     }).catch(reject);
 });
 

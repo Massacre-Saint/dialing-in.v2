@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useAuth } from './context/authContext';
 import Loading from '../components/Loading';
-import NavBar from '../components/NavBar';
 
 const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) => {
   const { userLoading } = useAuth();
@@ -14,7 +13,6 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
   // what the user should see if they are logged in
   return (
     <>
-      <NavBar />
       <div className="container">
         <Component {...pageProps} />
       </div>
