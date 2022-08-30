@@ -1,11 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { IoIosArrowBack } from 'react-icons/io';
+import {
+  Button,
+  Navbar, Container, Nav,
+} from 'react-bootstrap';
+import Image from 'next/image';
 import { signIn, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import { createUserProfile, getUser } from '../utils/data/apiData/userData';
 
 function Settings() {
+  const [, setUserProfile] = useState({});
+  const router = useRouter();
   const { user } = useAuth();
   const payload = {
     uid: user.uid,
@@ -13,11 +21,13 @@ function Settings() {
     name: user.displayName,
   };
   const validateUser = () => {
-    if (user.uid) {
+    if (user) {
       getUser(user.uid).then((userObj) => {
-        if (!Object.values(userObj).length) {
-          console.warn(' no user');
-          createUserProfile(payload);
+        if (!userObj) {
+          createUserProfile(payload).then((object) => {
+            setUserProfile(object);
+            router.push('/user/createUser');
+          });
         }
       });
     }
@@ -25,25 +35,44 @@ function Settings() {
   const handleClick = () => {
     if (!user) {
       signIn();
-    } signOut();
+    } else signOut();
   };
   useEffect(() => {
     validateUser();
   }, [user]);
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <Button type="button" size="lg" className="copy-btn" onClick={handleClick}>
-        {!user ? 'Create Account' : 'Sign Out'}
-      </Button>
-    </div>
+    <>
+      <Navbar>
+        <Nav.Link onClick={router.back}>
+          <IoIosArrowBack />
+          Methods
+        </Nav.Link>
+        <Container>
+          <Navbar.Brand>
+            <Image
+              alt=""
+              src="/logo.svg"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+      <div
+        className="text-center d-flex flex-column justify-content-center align-content-center"
+        style={{
+          height: '90vh',
+          padding: '30px',
+          maxWidth: '400px',
+          margin: '0 auto',
+        }}
+      >
+        <Button type="button" size="lg" className="copy-btn" onClick={handleClick}>
+          {!user ? 'Sign In' : 'Sign Out'}
+        </Button>
+      </div>
+    </>
   );
 }
 

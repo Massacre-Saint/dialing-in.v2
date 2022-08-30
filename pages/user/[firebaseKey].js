@@ -1,31 +1,20 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IoIosArrowBack, IoIosAddCircleOutline } from 'react-icons/io';
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import NewUserForm from '../../components/forms/NewUserForm';
-import { useAuth } from '../../utils/context/authContext';
-import { getUser } from '../../utils/data/apiData/userData';
 
-export default function CreateUser() {
-  const { user } = useAuth();
-  const [userProfile, setUserProfile] = useState({});
-  const validateUser = () => {
-    getUser(user.uid).then(setUserProfile);
-  };
-  useEffect(() => {
-    validateUser();
-  }, [user]);
+export default function UserPage() {
   const router = useRouter();
+
   return (
     <>
       <Navbar>
         <Nav.Link onClick={router.back}>
           <IoIosArrowBack />
-          Methods
+          Settings
         </Nav.Link>
         <Container>
           <Navbar.Brand>
@@ -36,7 +25,7 @@ export default function CreateUser() {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            About you...
+            hello user
           </Navbar.Brand>
         </Container>
         <Nav.Link href="/">
@@ -44,10 +33,7 @@ export default function CreateUser() {
         </Nav.Link>
       </Navbar>
       <div>
-        <div>
-          <h1>Tell us more</h1>
-          <NewUserForm obj={userProfile} />
-        </div>
+        <h1>make user page</h1>
       </div>
     </>
   );

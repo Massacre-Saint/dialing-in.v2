@@ -6,6 +6,7 @@ import {
 import Image from 'next/image';
 import { getMethods } from '../utils/data/apiData/methods';
 import Method from '../components/Method';
+import MainNavbar from '../components/MainNavBar';
 import { useAuth } from '../utils/context/authContext';
 
 export default function Methods() {
@@ -16,6 +17,7 @@ export default function Methods() {
   };
   useEffect(() => {
     getAllMethods();
+    console.warn(user);
   }, [user]);
   return (
     <>
@@ -43,6 +45,7 @@ export default function Methods() {
           ))}
         </div>
       </div>
+      <MainNavbar />
     </>
   );
 }
