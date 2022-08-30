@@ -35,6 +35,7 @@ function Settings() {
   const handleClick = () => {
     if (!user) {
       signIn();
+      router.push('/');
     } else signOut();
   };
   useEffect(() => {
@@ -68,6 +69,7 @@ function Settings() {
           margin: '0 auto',
         }}
       >
+        <h1>Please login in to access more!</h1>
         <Button type="button" size="lg" className="copy-btn" onClick={handleClick}>
           {!user ? 'Sign In' : 'Sign Out'}
         </Button>
