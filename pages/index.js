@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import {
@@ -8,16 +9,23 @@ import { getMethods } from '../utils/data/apiData/methods';
 import Method from '../components/Method';
 import MainNavbar from '../components/MainNavBar';
 import { useAuth } from '../utils/context/authContext';
+import { getUser } from '../utils/data/apiData/userData';
 
 export default function Methods() {
   const { user } = useAuth();
+  const [userProfile, setUserProfile] = useState({});
   const [methods, setMethods] = useState([]);
   const getAllMethods = () => {
     getMethods().then(setMethods);
   };
+  const validateUser = () => {
+    if (user) {
+      getUser(user.uid).then(setUserProfile);
+    }
+  };
   useEffect(() => {
     getAllMethods();
-    console.warn(user);
+    validateUser();
   }, [user]);
   return (
     <>
@@ -45,7 +53,7 @@ export default function Methods() {
           ))}
         </div>
       </div>
-      <MainNavbar />
+      <MainNavbar validateUser={validateUser} obj={userProfile} />
     </>
   );
 }
