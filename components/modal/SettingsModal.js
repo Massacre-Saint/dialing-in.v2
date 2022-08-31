@@ -57,29 +57,3 @@ export default function SettingsModal() {
     </>
   );
 }
-// SettingsModal.propTypes = {
-//   validateUser: PropTypes.func,
-//   obj: PropTypes.shape({
-//     uid: PropTypes.string,
-//     brewMethod: PropTypes.string,
-//     favRoast: PropTypes.string,
-//     favShop: PropTypes.string,
-//     coffeeRankId: PropTypes.string,
-//     desciption: PropTypes.string,
-//     photoUrl: PropTypes.string,
-//     name: PropTypes.string,
-//   }),
-// };
-// SettingsModal.defaultProps = {
-//   validateUser: () => {},
-//   obj: PropTypes.shape({
-//     uid: '',
-//     brewMethod: '',
-//     favRoast: '',
-//     favShop: '',
-//     coffeeRankId: '',
-//     desciption: '',
-//     photoUrl: '',
-//     name: '',
-//   }),
-// };

@@ -6,9 +6,9 @@ import {
   Button,
   Navbar, Container, Nav,
 } from 'react-bootstrap';
-import { signIn, signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
-import { getUser } from '../utils/data/apiData/userData';
+import { signIn, signOut } from '../../utils/auth';
+import { useAuth } from '../../utils/context/authContext';
+import { getUser } from '../../utils/data/apiData/userData';
 
 export default function ProfileCard() {
   const [userProfile, setUserProfile] = useState({});
@@ -21,7 +21,7 @@ export default function ProfileCard() {
     router.push('/');
   };
   const handleEdit = () => {
-    router.push('/user/createUser');
+    router.push('/read/user/createUser');
   };
   const handleBack = () => {
     router.push('/');

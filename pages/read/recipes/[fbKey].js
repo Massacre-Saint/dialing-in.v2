@@ -5,8 +5,8 @@ import {
 } from 'react-bootstrap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Recipes from '../../components/recipes/Recipes';
-import getMethodRecipesDefault from '../../utils/data/apiData/mergeData';
+import getMethodRecipesDefault from '../../../utils/data/apiData/mergeData';
+import Recipes from '../../../components/read/Recipes';
 
 export default function MethodRecipes() {
   const router = useRouter();

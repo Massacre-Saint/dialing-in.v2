@@ -9,7 +9,7 @@ import {
 import { signIn, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import { createUserProfile, getUser } from '../utils/data/apiData/userData';
-import ProfileCard from '../components/ProfileCard';
+import ProfileCard from '../components/read/ProfileCard';
 
 function Settings() {
   const router = useRouter();

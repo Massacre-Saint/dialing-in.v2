@@ -4,13 +4,12 @@ import {
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-
-import ChooseGrind from '../../../components/recipes/ChooseGrind';
-import ChooseMethod from '../../../components/recipes/ChooseMethod';
-import ChooseTemp from '../../../components/recipes/ChooseTemp';
-import CreateName from '../../../components/recipes/CreateName';
 import { useAuth } from '../../../utils/context/authContext';
 import { deleteRecipe, getRecipe } from '../../../utils/data/apiData/userRecipes';
+import ChooseGrindCard from '../../../components/create/recipes/ChooseGrindCard';
+import ChooseMethodCard from '../../../components/create/recipes/ChooseMethodCard';
+import ChooseTempCard from '../../../components/create/recipes/ChooseTempCard';
+import CreateNameCard from '../../../components/create/recipes/CreateNameCard';
 
 export default function CreateRecipe() {
   const { user } = useAuth();
@@ -43,10 +42,10 @@ export default function CreateRecipe() {
         </Container>
       </Navbar>
       <div>
-        {!userRecipe.methodId ? (<ChooseMethod />) : ''}
-        {userRecipe.methodId ? (<ChooseGrind />) : ''}
-        {userRecipe.grindId ? (<ChooseTemp />) : ''}
-        {Object.values(userRecipe).length > 5 ? (<CreateName />) : ''}
+        {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />)}
+        {userRecipe.methodId ? (<ChooseGrindCard />) : ''}
+        {userRecipe.grindId ? (<ChooseTempCard />) : ''}
+        {Object.values(userRecipe).length > 5 ? (<CreateNameCard />) : ''}
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-// import PropTypes from 'prop-types';
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
@@ -48,29 +47,3 @@ export default function MainNavBar() {
     </Navbar>
   );
 }
-// MainNavBar.propTypes = {
-//   validateUser: PropTypes.func,
-//   obj: PropTypes.shape({
-//     uid: PropTypes.string,
-//     brewMethod: PropTypes.string,
-//     favRoast: PropTypes.string,
-//     favShop: PropTypes.string,
-//     coffeeRankId: PropTypes.string,
-//     desciption: PropTypes.string,
-//     photoUrl: PropTypes.string,
-//     name: PropTypes.string,
-//   }),
-// };
-// MainNavBar.defaultProps = {
-//   validateUser: () => {},
-//   obj: PropTypes.shape({
-//     uid: '',
-//     brewMethod: '',
-//     favRoast: '',
-//     favShop: '',
-//     coffeeRankId: '',
-//     desciption: '',
-//     photoUrl: '',
-//     name: '',
-//   }),
-// };
