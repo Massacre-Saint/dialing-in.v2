@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function Method({ methodObj }) {
   return (
-    <Link passHref href={`/recipes/${methodObj.fbKey}`}>
+    <Link passHref href={`/read/recipes/${methodObj.fbKey}`}>
       <h1>{methodObj.name}</h1>
     </Link>
   );

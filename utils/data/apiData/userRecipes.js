@@ -20,8 +20,8 @@ const getUserRecipesByMethod = (methodId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updateRecipe = (recipeObj) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/userRecipes/${recipeObj.firebaseKey}.json`, recipeObj)
+const updateRecipe = (firebaseKey, payload) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/userRecipes/${firebaseKey}.json`, payload)
     .then(resolve)
     .catch(reject);
 });

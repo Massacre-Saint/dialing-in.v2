@@ -7,7 +7,7 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { getMethods } from '../utils/data/apiData/methods';
-import Method from '../components/Method';
+import Method from '../components/read/Method';
 import MainNavbar from '../components/MainNavBar';
 import { useAuth } from '../utils/context/authContext';
 import { createRecipe, getRecipe } from '../utils/data/apiData/userRecipes';
@@ -28,7 +28,7 @@ export default function Methods() {
     } else {
       createRecipe(payload).then((recipeObj) => {
         getRecipe(recipeObj.data.firebaseKey).then((obj) => {
-          router.push(`/recipes/create/${obj.firebaseKey}`);
+          router.push(`/create/recipes/${obj.firebaseKey}`);
         });
       });
     }
