@@ -6,10 +6,10 @@ import {
   Button,
   Navbar, Container, Nav,
 } from 'react-bootstrap';
-import Image from 'next/image';
 import { signIn, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import { createUserProfile, getUser } from '../utils/data/apiData/userData';
+import ProfileCard from '../components/ProfileCard';
 
 function Settings() {
   const [, setUserProfile] = useState({});
@@ -24,8 +24,7 @@ function Settings() {
     if (user) {
       getUser(user.uid).then((userObj) => {
         if (!userObj) {
-          createUserProfile(payload).then((object) => {
-            setUserProfile(object);
+          createUserProfile(payload).then(() => {
             router.push('/user/createUser');
           });
         }
@@ -36,42 +35,44 @@ function Settings() {
     if (!user) {
       signIn();
     } else signOut();
+    router.push('/');
+  };
+  const handleBack = () => {
+    router.push('/');
   };
   useEffect(() => {
     validateUser();
+    getUser(user.uid).then(setUserProfile);
   }, [user]);
   return (
     <>
-      <Navbar>
-        <Nav.Link onClick={router.back}>
-          <IoIosArrowBack />
-          Methods
-        </Nav.Link>
-        <Container>
-          <Navbar.Brand>
-            <Image
-              alt=""
-              src="/logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-          </Navbar.Brand>
-        </Container>
-      </Navbar>
-      <div
-        className="text-center d-flex flex-column justify-content-center align-content-center"
-        style={{
-          height: '90vh',
-          padding: '30px',
-          maxWidth: '400px',
-          margin: '0 auto',
-        }}
-      >
-        <Button type="button" size="lg" className="copy-btn" onClick={handleClick}>
-          {!user ? 'Sign In' : 'Sign Out'}
-        </Button>
-      </div>
+      {
+      !user
+        ? (
+          <div>
+            <Navbar>
+              <Nav.Link onClick={handleBack}>
+                <IoIosArrowBack />
+                Methods
+              </Nav.Link>
+              <Container>
+                Settings
+              </Container>
+            </Navbar>
+            <div>
+              <h1>Please Login</h1>
+            </div>
+            <div>
+              <Button variant={!user ? 'primary' : 'danger'} type="button" size="lg" className="copy-btn" onClick={handleClick}>
+                {!user ? 'Sign In' : 'Sign Out'}
+              </Button>
+            </div>
+          </div>
+        )
+        : (
+          <ProfileCard />
+        )
+    }
     </>
   );
 }

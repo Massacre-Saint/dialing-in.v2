@@ -11,16 +11,19 @@ import { updateUser } from '../../utils/data/apiData/userData';
 const initialSate = {
   favRoast: '',
   description: '',
+  brewMethod: '',
+  favShop: '',
 };
 
 function NewUserForm({ obj }) {
   const { user } = useAuth();
   const router = useRouter();
   const [formInput, setFormInput] = useState(initialSate);
-  const [, setMethods] = useState([]);
+  const [methods, setMethods] = useState([]);
 
   useEffect(() => {
     getMethods().then(setMethods);
+    if (obj.uid) setFormInput(obj);
   }, [obj, user]);
 
   const handleChange = (e) => {
@@ -30,7 +33,9 @@ function NewUserForm({ obj }) {
       [name]: value,
     }));
   };
-
+  const handleClick = () => {
+    router.push('/settings');
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
@@ -43,29 +48,53 @@ function NewUserForm({ obj }) {
     <>
       <div>
         <Form onSubmit={handleSubmit}>
-          <FloatingLabel controlId="floatingInput1" label="Desciption" className="mb-3">
-            <Form.Control as="textarea" placeholder="Tell us about you" name="description" value={formInput.description} onChange={handleChange} required />
+          <FloatingLabel controlId="floatingInput1" label="Short Introduction" className="mb-3">
+            <Form.Control type="text" placeholder="Tell us about you" name="description" value={formInput.description} onChange={handleChange} required />
           </FloatingLabel>
-          <FloatingLabel controlId="floatingSelect" label="Favorite Roast">
+          <FloatingLabel controlId="floatingSelect1" label="Favorite Roast">
             <Form.Select
               aria-label="Floating label select example"
               name="favRoast"
               onChange={handleChange}
               required
+              value={formInput.favShop}
             >
-              <option>Choose favorite roast</option>
-              <option value="light">Light</option>
-              <option value="medium">Medium</option>
-              <option value="dark">Dark</option>
+              <option value={formInput.favRoast}>Light</option>
+              <option value={formInput.favRoast}>Medium</option>
+              <option value={formInput.favRoast}>Dark</option>
             </Form.Select>
           </FloatingLabel>
           <br />
-          <Button type="submit" variant="success">Submit</Button>
+          <FloatingLabel controlId="floatingInput2" label="Favorite Coffee Shop" className="mb-3">
+            <Form.Control type="text" placeholder="Favorite Coffee Shop" name="favShop" value={formInput.favShop} onChange={handleChange} required />
+          </FloatingLabel>
+          <FloatingLabel controlId="floatingSelect2" label="Favorite Method">
+            <Form.Select
+              aria-label="Favorite method"
+              name="brewMethod"
+              onChange={handleChange}
+              value={formInput.brewMethod}
+              required
+            >
+              <option value="">Choose your favorite method</option>
+              {
+                methods.map((method) => (
+                  <option
+                    key={method.fbKey}
+                    value={method.fbKey}
+                  >
+                    {method.name}
+                  </option>
+                ))
+              }
+            </Form.Select>
+          </FloatingLabel>
+          <br />
+          <Button type="submit" onClick={handleClick} variant="success">Submit</Button>
         </Form>
       </div>
       <div>
         <Button variant="secondary">Maybe Later</Button>
-        {/* <Button type="submit" variant="success">Submit</Button> */}
       </div>
     </>
   );
