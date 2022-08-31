@@ -6,18 +6,15 @@ import {
 } from 'react-bootstrap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import NewUserForm from '../../components/forms/NewUserForm';
 import { useAuth } from '../../utils/context/authContext';
 import { getUser } from '../../utils/data/apiData/userData';
+import NewUserForm from '../../components/forms/newUserForm';
 
 export default function CreateUser() {
   const { user } = useAuth();
   const [userProfile, setUserProfile] = useState({});
-  const validateUser = () => {
-    getUser(user.uid).then(setUserProfile);
-  };
   useEffect(() => {
-    validateUser();
+    getUser(user.uid).then(setUserProfile);
   }, [user]);
   const router = useRouter();
   return (
