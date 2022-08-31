@@ -38,13 +38,13 @@ export default function ProfileCard() {
         </Nav.Link>
         <Container>
           <h4>Profile Page</h4>
-          <img src={userProfile.photoUrl} width="50px" alt="profile" />
+          <img src={userProfile?.photoUrl} width="50px" alt="profile" />
         </Container>
       </Navbar>
       <>
         <div>
           <div>
-            {Object?.values(userProfile)?.length > 3
+            {userProfile?.description
               ? (
                 <>
                   <h1>Preferences</h1>

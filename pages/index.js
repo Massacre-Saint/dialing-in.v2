@@ -10,11 +10,14 @@ import { getMethods } from '../utils/data/apiData/methods';
 import Method from '../components/Method';
 import MainNavbar from '../components/MainNavBar';
 import { useAuth } from '../utils/context/authContext';
-import { getUser } from '../utils/data/apiData/userData';
+import { createRecipe, getRecipe } from '../utils/data/apiData/userRecipes';
 
 export default function Methods() {
   const { user } = useAuth();
-  const router = useRouter()
+  const router = useRouter();
+  const payload = {
+    uid: user.uid,
+  };
   const [methods, setMethods] = useState([]);
   const getAllMethods = () => {
     getMethods().then(setMethods);
@@ -23,12 +26,15 @@ export default function Methods() {
     if (!user) {
       router.push('/settings');
     } else {
-      router.push('/createRecipe');
-      }
-   };
+      createRecipe(payload).then((recipeObj) => {
+        getRecipe(recipeObj.data.firebaseKey).then((obj) => {
+          router.push(`/recipes/create/${obj.firebaseKey}`);
+        });
+      });
+    }
+  };
   useEffect(() => {
     getAllMethods();
-    validateUser();
   }, [user]);
   return (
     <>
@@ -56,7 +62,7 @@ export default function Methods() {
           ))}
         </div>
       </div>
-      <MainNavbar validateUser={validateUser} obj={userProfile} />
+      <MainNavbar />
     </>
   );
 }

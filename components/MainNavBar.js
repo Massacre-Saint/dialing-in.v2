@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+// import PropTypes from 'prop-types';
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
@@ -8,13 +8,11 @@ import { BiBookReader } from 'react-icons/bi';
 import { MdOutlineCoffeeMaker } from 'react-icons/md';
 import { GrFavorite, GrLogin } from 'react-icons/gr';
 import { useAuth } from '../utils/context/authContext';
-import SettingsModal from './SettingsModal';
+import SettingsModal from './modal/SettingsModal';
 
-export default function MainNavBar({ obj, validateUser }) {
+export default function MainNavBar() {
   const { user } = useAuth();
-  useEffect(() => {
-    validateUser();
-  }, [user]);
+
   return (
     <Navbar fixed="bottom" collapseOnSelect expand="true" bg="transparent" variant="dark">
       {
@@ -31,7 +29,7 @@ export default function MainNavBar({ obj, validateUser }) {
                 <GrFavorite />
               </Nav.Link>
               <Nav.Link>
-                <SettingsModal obj={obj} validateUser={validateUser} />
+                <SettingsModal />
               </Nav.Link>
             </Container>
           )
@@ -50,29 +48,29 @@ export default function MainNavBar({ obj, validateUser }) {
     </Navbar>
   );
 }
-MainNavBar.propTypes = {
-  validateUser: PropTypes.func,
-  obj: PropTypes.shape({
-    uid: PropTypes.string,
-    brewMethod: PropTypes.string,
-    favRoast: PropTypes.string,
-    favShop: PropTypes.string,
-    coffeeRankId: PropTypes.string,
-    desciption: PropTypes.string,
-    photoUrl: PropTypes.string,
-    name: PropTypes.string,
-  }),
-};
-MainNavBar.defaultProps = {
-  validateUser: () => {},
-  obj: PropTypes.shape({
-    uid: '',
-    brewMethod: '',
-    favRoast: '',
-    favShop: '',
-    coffeeRankId: '',
-    desciption: '',
-    photoUrl: '',
-    name: '',
-  }),
-};
+// MainNavBar.propTypes = {
+//   validateUser: PropTypes.func,
+//   obj: PropTypes.shape({
+//     uid: PropTypes.string,
+//     brewMethod: PropTypes.string,
+//     favRoast: PropTypes.string,
+//     favShop: PropTypes.string,
+//     coffeeRankId: PropTypes.string,
+//     desciption: PropTypes.string,
+//     photoUrl: PropTypes.string,
+//     name: PropTypes.string,
+//   }),
+// };
+// MainNavBar.defaultProps = {
+//   validateUser: () => {},
+//   obj: PropTypes.shape({
+//     uid: '',
+//     brewMethod: '',
+//     favRoast: '',
+//     favShop: '',
+//     coffeeRankId: '',
+//     desciption: '',
+//     photoUrl: '',
+//     name: '',
+//   }),
+// };

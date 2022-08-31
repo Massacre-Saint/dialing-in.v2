@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { IoIosArrowBack } from 'react-icons/io';
 import {
@@ -12,7 +12,6 @@ import { createUserProfile, getUser } from '../utils/data/apiData/userData';
 import ProfileCard from '../components/ProfileCard';
 
 function Settings() {
-  const [, setUserProfile] = useState({});
   const router = useRouter();
   const { user } = useAuth();
   const payload = {
@@ -35,14 +34,12 @@ function Settings() {
     if (!user) {
       signIn();
     } else signOut();
-    router.push('/');
   };
   const handleBack = () => {
     router.push('/');
   };
   useEffect(() => {
     validateUser();
-    getUser(user.uid).then(setUserProfile);
   }, [user]);
   return (
     <>

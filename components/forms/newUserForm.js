@@ -21,11 +21,6 @@ function NewUserForm({ obj }) {
   const [formInput, setFormInput] = useState(initialSate);
   const [methods, setMethods] = useState([]);
 
-  useEffect(() => {
-    getMethods().then(setMethods);
-    if (obj.uid) setFormInput(obj);
-  }, [obj, user]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -33,17 +28,18 @@ function NewUserForm({ obj }) {
       [name]: value,
     }));
   };
-  const handleClick = () => {
-    router.push('/settings');
-  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
       ...formInput,
     };
-    updateUser(obj.uid, payload).then(() => router.push('/'));
+    updateUser(obj.uid, payload).then(() => router.push('/settings'));
   };
-
+  useEffect(() => {
+    getMethods().then(setMethods);
+    if (obj.uid) setFormInput(obj);
+  }, [obj, user]);
   return (
     <>
       <div>
@@ -53,15 +49,15 @@ function NewUserForm({ obj }) {
           </FloatingLabel>
           <FloatingLabel controlId="floatingSelect1" label="Favorite Roast">
             <Form.Select
-              aria-label="Floating label select example"
+              aria-label="Favorite Roast"
               name="favRoast"
               onChange={handleChange}
+              value={formInput.favRoast}
               required
-              value={formInput.favShop}
             >
-              <option value={formInput.favRoast}>Light</option>
-              <option value={formInput.favRoast}>Medium</option>
-              <option value={formInput.favRoast}>Dark</option>
+              <option value="Light">Light</option>
+              <option value="Medium">Medium</option>
+              <option value="Dark">Dark</option>
             </Form.Select>
           </FloatingLabel>
           <br />
@@ -70,7 +66,7 @@ function NewUserForm({ obj }) {
           </FloatingLabel>
           <FloatingLabel controlId="floatingSelect2" label="Favorite Method">
             <Form.Select
-              aria-label="Favorite method"
+              aria-label="Favorite Method"
               name="brewMethod"
               onChange={handleChange}
               value={formInput.brewMethod}
@@ -90,7 +86,7 @@ function NewUserForm({ obj }) {
             </Form.Select>
           </FloatingLabel>
           <br />
-          <Button type="submit" onClick={handleClick} variant="success">Submit</Button>
+          <Button type="submit" variant="success">Submit</Button>
         </Form>
       </div>
       <div>

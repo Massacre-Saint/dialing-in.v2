@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
 } from 'react-bootstrap';
-import Link from 'next/link';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { GrUserSettings } from 'react-icons/gr';
-import PropTypes from 'prop-types';
-import { signIn, signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
+import { useRouter } from 'next/router';
+import { signIn, signOut } from '../../utils/auth';
+import { useAuth } from '../../utils/context/authContext';
 
-export default function SettingsModal({ obj, validateUser }) {
+export default function SettingsModal() {
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -21,9 +21,9 @@ export default function SettingsModal({ obj, validateUser }) {
       signIn();
     } else signOut();
   };
-  useEffect(() => {
-    validateUser();
-  }, [user]);
+  const handleRoute = () => {
+    router.push('/settings');
+  };
   return (
     <>
       <Button variant="link" onClick={handleShow}>
@@ -43,9 +43,8 @@ export default function SettingsModal({ obj, validateUser }) {
         <Offcanvas.Body>
           <>
             <div>
-              <Link passHref href={`/user/${obj.uid}`}>
-                <h2>Profile Page</h2>
-              </Link>
+              <Button onClick={handleRoute} variant="link">Profile
+              </Button>
             </div>
             <div>
               <Button type="button" size="lg" className="copy-btn" onClick={handleClick}>
@@ -58,29 +57,29 @@ export default function SettingsModal({ obj, validateUser }) {
     </>
   );
 }
-SettingsModal.propTypes = {
-  validateUser: PropTypes.func,
-  obj: PropTypes.shape({
-    uid: PropTypes.string,
-    brewMethod: PropTypes.string,
-    favRoast: PropTypes.string,
-    favShop: PropTypes.string,
-    coffeeRankId: PropTypes.string,
-    desciption: PropTypes.string,
-    photoUrl: PropTypes.string,
-    name: PropTypes.string,
-  }),
-};
-SettingsModal.defaultProps = {
-  validateUser: () => {},
-  obj: PropTypes.shape({
-    uid: '',
-    brewMethod: '',
-    favRoast: '',
-    favShop: '',
-    coffeeRankId: '',
-    desciption: '',
-    photoUrl: '',
-    name: '',
-  }),
-};
+// SettingsModal.propTypes = {
+//   validateUser: PropTypes.func,
+//   obj: PropTypes.shape({
+//     uid: PropTypes.string,
+//     brewMethod: PropTypes.string,
+//     favRoast: PropTypes.string,
+//     favShop: PropTypes.string,
+//     coffeeRankId: PropTypes.string,
+//     desciption: PropTypes.string,
+//     photoUrl: PropTypes.string,
+//     name: PropTypes.string,
+//   }),
+// };
+// SettingsModal.defaultProps = {
+//   validateUser: () => {},
+//   obj: PropTypes.shape({
+//     uid: '',
+//     brewMethod: '',
+//     favRoast: '',
+//     favShop: '',
+//     coffeeRankId: '',
+//     desciption: '',
+//     photoUrl: '',
+//     name: '',
+//   }),
+// };

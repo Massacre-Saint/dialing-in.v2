@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Recipes from '../../components/Recipes';
+import Recipes from '../../components/recipes/Recipes';
 import getMethodRecipesDefault from '../../utils/data/apiData/mergeData';
 
 export default function MethodRecipes() {
