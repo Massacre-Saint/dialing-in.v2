@@ -5,6 +5,7 @@ import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { getMethods } from '../utils/data/apiData/methods';
 import Method from '../components/Method';
 import MainNavbar from '../components/MainNavBar';
@@ -13,16 +14,18 @@ import { getUser } from '../utils/data/apiData/userData';
 
 export default function Methods() {
   const { user } = useAuth();
-  const [userProfile, setUserProfile] = useState({});
+  const router = useRouter()
   const [methods, setMethods] = useState([]);
   const getAllMethods = () => {
     getMethods().then(setMethods);
   };
-  const validateUser = () => {
-    if (user) {
-      getUser(user.uid).then(setUserProfile);
-    }
-  };
+  const handleClick = () => {
+    if (!user) {
+      router.push('/settings');
+    } else {
+      router.push('/createRecipe');
+      }
+   };
   useEffect(() => {
     getAllMethods();
     validateUser();
@@ -41,7 +44,7 @@ export default function Methods() {
             />{' '}
             Dialing In
           </Navbar.Brand>
-          <Nav.Link href="/settings">
+          <Nav.Link onClick={handleClick}>
             <IoIosAddCircleOutline />
           </Nav.Link>
         </Container>
