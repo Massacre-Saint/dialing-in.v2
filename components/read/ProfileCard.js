@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { IoIosArrowBack } from 'react-icons/io';
 import {
   Button,
-  Navbar, Container, Nav,
+  Navbar, Container, Nav, Image,
 } from 'react-bootstrap';
 import { signIn, signOut } from '../../utils/auth';
 import { useAuth } from '../../utils/context/authContext';
@@ -28,7 +29,7 @@ export default function ProfileCard() {
   };
   useEffect(() => {
     getUser(user.uid).then(setUserProfile);
-  }, [user]);
+  }, [user.photoURL]);
   return (
     <>
       <Navbar>
@@ -38,7 +39,6 @@ export default function ProfileCard() {
         </Nav.Link>
         <Container>
           <h4>Profile Page</h4>
-          <img src={userProfile?.photoUrl} width="50px" alt="profile" />
         </Container>
       </Navbar>
       <>
@@ -47,12 +47,17 @@ export default function ProfileCard() {
             {userProfile?.description
               ? (
                 <>
-                  <h1>Preferences</h1>
                   <div>
-                    <h3>Favorite Method:{userProfile.brewMethod}</h3>
-                    <h3>About:</h3>
-                    <p>{userProfile.description}</p>
-                    <h3>Favorite Roast:{userProfile.favRoast}</h3>
+                    <Image width="150px" rounded src={userProfile.photoUrl} />
+                  </div>
+                  <div>
+                    <h3>Favorite Method: {userProfile.brewMethod}</h3>
+                    <h3>About: </h3>
+                    <div>
+                      <h4>{userProfile.description}</h4>
+                    </div>
+                    <h3>Favorite Roast: {userProfile.favRoast}</h3>
+                    <h3>Favorite Coffee Shop: {userProfile.favShop} </h3>
                   </div>
                   <div>
                     <br />

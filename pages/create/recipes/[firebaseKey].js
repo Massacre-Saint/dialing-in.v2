@@ -43,7 +43,7 @@ export default function CreateRecipe() {
       </Navbar>
       <div>
         {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />)}
-        {userRecipe.methodId ? (<ChooseGrindCard />) : ''}
+        {userRecipe.methodId ? (<ChooseGrindCard recipeObj={userRecipe} />) : ''}
         {userRecipe.grindId ? (<ChooseTempCard />) : ''}
         {Object.values(userRecipe).length > 5 ? (<CreateNameCard />) : ''}
       </div>

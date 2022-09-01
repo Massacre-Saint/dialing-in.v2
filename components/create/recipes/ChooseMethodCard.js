@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
-import { getMethods } from '../../../utils/data/apiData/methods';
 import { useAuth } from '../../../utils/context/authContext';
 import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
 
 export default function ChooseMethodCard({ recipeObj }) {
   const { user } = useAuth();
   const router = useRouter();
-  const [, setMethods] = useState([]);
   const payload = {
     firebaseKey: recipeObj.firebaseKey,
     uid: user.uid,
-    methodId: '',
+    methodId: null,
+    grindId: null,
+    waterTemp: null,
   };
   const handleClick = () => {
     if (recipeObj.methodId) {
@@ -31,9 +31,6 @@ export default function ChooseMethodCard({ recipeObj }) {
       );
     }
   };
-  useEffect(() => {
-    getMethods().then(setMethods);
-  }, [user]);
   return (
     <>
       <Card style={{ width: 'auto' }} onClick={handleClick}>

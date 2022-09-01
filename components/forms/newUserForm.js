@@ -21,6 +21,11 @@ function NewUserForm({ obj }) {
   const [formInput, setFormInput] = useState(initialSate);
   const [methods, setMethods] = useState([]);
 
+  useEffect(() => {
+    getMethods().then(setMethods);
+    if (obj.favRoast) setFormInput(obj);
+  }, [obj, user]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -36,10 +41,7 @@ function NewUserForm({ obj }) {
     };
     updateUser(obj.uid, payload).then(() => router.push('/settings'));
   };
-  useEffect(() => {
-    getMethods().then(setMethods);
-    if (obj.uid) setFormInput(obj);
-  }, [obj, user]);
+
   return (
     <>
       <div>
@@ -55,6 +57,7 @@ function NewUserForm({ obj }) {
               value={formInput.favRoast}
               required
             >
+              <option value="">Choose your favorite roast</option>
               <option value="Light">Light</option>
               <option value="Medium">Medium</option>
               <option value="Dark">Dark</option>

@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { getRecipe, updateRecipe } from '../../utils/data/apiData/userRecipes';
+import { updateRecipe, getRecipe } from '../../utils/data/apiData/userRecipes';
 import { useAuth } from '../../utils/context/authContext';
 
-export default function Method({ methodObj }) {
+export default function Grind({ grindObj }) {
   const { user } = useAuth();
   const router = useRouter();
   const firebaseKey = router.query.data;
   const [userRecipe, setUserRecipe] = useState({});
   const payload = {
     ...userRecipe,
-    methodId: methodObj.fbKey,
+    grindId: grindObj.fbKey,
   };
   const handleSubmit = () => {
     updateRecipe(userRecipe.firebaseKey, payload).then(() => router.push(`/create/recipes/${userRecipe.firebaseKey}`));
@@ -22,28 +22,29 @@ export default function Method({ methodObj }) {
     getRecipe(firebaseKey).then(setUserRecipe);
   }, [user]);
   return (
-    <Nav.Link type="submit" onClick={handleSubmit}>
-      <h1>{methodObj.name}</h1>
-    </Nav.Link>
+    <div>
+      <Image thumbnail width="120x" src={grindObj.imageUrl} onClick={handleSubmit} />
+      <h4>{grindObj.grindSize}</h4>
+    </div>
   );
 }
-Method.propTypes = {
-  methodObj: PropTypes.shape(
+Grind.propTypes = {
+  grindObj: PropTypes.shape(
     {
       fbKey: PropTypes.string,
       imageUrl: PropTypes.string,
-      description: PropTypes.string,
-      name: PropTypes.string,
+      grindSize: PropTypes.string,
+      specified: PropTypes.bool,
     },
   ),
 };
-Method.defaultProps = {
-  methodObj: PropTypes.shape(
+Grind.defaultProps = {
+  grindObj: PropTypes.shape(
     {
       fbKey: '',
       imageUrl: '',
-      description: '',
-      name: '',
+      grindSize: '',
+      specified: false,
     },
   ),
 };

@@ -5,43 +5,37 @@ import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
-import { deleteRecipe, getRecipe } from '../../../../utils/data/apiData/userRecipes';
-import { getMethods } from '../../../../utils/data/apiData/methods';
-import Method from '../../../../components/create/Method';
+import { getRecipe } from '../../../../utils/data/apiData/userRecipes';
+import { getGrinds } from '../../../../utils/data/apiData/grind';
+import Grind from '../../../../components/read/Grind';
 
 export default function ChooseMethod() {
   const { user } = useAuth();
   const router = useRouter();
   const firebaseKey = router.query.data;
   const [, setUserRecipe] = useState({});
-  const [methods, setMethods] = useState([]);
-  const handleDelete = () => {
-    if (window.confirm('Do you wish to cancel recipe?')) {
-      deleteRecipe(firebaseKey).then(() => {
-        router.push('/');
-      });
-    }
-  };
+  const [grinds, setGrinds] = useState([]);
+  const handleClick = (router.back);
   useEffect(() => {
     getRecipe(firebaseKey).then(setUserRecipe);
-    getMethods().then(setMethods);
+    getGrinds().then(setGrinds);
   }, [user]);
   return (
     <>
       <Navbar>
-        <Nav.Link onClick={handleDelete}>
+        <Nav.Link onClick={handleClick}>
           Go back
         </Nav.Link>
         <Container>
           <Navbar.Brand>
-            Choose Method
+            Choose Grind
           </Navbar.Brand>
         </Container>
       </Navbar>
       <div>
         <div>
-          {methods.map((i) => (
-            <Method key={i.fbKey} methodObj={i} />
+          {grinds.map((i) => (
+            <Grind key={i.fbKey} grindObj={i} />
           ))}
         </div>
       </div>
