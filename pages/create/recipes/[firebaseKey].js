@@ -15,10 +15,7 @@ export default function CreateRecipe() {
   const { user } = useAuth();
   const router = useRouter();
   const { firebaseKey } = router.query;
-  // const [methods, setMethods] = useState([]);
   const [userRecipe, setUserRecipe] = useState({});
-  // const [grinds, setGrinds] = useState([]);
-  // const [steps, setSteps] = useState([]);
   const handleDelete = () => {
     if (window.confirm('Do you wish to cancel recipe?')) {
       deleteRecipe(firebaseKey).then(() => {
@@ -37,15 +34,18 @@ export default function CreateRecipe() {
         </Nav.Link>
         <Container>
           <Navbar.Brand>
-            Create Recipe
+            {userRecipe.recipeName ? (userRecipe.recipeName) : ('Create Recipe')}
           </Navbar.Brand>
         </Container>
+        <Nav.Link>
+          Submit
+        </Nav.Link>
       </Navbar>
       <div>
         {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />)}
         {userRecipe.methodId ? (<ChooseGrindCard recipeObj={userRecipe} />) : ''}
-        {userRecipe.grindId ? (<ChooseTempCard />) : ''}
-        {Object.values(userRecipe).length > 5 ? (<CreateNameCard />) : ''}
+        {userRecipe.grindId ? (<ChooseTempCard recipeObj={userRecipe} />) : ''}
+        {Object.values(userRecipe).length === 5 ? (<CreateNameCard recipeObj={userRecipe} />) : ''}
       </div>
     </>
   );

@@ -11,11 +11,12 @@ export default function Grind({ grindObj }) {
   const router = useRouter();
   const firebaseKey = router.query.data;
   const [userRecipe, setUserRecipe] = useState({});
-  const payload = {
-    ...userRecipe,
-    grindId: grindObj.fbKey,
-  };
+
   const handleSubmit = () => {
+    const payload = {
+      ...userRecipe,
+      grindId: grindObj.fbKey,
+    };
     updateRecipe(userRecipe.firebaseKey, payload).then(() => router.push(`/create/recipes/${userRecipe.firebaseKey}`));
   };
   useEffect(() => {

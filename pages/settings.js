@@ -3,13 +3,12 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { IoIosArrowBack } from 'react-icons/io';
 import {
-  Button,
   Navbar, Container, Nav,
 } from 'react-bootstrap';
-import { signIn, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import { createUserProfile, getUser } from '../utils/data/apiData/userData';
 import ProfileCard from '../components/read/ProfileCard';
+import AuthenticationButton from '../components/buttons/AuthenticationButton';
 
 function Settings() {
   const router = useRouter();
@@ -29,11 +28,6 @@ function Settings() {
         }
       });
     }
-  };
-  const handleClick = () => {
-    if (!user) {
-      signIn();
-    } else signOut();
   };
   const handleBack = () => {
     router.push('/');
@@ -60,9 +54,7 @@ function Settings() {
               <h1>Please Login</h1>
             </div>
             <div>
-              <Button variant={!user ? 'primary' : 'danger'} type="button" size="lg" className="copy-btn" onClick={handleClick}>
-                {!user ? 'Sign In' : 'Sign Out'}
-              </Button>
+              <AuthenticationButton />
             </div>
           </div>
         )
