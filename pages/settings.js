@@ -24,7 +24,7 @@ function Settings() {
       getUser(user.uid).then((userObj) => {
         if (!userObj) {
           createUserProfile(payload).then(() => {
-            router.push('/user/createUser');
+            router.push('/read/user/createUser');
           });
         }
       });
