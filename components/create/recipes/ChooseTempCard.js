@@ -1,18 +1,21 @@
-import { useRouter } from 'next/router';
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+import PropTypes from 'prop-types';
+import WaterTempModal from '../../modal/WaterTempModal';
 
-export default function ChooseTempCard() {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push('/water/chooseTemp');
-  };
+export default function ChooseTempCard({ recipeObj }) {
   return (
-    <Card style={{ width: 'auto' }} onClick={handleClick}>
-      <Card.Body>
-        <Card.Title>Choose Water Temp</Card.Title>
-        <Card.Text />
-      </Card.Body>
-    </Card>
+    <>
+      <WaterTempModal recipeObj={recipeObj} />
+    </>
   );
 }
+ChooseTempCard.propTypes = {
+  recipeObj: PropTypes.shape({
+    waterTemp: PropTypes.number,
+  }),
+};
+ChooseTempCard.defaultProps = {
+  recipeObj: PropTypes.shape({
+    waterTemp: 205,
+  }),
+};

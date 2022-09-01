@@ -7,20 +7,14 @@ import {
   Button,
   Navbar, Container, Nav, Image,
 } from 'react-bootstrap';
-import { signIn, signOut } from '../../utils/auth';
 import { useAuth } from '../../utils/context/authContext';
 import { getUser } from '../../utils/data/apiData/userData';
+import AuthenticationButton from '../buttons/AuthenticationButton';
 
 export default function ProfileCard() {
   const [userProfile, setUserProfile] = useState({});
   const router = useRouter();
   const { user } = useAuth();
-  const handleClick = () => {
-    if (!user) {
-      signIn();
-    } else signOut();
-    router.push('/');
-  };
   const handleEdit = () => {
     router.push('/read/user/createUser');
   };
@@ -48,7 +42,7 @@ export default function ProfileCard() {
               ? (
                 <>
                   <div>
-                    <Image width="150px" rounded src={userProfile.photoUrl} />
+                    <Image width="150px" rounded src={userProfile?.photoUrl} />
                   </div>
                   <div>
                     <h3>Favorite Method: {userProfile.brewMethod}</h3>
@@ -77,9 +71,7 @@ export default function ProfileCard() {
         </div>
       </>
       <div>
-        <Button variant={!user ? 'primary' : 'danger'} type="button" size="lg" className="copy-btn" onClick={handleClick}>
-          {!user ? 'Sign In' : 'Sign Out'}
-        </Button>
+        <AuthenticationButton />
       </div>
     </>
   );

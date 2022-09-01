@@ -6,21 +6,14 @@ import {
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { GrUserSettings } from 'react-icons/gr';
 import { useRouter } from 'next/router';
-import { signIn, signOut } from '../../utils/auth';
-import { useAuth } from '../../utils/context/authContext';
+import AuthenticationButton from '../buttons/AuthenticationButton';
 
 export default function SettingsModal() {
   const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { user } = useAuth();
 
-  const handleClick = () => {
-    if (!user) {
-      signIn();
-    } else signOut();
-  };
   const handleRoute = () => {
     router.push('/settings');
   };
@@ -47,9 +40,7 @@ export default function SettingsModal() {
               </Button>
             </div>
             <div>
-              <Button type="button" size="lg" className="copy-btn" onClick={handleClick}>
-                {!user ? 'Sign In' : 'Sign Out'}
-              </Button>
+              <AuthenticationButton />
             </div>
           </>
         </Offcanvas.Body>

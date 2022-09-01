@@ -1,18 +1,19 @@
-import { useRouter } from 'next/router';
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+import PropTypes from 'prop-types';
+import CreateNameModal from '../../modal/CreateNameModal';
 
-export default function CreateNameCard() {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push('/recipes/createrecipe');
-  };
+export default function CreateNameCard({ recipeObj }) {
   return (
-    <Card style={{ width: 'auto' }} onClick={handleClick}>
-      <Card.Body>
-        <Card.Title>Create Recipe Name</Card.Title>
-        <Card.Text />
-      </Card.Body>
-    </Card>
+    <CreateNameModal recipeObj={recipeObj} />
   );
 }
+CreateNameCard.propTypes = {
+  recipeObj: PropTypes.shape({
+    RecipeName: PropTypes.number,
+  }),
+};
+CreateNameCard.defaultProps = {
+  recipeObj: PropTypes.shape({
+    recipeName: 205,
+  }),
+};
