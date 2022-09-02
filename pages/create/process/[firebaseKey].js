@@ -14,7 +14,6 @@ export default function CreateProcess() {
   };
   useEffect(() => {
     renderRecipe();
-    console.warn(userRecipe);
   }, [user]);
 
   return (
