@@ -25,18 +25,18 @@ export default function CreateProcess() {
           <div>
             <div>
               <div>
-                <div>{userRecipe.dose}</div>
-                <div>{userRecipe.weight}</div>
-                <div>{userRecipe.waterTemp}</div>
+                <div><span>Cofee: </span>{userRecipe.dose} g</div>
+                <div><span>Water: </span>{userRecipe.weight} g</div>
+                <div><span>Water: </span>{userRecipe.waterTemp} F°</div>
                 <h2>Ratio</h2>
               </div>
               <div>
                 <div>
                   <ul>
-                    <ul>{userRecipe.methodObject.name}</ul>
-                    <ul>{userRecipe?.brewTime}</ul>
-                    <ul>{userRecipe.grindObject.grindSize}</ul>
-                    <ul>{userRecipe.userObject.name}</ul>
+                    <ul>Recipe: {userRecipe.methodObject.name}</ul>
+                    <ul>Brew Time: {userRecipe?.brewTime}</ul>
+                    <ul> Grind Size: {userRecipe.grindObject.grindSize}</ul>
+                    <ul>Author: {userRecipe.userObject.name}</ul>
                   </ul>
                 </div>
                 <div>
