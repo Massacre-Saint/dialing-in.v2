@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../../utils/context/authContext';
 import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
+import { getSingleRecipeMethod } from '../../../utils/data/apiData/mergeData';
 
 export default function ChooseMethodCard({ recipeObj }) {
   const { user } = useAuth();
+  const [, setRecipeMethod] = useState({ recipeObj });
   const router = useRouter();
   const payload = {
     firebaseKey: recipeObj.firebaseKey,
@@ -36,19 +38,28 @@ export default function ChooseMethodCard({ recipeObj }) {
       );
     }
   };
+  // const renderMethod = (() => {
+  //   getSingleRecipeMethod(recipeObj.firebaseKey).then((methodObj) => {
+  //     setMethod(methodObj);
+  //   });
+  // });
+  useEffect(() => {
+    getSingleRecipeMethod(recipeObj.firebaseKey).then((methodObj) => {
+      setRecipeMethod(methodObj);
+    });
+    // console.warn(recipeMethod);
+  }, [recipeObj]);
   return (
     <>
       <Card style={{ width: 'auto' }} onClick={handleClick}>
         <Card.Body>
           <Card.Title>Method:</Card.Title>
-          <Card.Text>{recipeObj.methodId}</Card.Text>
+          <Card.Text>Hello</Card.Text>
         </Card.Body>
       </Card>
     </>
-
   );
 }
-
 ChooseMethodCard.propTypes = {
   recipeObj: PropTypes.shape({
     methodId: PropTypes.string,

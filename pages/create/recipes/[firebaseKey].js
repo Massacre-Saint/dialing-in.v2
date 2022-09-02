@@ -10,7 +10,7 @@ import ChooseGrindCard from '../../../components/create/recipes/ChooseGrindCard'
 import ChooseMethodCard from '../../../components/create/recipes/ChooseMethodCard';
 import ChooseTempCard from '../../../components/create/recipes/ChooseTempCard';
 import CreateNameCard from '../../../components/create/recipes/CreateNameCard';
-import { createProcess, getProcess } from '../../../utils/data/apiData/process';
+import { createProcess, deleteProcess, getProcess } from '../../../utils/data/apiData/process';
 
 export default function CreateRecipe() {
   const { user } = useAuth();
@@ -19,9 +19,9 @@ export default function CreateRecipe() {
   const [userRecipe, setUserRecipe] = useState({});
   const handleDelete = () => {
     if (window.confirm('Do you wish to cancel recipe?')) {
-      deleteRecipe(firebaseKey).then(() => {
-        router.push('/');
-      });
+      deleteRecipe(firebaseKey);
+      deleteProcess(userRecipe.processId);
+      router.push('/');
     }
   };
   const create = (process) => {
@@ -44,7 +44,10 @@ export default function CreateRecipe() {
     router.push(`/create/process/${userRecipe.firebaseKey}`);
   };
   const renderRecipe = () => {
-    getRecipe(firebaseKey).then(setUserRecipe);
+    getRecipe(firebaseKey).then((obj) => {
+      setUserRecipe(obj);
+      console.warn(userRecipe);
+    });
   };
   useEffect(() => {
     renderRecipe();
@@ -65,7 +68,7 @@ export default function CreateRecipe() {
         </Nav.Link>
       </Navbar>
       <div>
-        {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />)}
+        {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />) }
         {userRecipe.methodId ? (<ChooseGrindCard recipeObj={userRecipe} />) : ''}
         {userRecipe.grindId ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
         {Object.values(userRecipe).length < 5 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={userRecipe} />)}

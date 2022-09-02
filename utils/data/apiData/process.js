@@ -16,4 +16,9 @@ const getProcess = (firebaseKey) => new Promise((resolve, reject) => {
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
-export { createProcess, getProcess };
+const deleteProcess = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/process/${firebaseKey}.json`)
+    .then(() => resolve('deleted'))
+    .catch((error) => reject(error));
+});
+export { createProcess, getProcess, deleteProcess };
