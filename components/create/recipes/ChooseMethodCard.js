@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React from 'react';
 import Card from 'react-bootstrap/Card';
@@ -14,7 +15,11 @@ export default function ChooseMethodCard({ recipeObj }) {
     methodId: null,
     grindId: null,
     waterTemp: null,
+    recipeName: null,
+    weight: null,
+    dose: null,
   };
+
   const handleClick = () => {
     if (recipeObj.methodId) {
       if (window.confirm('Choosing another method will reset recipe?')) {
@@ -35,8 +40,8 @@ export default function ChooseMethodCard({ recipeObj }) {
     <>
       <Card style={{ width: 'auto' }} onClick={handleClick}>
         <Card.Body>
-          <Card.Title>Choose Method</Card.Title>
-          <Card.Text />
+          <Card.Title>Method:</Card.Title>
+          <Card.Text>{recipeObj.methodId}</Card.Text>
         </Card.Body>
       </Card>
     </>
@@ -50,6 +55,7 @@ ChooseMethodCard.propTypes = {
     firebaseKey: PropTypes.string,
   }),
 };
+
 ChooseMethodCard.defaultProps = {
   recipeObj: PropTypes.shape({
     firebaseKey: '',

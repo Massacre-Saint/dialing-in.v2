@@ -15,14 +15,14 @@ import { createRecipe, getRecipe } from '../utils/data/apiData/userRecipes';
 export default function Methods() {
   const { user } = useAuth();
   const router = useRouter();
-  const payload = {
-    uid: user.uid,
-  };
   const [methods, setMethods] = useState([]);
   const getAllMethods = () => {
     getMethods().then(setMethods);
   };
   const handleClick = () => {
+    const payload = {
+      uid: user.uid,
+    };
     if (!user) {
       router.push('/settings');
     } else {

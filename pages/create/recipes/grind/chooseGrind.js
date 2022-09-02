@@ -5,24 +5,22 @@ import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
-import { getRecipe } from '../../../../utils/data/apiData/userRecipes';
 import { getGrinds } from '../../../../utils/data/apiData/grind';
 import Grind from '../../../../components/read/Grind';
 
 export default function ChooseMethod() {
   const { user } = useAuth();
   const router = useRouter();
-  const firebaseKey = router.query.data;
-  const [, setUserRecipe] = useState({});
   const [grinds, setGrinds] = useState([]);
   const handleClick = (router.back);
+
   useEffect(() => {
-    getRecipe(firebaseKey).then(setUserRecipe);
     getGrinds().then(setGrinds);
   }, [user]);
+
   return (
     <>
-      <Navbar>
+      <Navbar sticky="top" bg="light">
         <Nav.Link onClick={handleClick}>
           Go back
         </Nav.Link>
