@@ -22,6 +22,7 @@ export default function Methods() {
   const handleClick = () => {
     const payload = {
       uid: user.uid,
+      methodId: '',
     };
     if (!user) {
       router.push('/settings');

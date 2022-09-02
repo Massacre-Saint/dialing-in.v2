@@ -46,7 +46,6 @@ export default function CreateRecipe() {
   const renderRecipe = () => {
     getRecipe(firebaseKey).then((obj) => {
       setUserRecipe(obj);
-      console.warn(userRecipe);
     });
   };
   useEffect(() => {

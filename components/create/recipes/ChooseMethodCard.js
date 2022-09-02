@@ -9,7 +9,7 @@ import { getSingleRecipeMethod } from '../../../utils/data/apiData/mergeData';
 
 export default function ChooseMethodCard({ recipeObj }) {
   const { user } = useAuth();
-  const [, setRecipeMethod] = useState({ recipeObj });
+  const [recipeMethod, setRecipeMethod] = useState({});
   const router = useRouter();
   const payload = {
     firebaseKey: recipeObj.firebaseKey,
@@ -38,23 +38,20 @@ export default function ChooseMethodCard({ recipeObj }) {
       );
     }
   };
-  // const renderMethod = (() => {
-  //   getSingleRecipeMethod(recipeObj.firebaseKey).then((methodObj) => {
-  //     setMethod(methodObj);
-  //   });
-  // });
+
   useEffect(() => {
-    getSingleRecipeMethod(recipeObj.firebaseKey).then((methodObj) => {
-      setRecipeMethod(methodObj);
-    });
-    // console.warn(recipeMethod);
+    if (recipeObj.methodId) {
+      getSingleRecipeMethod(recipeObj.firebaseKey).then((methodObj) => {
+        setRecipeMethod(methodObj);
+      });
+    }
   }, [recipeObj]);
   return (
     <>
       <Card style={{ width: 'auto' }} onClick={handleClick}>
         <Card.Body>
           <Card.Title>Method:</Card.Title>
-          <Card.Text>Hello</Card.Text>
+          <Card.Text>{recipeMethod ? (recipeMethod?.methodObj?.name) : 'no method'}</Card.Text>
         </Card.Body>
       </Card>
     </>
