@@ -5,11 +5,12 @@ import {
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../utils/context/authContext';
-import { deleteRecipe, getRecipe } from '../../../utils/data/apiData/userRecipes';
+import { deleteRecipe, getRecipe, updateRecipe } from '../../../utils/data/apiData/userRecipes';
 import ChooseGrindCard from '../../../components/create/recipes/ChooseGrindCard';
 import ChooseMethodCard from '../../../components/create/recipes/ChooseMethodCard';
 import ChooseTempCard from '../../../components/create/recipes/ChooseTempCard';
 import CreateNameCard from '../../../components/create/recipes/CreateNameCard';
+import { createProcess, getProcess } from '../../../utils/data/apiData/process';
 
 export default function CreateRecipe() {
   const { user } = useAuth();
@@ -23,8 +24,30 @@ export default function CreateRecipe() {
       });
     }
   };
-  useEffect(() => {
+  const create = (process) => {
+    const payload = {
+      processId: process.firebaseKey,
+    };
+    updateRecipe(process.recipeId, payload);
+  };
+  const handleSubmit = () => {
+    const payload = {
+      recipeId: userRecipe.firebaseKey,
+    };
+    if (!userRecipe.processId) {
+      createProcess(payload).then((processObj) => {
+        getProcess(processObj.data.firebaseKey).then((process) => {
+          create(process);
+        });
+      });
+    }
+    router.push(`/create/process/${userRecipe.firebaseKey}`);
+  };
+  const renderRecipe = () => {
     getRecipe(firebaseKey).then(setUserRecipe);
+  };
+  useEffect(() => {
+    renderRecipe();
   }, [user]);
   return (
     <>
@@ -37,15 +60,15 @@ export default function CreateRecipe() {
             {userRecipe.recipeName ? (userRecipe.recipeName) : ('Create Recipe')}
           </Navbar.Brand>
         </Container>
-        <Nav.Link>
-          Submit
+        <Nav.Link onClick={handleSubmit}>
+          {userRecipe.recipeName ? 'Submit' : ''}
         </Nav.Link>
       </Navbar>
       <div>
         {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />)}
         {userRecipe.methodId ? (<ChooseGrindCard recipeObj={userRecipe} />) : ''}
-        {userRecipe.grindId ? (<ChooseTempCard recipeObj={userRecipe} />) : ''}
-        {Object.values(userRecipe).length === 5 ? (<CreateNameCard recipeObj={userRecipe} />) : ''}
+        {userRecipe.grindId ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
+        {Object.values(userRecipe).length < 5 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={userRecipe} />)}
       </div>
     </>
   );

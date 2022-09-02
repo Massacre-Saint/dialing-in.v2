@@ -13,7 +13,7 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
   // what the user should see if they are logged in
   return (
     <>
-      <div className="container">
+      <div>
         <Component {...pageProps} />
       </div>
     </>

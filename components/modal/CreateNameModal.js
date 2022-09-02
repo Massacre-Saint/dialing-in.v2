@@ -13,7 +13,7 @@ const initialSate = {
   recipeName: '',
 };
 
-export default function CreateNameModal({ recipeObj }) {
+export default function CreateNameModal({ recipeObj, onUpdate }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,15 +38,18 @@ export default function CreateNameModal({ recipeObj }) {
     const payload = {
       ...formInput,
     };
-    updateRecipe(recipeObj.firebaseKey, payload).then(() => router.push(`/create/recipes/${recipeObj.firebaseKey}`));
-    handleClose();
+    updateRecipe(recipeObj.firebaseKey, payload).then(() => {
+      onUpdate();
+      router.push(`/create/recipes/${recipeObj.firebaseKey}`);
+      handleClose();
+    });
   };
   return (
     <>
       <Card style={{ width: 'auto' }} onClick={handleShow}>
         <Card.Body>
           <Card.Title>Recipe Name?</Card.Title>
-          <Card.Text />
+          <Card.Text>{recipeObj.recipeName}</Card.Text>
         </Card.Body>
       </Card>
       <Offcanvas
@@ -79,10 +82,12 @@ CreateNameModal.propTypes = {
     firebaseKey: PropTypes.string,
     recipeName: PropTypes.string,
   }),
+  onUpdate: PropTypes.func,
 };
 CreateNameModal.defaultProps = {
   recipeObj: PropTypes.shape({
     firebaseKey: '',
     recipeName: '',
   }),
+  onUpdate: () => {},
 };

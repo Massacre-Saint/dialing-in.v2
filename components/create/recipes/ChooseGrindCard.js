@@ -14,8 +14,9 @@ export default function ChooseGrindCard({ recipeObj }) {
   return (
     <Card style={{ width: 'auto' }} onClick={handleClick}>
       <Card.Body>
-        <Card.Title>Choose Grind</Card.Title>
-        <Card.Text />
+        <Card.Title>Grind and Dose:</Card.Title>
+        <Card.Text>{recipeObj.grindId}</Card.Text>
+        <Card.Text>{recipeObj.dose}g</Card.Text>
       </Card.Body>
     </Card>
   );
@@ -26,6 +27,7 @@ ChooseGrindCard.propTypes = {
     methodId: PropTypes.string,
     firebaseKey: PropTypes.string,
     grindId: PropTypes.string,
+    dose: PropTypes.number,
   }),
 };
 ChooseGrindCard.defaultProps = {
@@ -33,5 +35,6 @@ ChooseGrindCard.defaultProps = {
     firebaseKey: '',
     methodId: '',
     grindId: '',
+    dose: 0,
   }),
 };
