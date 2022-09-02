@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { IoIosArrowBack, IoIosAddCircleOutline } from 'react-icons/io';
 import {
