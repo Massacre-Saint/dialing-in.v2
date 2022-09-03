@@ -13,7 +13,7 @@ export default function Method({ methodObj }) {
   const [userRecipe, setUserRecipe] = useState({});
   const payload = {
     ...userRecipe,
-    methodId: methodObj.fbKey,
+    methodId: methodObj.firebaseKey,
   };
   const handleSubmit = () => {
     updateRecipe(userRecipe.firebaseKey, payload).then(() => router.push(`/create/recipes/${userRecipe.firebaseKey}`));
@@ -30,7 +30,7 @@ export default function Method({ methodObj }) {
 Method.propTypes = {
   methodObj: PropTypes.shape(
     {
-      fbKey: PropTypes.string,
+      firebaseKey: PropTypes.string,
       imageUrl: PropTypes.string,
       description: PropTypes.string,
       name: PropTypes.string,
@@ -40,7 +40,7 @@ Method.propTypes = {
 Method.defaultProps = {
   methodObj: PropTypes.shape(
     {
-      fbKey: '',
+      firebaseKey: '',
       imageUrl: '',
       description: '',
       name: '',

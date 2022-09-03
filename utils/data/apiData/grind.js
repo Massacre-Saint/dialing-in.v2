@@ -14,8 +14,8 @@ const getGrinds = () => new Promise((resolve, reject) => {
     })
     .catch((error) => reject(error));
 });
-const getSingleGrind = (fbKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/grind/${fbKey}.json`)
+const getSingleGrind = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/grind/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });

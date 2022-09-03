@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
@@ -28,10 +29,16 @@ export default function UserRecipes() {
       });
     });
   };
+  const handleBack = () => {
+    router.push('/');
+  };
+  useEffect(() => {
+    getRoutedRecipes();
+  }, [user]);
   return (
     <>
       <Navbar>
-        <Nav.Link onClick={router.push('/')}>
+        <Nav.Link onClick={handleBack}>
           <IoIosArrowBack />
           Methods
         </Nav.Link>
@@ -56,7 +63,7 @@ export default function UserRecipes() {
           recipes.length
             ? (
               recipes.map((recipe) => (
-                <Recipes key={recipe.fbKey} recipeObj={recipe} />
+                <Recipes render={getRoutedRecipes} key={recipe.firebaseKey} recipeObj={recipe} />
               ))
             )
             : (

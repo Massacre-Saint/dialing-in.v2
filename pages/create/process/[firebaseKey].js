@@ -24,12 +24,16 @@ export default function CreateProcess() {
     getAllData(firebaseKey).then((obj) => setUserRecipe(obj));
     getSteps(firebaseKey).then((array) => setSteps(array));
   };
+  const sortedSteps = (array) => {
+    const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
+    return orderedSteps;
+  };
   useEffect(() => {
     renderRecipe();
   }, [user]);
   const handleBack = (() => {
     setShow(false);
-    router.back();
+    router.push(`/create/recipes/${userRecipe.firebaseKey}`);
   });
   const handleSave = () => {
     setShow(false);
@@ -41,6 +45,13 @@ export default function CreateProcess() {
       query: { firebaseKey },
     });
   };
+  // const handleDelete = () => {
+  //   getRecipe(userRecipe.firebaseKey).then((obj) => {
+  //     deleteProcess(obj.firebaseKey);
+  //     deleteRecipeSteps(obj.firebaseKey);
+  //     router.push('/');
+  //   });
+  // };
   return (
     <>
       {
@@ -85,8 +96,8 @@ export default function CreateProcess() {
                       {
                         steps.length
                           ? (
-                            steps.map((step) => (
-                              <StepCard key={step.firebaseKey} stepObj={step} userRecipe={userRecipe} />
+                            sortedSteps(steps).map((step) => (
+                              <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} />
                             ))
                           )
                           : 'Add Steps'
@@ -95,13 +106,11 @@ export default function CreateProcess() {
                   </div>
                 </div>
               </div>
-              <Button size="lg" type="button" onClick={handleClick}>Add Step</Button>
+              <Button size="lg" type="button" onClick={handleClick}>{steps.length ? 'View Steps' : 'Add Step'}</Button>
             </div>
 
             <Modal show={show} onHide={handleClose} animation={false}>
-              <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-              </Modal.Header>
+              <Modal.Header closeButton />
               <Modal.Body>Back to Edit or Save as Draft?</Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleBack}>

@@ -79,8 +79,8 @@ function NewUserForm({ obj }) {
               {
                 methods.map((method) => (
                   <option
-                    key={method.fbKey}
-                    value={method.fbKey}
+                    key={method.firebaseKey}
+                    value={method.firebaseKey}
                   >
                     {method.name}
                   </option>

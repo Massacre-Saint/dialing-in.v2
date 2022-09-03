@@ -21,13 +21,13 @@ export default function MainNavBar() {
         user
           ? (
             <Container>
-              <Nav.Link>
+              <Nav.Link href="read/recipes/userRecipes">
                 <BiBookReader id="user-recipe" />
               </Nav.Link>
               <Nav.Link id="home">
                 <MdOutlineCoffeeMaker />
               </Nav.Link>
-              <Nav.Link id="fav">
+              <Nav.Link id="fav" href="read/recipes/saved">
                 <GrFavorite />
               </Nav.Link>
               <Nav.Link>

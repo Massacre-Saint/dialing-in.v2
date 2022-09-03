@@ -23,12 +23,12 @@ const createStep = (stepObj) => new Promise((resolve, reject) => {
         .then(resolve);
     }).catch(reject);
 });
-const deleteRecipe = (firebaseKey) => new Promise((resolve, reject) => {
+const deleteStep = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/steps/${firebaseKey}.json`)
     .then(() => resolve('deleted'))
     .catch((error) => reject(error));
 });
 
 export {
-  getSteps, updateStep, createStep, deleteRecipe,
+  getSteps, updateStep, createStep, deleteStep,
 };

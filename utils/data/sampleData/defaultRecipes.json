@@ -1,6 +1,6 @@
 {
   "xYvKu4obPT": {
-    "fbKey": "xYvKu4obPT",
+    "firebaseKey": "xYvKu4obPT",
     "brewTime": 120,
     "grindId": "ErS72K4ETv",
     "amount": 220,
@@ -11,7 +11,7 @@
     "favorite": false
   },
   "xyVKfeeNiv": {
-    "fbKey": "xyVKfeeNiv",
+    "firebaseKey": "xyVKfeeNiv",
     "brewTime": 60,
     "grindId": "hznSYnsW9T",
     "amount": 200,
@@ -22,7 +22,7 @@
     "favorite": false
   },
   "RcYvDBpHjs": {
-    "fbKey": "RcYvDBpHjs",
+    "firebaseKey": "RcYvDBpHjs",
     "brewTime": 300,
     "grindId": "tz0QsB0Amn",
     "amount": 500,
@@ -33,7 +33,7 @@
     "favorite": true
   },
   "toWtn71aE8": {
-    "fbKey": "toWtn71aE8",
+    "firebaseKey": "toWtn71aE8",
     "brewTime": 180,
     "grindId": "MyhOOSSEKv",
     "amount": 680,
@@ -44,7 +44,7 @@
     "favorite": true
   },
   "B44eiyPAPl": {
-    "fbKey": "B44eiyPAPl",
+    "firebaseKey": "B44eiyPAPl",
     "brewTime": 480,
     "grindId": "tz0QsB0Amn",
     "amount": 946,
@@ -55,7 +55,7 @@
     "favorite": false
   },
   "kOxico68GU": {
-    "fbKey": "kOxico68GU",
+    "firebaseKey": "kOxico68GU",
     "brewTime": 180,
     "grindId": "hznSYnsW9T",
     "amount": 400,
@@ -66,7 +66,7 @@
     "favorite": true
   },
   "PKbnh0hJPh": {
-    "fbKey": "PKbnh0hJPh",
+    "firebaseKey": "PKbnh0hJPh",
     "brewTime": 240,
     "grindId": "ErS72K4ETv",
     "amount": 360,
@@ -77,7 +77,7 @@
     "favorite": false
   },
   "P6uBYHFbaW": {
-    "fbKey": "P6uBYHFbaW",
+    "firebaseKey": "P6uBYHFbaW",
     "brewTime": 1440,
     "grindId": "KLbAL6ccqN",
     "amount": 1899,
@@ -88,7 +88,7 @@
     "favorite": true
   },
   "JWuSgc9xoL": {
-    "fbKey": "JWuSgc9xoL",
+    "firebaseKey": "JWuSgc9xoL",
     "brewTime": 300,
     "grindId": "MyhOOSSEKv",
     "amount": 4,
@@ -99,7 +99,7 @@
     "favorite": false
   },
   "bTdaBRgtI0": {
-    "fbKey": "bTdaBRgtI0",
+    "firebaseKey": "bTdaBRgtI0",
     "brewTime": 320,
     "grindId": "ixX4sDCLoD",
     "amount": 2,

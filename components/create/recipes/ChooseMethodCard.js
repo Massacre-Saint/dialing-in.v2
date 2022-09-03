@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { useAuth } from '../../../utils/context/authContext';
 import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
 import { getSingleRecipeMethod } from '../../../utils/data/apiData/mergeData';
@@ -10,6 +12,9 @@ import { getSingleRecipeMethod } from '../../../utils/data/apiData/mergeData';
 export default function ChooseMethodCard({ recipeObj }) {
   const { user } = useAuth();
   const [recipeMethod, setRecipeMethod] = useState({});
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const router = useRouter();
   const payload = {
     firebaseKey: recipeObj.firebaseKey,
@@ -24,12 +29,7 @@ export default function ChooseMethodCard({ recipeObj }) {
 
   const handleClick = () => {
     if (recipeObj.methodId) {
-      if (window.confirm('Choosing another method will reset recipe?')) {
-        updateRecipe(recipeObj.firebaseKey, payload).then(() => router.push({
-          pathname: '/create/recipes/method/chooseMethod',
-          query: { data: recipeObj.firebaseKey },
-        }));
-      }
+      handleShow();
     } else {
       (router.push({
         pathname: '/create/recipes/method/chooseMethod',
@@ -37,6 +37,15 @@ export default function ChooseMethodCard({ recipeObj }) {
       })
       );
     }
+  };
+  const handleReset = () => {
+    updateRecipe(recipeObj.firebaseKey, payload).then(() => router.push({
+      pathname: '/create/recipes/method/chooseMethod',
+      query: { data: recipeObj.firebaseKey },
+    }));
+  };
+  const handleKeep = () => {
+    handleClose();
   };
 
   useEffect(() => {
@@ -54,6 +63,20 @@ export default function ChooseMethodCard({ recipeObj }) {
           <Card.Text>{recipeMethod ? (recipeMethod?.methodObj?.name) : 'no method'}</Card.Text>
         </Card.Body>
       </Card>
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Hold Up!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Choosing another method will reset recipe?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleReset}>
+            Reset
+          </Button>
+          <Button variant="primary" onClick={handleKeep}>
+            Keep
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

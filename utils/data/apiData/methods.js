@@ -15,8 +15,8 @@ const getMethods = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const getSingleMethod = (fbKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/methods/${fbKey}.json`)
+const getSingleMethod = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/methods/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
