@@ -11,20 +11,23 @@ import SettingsModal from './modal/SettingsModal';
 
 export default function MainNavBar() {
   const { user } = useAuth();
+  const handleClick = (e) => {
+    console.warn(e.target.id);
+  };
 
   return (
-    <Navbar fixed="bottom" collapseOnSelect expand="true" bg="transparent" variant="dark">
+    <Navbar onClickCapture={handleClick} fixed="bottom" collapseOnSelect expand="true" bg="transparent" variant="dark">
       {
         user
           ? (
             <Container>
-              <Nav.Link href="/">
-                <BiBookReader />
+              <Nav.Link>
+                <BiBookReader id="user-recipe" />
               </Nav.Link>
-              <Nav.Link href="/">
+              <Nav.Link id="home">
                 <MdOutlineCoffeeMaker />
               </Nav.Link>
-              <Nav.Link href="/">
+              <Nav.Link id="fav">
                 <GrFavorite />
               </Nav.Link>
               <Nav.Link>

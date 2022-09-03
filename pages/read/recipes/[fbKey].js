@@ -10,6 +10,7 @@ import { getMethodRecipesDefault } from '../../../utils/data/apiData/mergeData';
 import { createRecipe, getRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
 import { useAuth } from '../../../utils/context/authContext';
+import MainNavBar from '../../../components/MainNavBar';
 
 export default function MethodRecipes() {
   const { user } = useAuth();
@@ -70,6 +71,7 @@ export default function MethodRecipes() {
           <Recipes key={recipe.fbKey} methodObj={method} recipeObj={recipe} />
         ))}
       </div>
+      <MainNavBar />
     </>
   );
 }

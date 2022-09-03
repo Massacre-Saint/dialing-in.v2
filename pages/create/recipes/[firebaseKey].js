@@ -27,6 +27,7 @@ export default function CreateRecipe() {
   const create = (process) => {
     const payload = {
       processId: process.firebaseKey,
+      completed: false,
     };
     updateRecipe(process.recipeId, payload);
   };
