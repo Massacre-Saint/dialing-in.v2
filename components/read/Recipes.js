@@ -3,6 +3,15 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 
 export default function Recipes({ recipeObj }) {
+  const convertTime = (total) => {
+    const totalSeconds = total;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+    const num = `${minutes}:${seconds}`;
+    return num;
+  };
   return (
     <>
       <Card style={{ width: 'auto' }}>
@@ -10,9 +19,9 @@ export default function Recipes({ recipeObj }) {
           <Card.Title>{recipeObj.recipeName}</Card.Title>
           <Card.Text />
           <div>
-            <span>{recipeObj.brewTime}</span>
-            <span>{recipeObj.dose}</span>
-            <span>{recipeObj.amount}</span>
+            <span>{convertTime(recipeObj.brewTime)} </span>
+            <span>{recipeObj.dose}g </span>
+            <span>{recipeObj.amount}g</span>
           </div>
         </Card.Body>
       </Card>
