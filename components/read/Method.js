@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function Method({ methodObj }) {
   return (
-    <Link passHref href={`/read/recipes/${methodObj.fbKey}`}>
+    <Link passHref href={`/read/recipes/${methodObj.firebaseKey}`}>
       <h1>{methodObj.name}</h1>
     </Link>
   );
@@ -12,7 +12,7 @@ export default function Method({ methodObj }) {
 Method.propTypes = {
   methodObj: PropTypes.shape(
     {
-      fbKey: PropTypes.string,
+      firebaseKey: PropTypes.string,
       imageUrl: PropTypes.string,
       description: PropTypes.string,
       name: PropTypes.string,
@@ -22,7 +22,7 @@ Method.propTypes = {
 Method.defaultProps = {
   methodObj: PropTypes.shape(
     {
-      fbKey: '',
+      firebaseKey: '',
       imageUrl: '',
       description: '',
       name: '',

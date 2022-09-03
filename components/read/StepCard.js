@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
+import { deleteStep } from '../../utils/data/apiData/steps';
 
-export default function StepCard({ stepObj }) {
+export default function StepCard({ stepObj, onUpdate }) {
+  const handleDelete = () => {
+    deleteStep(stepObj.firebaseKey).then(() => {
+      onUpdate();
+    });
+  };
   useEffect(() => [stepObj]);
   return (
     <>
@@ -13,7 +19,7 @@ export default function StepCard({ stepObj }) {
           <div>
             <span>{stepObj?.order}. </span>
             <span>{stepObj?.direction}</span>
-            <span />
+            <button type="button" onClick={handleDelete}>Delete</button>
           </div>
         </Card.Body>
       </Card>
@@ -27,6 +33,7 @@ StepCard.propTypes = {
     order: PropTypes.number,
     recipeId: PropTypes.string,
   }),
+  onUpdate: PropTypes.func,
   // stepArray: PropTypes.arrayOf((PropTypes.shape({
   //   direction: PropTypes.string,
   //   firebaseKey: PropTypes.string,
@@ -42,6 +49,7 @@ StepCard.defaultProps = {
     order: '',
     recipeId: '',
   }),
+  onUpdate: () => {},
   // stepArray: PropTypes.arrayOf((PropTypes.shape({
   //   direction: '',
   //   firebaseKey: '',

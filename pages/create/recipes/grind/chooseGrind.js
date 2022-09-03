@@ -33,7 +33,7 @@ export default function ChooseMethod() {
       <div>
         <div>
           {grinds.map((i) => (
-            <Grind key={i.fbKey} grindObj={i} />
+            <Grind key={i.firebaseKey} grindObj={i} />
           ))}
         </div>
       </div>

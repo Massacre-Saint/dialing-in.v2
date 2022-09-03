@@ -15,11 +15,11 @@ import MainNavBar from '../../../components/MainNavBar';
 export default function MethodRecipes() {
   const { user } = useAuth();
   const router = useRouter();
-  const { fbKey } = router.query;
+  const { firebaseKey } = router.query;
   const [recipes, setRecipes] = useState([]);
   const [method, setMethod] = useState({});
   const getRoutedRecipes = () => {
-    getMethodRecipesDefault(fbKey).then((methodObj) => {
+    getMethodRecipesDefault(firebaseKey).then((methodObj) => {
       setMethod(methodObj);
       setRecipes(methodObj.defaultRecipes);
     });
@@ -31,7 +31,7 @@ export default function MethodRecipes() {
       getRoutedRecipes();
       const payload = {
         uid: user.uid,
-        methodId: method.fbKey,
+        methodId: method.firebaseKey,
       };
       createRecipe(payload).then((recipeObj) => {
         getRecipe(recipeObj.data.firebaseKey).then((obj) => {
@@ -68,7 +68,7 @@ export default function MethodRecipes() {
       </Navbar>
       <div>
         {recipes.map((recipe) => (
-          <Recipes key={recipe.fbKey} methodObj={method} recipeObj={recipe} />
+          <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
         ))}
       </div>
       <MainNavBar />

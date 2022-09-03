@@ -34,7 +34,7 @@ export default function Grind({ grindObj }) {
   const handleClick = () => {
     const payload = {
       ...userRecipe,
-      grindId: grindObj.fbKey,
+      grindId: grindObj.firebaseKey,
     };
     updateRecipe(userRecipe.firebaseKey, payload);
     handleShow();
@@ -87,7 +87,7 @@ export default function Grind({ grindObj }) {
 Grind.propTypes = {
   grindObj: PropTypes.shape(
     {
-      fbKey: PropTypes.string,
+      firebaseKey: PropTypes.string,
       imageUrl: PropTypes.string,
       grindSize: PropTypes.string,
       specified: PropTypes.bool,
@@ -97,7 +97,7 @@ Grind.propTypes = {
 Grind.defaultProps = {
   grindObj: PropTypes.shape(
     {
-      fbKey: '',
+      firebaseKey: '',
       imageUrl: '',
       grindSize: '',
       specified: false,

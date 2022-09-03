@@ -2,6 +2,8 @@
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../utils/context/authContext';
@@ -17,12 +19,17 @@ export default function CreateRecipe() {
   const router = useRouter();
   const { firebaseKey } = router.query;
   const [userRecipe, setUserRecipe] = useState({});
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const handleDelete = () => {
-    if (window.confirm('Do you wish to cancel recipe?')) {
-      deleteRecipe(firebaseKey);
-      deleteProcess(userRecipe.processId);
-      router.push('/');
-    }
+    handleClose();
+    router.push('/');
+    deleteRecipe(firebaseKey);
+    deleteProcess(userRecipe.processId);
+  };
+  const handleClick = () => {
+    handleClose();
   };
   const create = (process) => {
     const payload = {
@@ -55,8 +62,8 @@ export default function CreateRecipe() {
   return (
     <>
       <Navbar>
-        <Nav.Link onClick={handleDelete}>
-          Delete
+        <Nav.Link onClick={handleShow}>
+          Back
         </Nav.Link>
         <Container>
           <Navbar.Brand>
@@ -73,6 +80,20 @@ export default function CreateRecipe() {
         {userRecipe.grindId ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
         {Object.values(userRecipe).length < 5 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={userRecipe} />)}
       </div>
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Hold Up!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Going back will delete recipe. Are you sure?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClick}>
+            No
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
