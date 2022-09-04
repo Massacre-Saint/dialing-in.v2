@@ -20,3 +20,14 @@ a {
 body {
   background-color: rgba(169, 97, 3, 0.718);
 }
+.directions {
+  height: 40vh;
+  overflow-y: auto;
+}
+.step-card {
+  margin-top: 20px;
+}
+button {
+  background-color: transparent;
+  border: none;
+}

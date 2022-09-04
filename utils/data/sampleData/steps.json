@@ -1,8 +1,200 @@
 {
-  "8VRS7bfKn7": {
-    "firebaseKey": "8VRS7bfKn7",
-    "direction": "Test",
-    "recipeId": "-NB-Js70KwVt3Nqe5Ct-",
-    "order": 0
+  "7OLJyEaedpaKKiM": {
+    "firebaseKey": "7OLJyEaedpaKKiM",
+    "direction": "Grind about 20 grams of coffee finer than you would for a pour over,",
+    "recipeId": "xYvKu4obPT",
+    "order": 1
+  },
+  "c7f45kaSEsVZptN": {
+    "firebaseKey": "c7f45kaSEsVZptN",
+    "direction": "Fill the bottom chamber of the moka pot with water until it is level with the valve, about 345 grams. Place the funnel—the coffee grounds receptacle—into the pot. If any water enters the funnel, pour out the excess and replace the funnel.",
+    "recipeId": "xYvKu4obPT",
+    "order": 2
+  },
+  "gK7tnje5JXjOyL3": {
+    "firebaseKey": "gK7tnje5JXjOyL3",
+    "direction": "Fill the funnel with the ground coffee, leveling the grounds and wiping the frim clean. Do not tamp the grounds.",
+    "recipeId": "xYvKu4obPT",
+    "order": 3
+  },
+  "J8knlLVkbgqNXxr": {
+    "firebaseKey": "J8knlLVkbgqNXxr",
+    "direction": "Screw the moka pot top on tightly.",
+    "recipeId": "xYvKu4obPT",
+    "order": 4
+  },
+  "TvApO0OSTHZ3aws": {
+    "firebaseKey": "TvApO0OSTHZ3aws",
+    "direction": "Place the moka pot on a stove over medium heat. If using a gas stove, make sure the flame is not larger than the base of the pot so as not to expose the handle to heat.",
+    "recipeId": "xYvKu4obPT",
+    "order": 5
+  },
+  "qHFUEUPGDSelXS4": {
+    "firebaseKey": "qHFUEUPGDSelXS4",
+    "direction": "Immediately remove the moka pot from the heat when you hear a hissing, gurgling sound. Let the coffee finish flowing into the upper chamber",
+    "recipeId": "xYvKu4obPT",
+    "order": 6
+  },
+  "PmSeoEcXkehMZSi": {
+    "firebaseKey": "PmSeoEcXkehMZSi",
+    "direction": "Set brewer in standard position on a server. Don't rinse or preheat the brewer (it doesn't make any difference).",
+    "recipeId": "xyVKfeeNiv",
+    "order": 1
+  },
+  "KGxTha0HlV4eVWg": {
+    "firebaseKey": "KGxTha0HlV4eVWg",
+    "direction": "Start a timer, add 200mL water, aiming to wet all the coffee during pouring.",
+    "recipeId": "xyVKfeeNiv",
+    "order": 2
+  },
+  "9lqbgr4VTKgkBk8": {
+    "firebaseKey": "9lqbgr4VTKgkBk8",
+    "direction": "Then immediately place the plunger on top of the brewer, about 1cm in. This creates a vacuum to stop the coffee from dripping through.",
+    "recipeId": "xyVKfeeNiv",
+    "order": 3
+  },
+  "6iW8Foj4W4azTrn": {
+    "firebaseKey": "6iW8Foj4W4azTrn",
+    "direction": "Wait 2 minutes.",
+    "recipeId": "xyVKfeeNiv",
+    "order": 4
+  },
+  "KzEWKD3xffm6rDH": {
+    "firebaseKey": "KzEWKD3xffm6rDH",
+    "direction": "Holding the brewer and the plunger, gently swirl the brewer.",
+    "recipeId": "xyVKfeeNiv",
+    "order": 5
+  },
+  "icanWMSPYULOGxI": {
+    "firebaseKey": "icanWMSPYULOGxI",
+    "direction": "Wait 30 seconds.",
+    "recipeId": "xyVKfeeNiv",
+    "order": 6
+  },
+  "ko7WNh40VB66NmG": {
+    "firebaseKey": "ko7WNh40VB66NmG",
+    "direction": "Press gently all the way, it takes about 30 seconds.",
+    "recipeId": "xyVKfeeNiv",
+    "order": 7
+  },
+  "DhKDG1CAQFclomZ": {
+    "firebaseKey": "DhKDG1CAQFclomZ",
+    "direction": "Discard puck by simply unscrewing cap, then pushing the plunger",
+    "recipeId": "xyVKfeeNiv",
+    "order": 8
+  },
+  "fuqCeHvLgn5JgBX": {
+    "firebaseKey": "fuqCeHvLgn5JgBX",
+    "direction": "Preheat your press with hot water, including the plunger, then pour hot water into your cup. Meanwhile, measure 5 tablespoons or 27 grams of coffee and grind. It should have the consistency of kosher salt.",
+    "recipeId": "RcYvDBpHjs",
+    "order": 1
+  },
+  "DCzWsGXtSqWZN1e": {
+    "firebaseKey": "DCzWsGXtSqWZN1e",
+    "direction": "Tip your coffee into the press and give it a gentle shake to level the grounds",
+    "recipeId": "RcYvDBpHjs",
+    "order": 2
+  },
+  "AFMcQwdYFsfewjq": {
+    "firebaseKey": "AFMcQwdYFsfewjq",
+    "direction": "Starting the timer, add water in a circular motion, wetting all the grounds, until the press is half full. Pause and enjoy the bloom.",
+    "recipeId": "RcYvDBpHjs",
+    "order": 3
+  },
+  "yI4kmleHtpramQ5": {
+    "firebaseKey": "yI4kmleHtpramQ5",
+    "direction": "30 seconds in, give the grounds a gentle stir with a chopstick or spoon.",
+    "recipeId": "RcYvDBpHjs",
+    "order": 4
+  },
+  "y2wzb1ohF76OrvS": {
+    "firebaseKey": "y2wzb1ohF76OrvS",
+    "direction": "Evenly pour water to the top of the press and add the lid, gently resting the plunger on the grounds. (If you're using a kitchen scale, it should come to around 400g of water altogether.)",
+    "recipeId": "RcYvDBpHjs",
+    "order": 5
+  },
+  "z8FeSF6IsbqJPyG": {
+    "firebaseKey": "z8FeSF6IsbqJPyG",
+    "direction": "Wait until your timer reads 4:00, then slowly push the plunger all the way down",
+    "recipeId": "RcYvDBpHjs",
+    "order": 6
+  },
+  "K9n7GYH0pOFWt4g": {
+    "firebaseKey": "K9n7GYH0pOFWt4g",
+    "direction": "Immediately decant the coffee to prevent over-extraction.",
+    "recipeId": "RcYvDBpHjs",
+    "order": 7
+  },
+  "3Qft5VYgIvyH6WN": {
+    "firebaseKey": "3Qft5VYgIvyH6WN",
+    "direction": "Enjoy with friends, by yourself, or with the dog.",
+    "recipeId": "RcYvDBpHjs",
+    "order": 8
+  },
+  "2mDU0LHKk3jC9li": {
+    "firebaseKey": "2mDU0LHKk3jC9li",
+    "direction": "Place the filter in the Chemex, make sure the three-layered side of the filter is towards the spout to prevent the filter from being sucked into the spout.",
+    "recipeId": "toWtn71aE8",
+    "order": 1
+  },
+  "xbHGzHH678Dinx7": {
+    "firebaseKey": "xbHGzHH678Dinx7",
+    "direction": "Heat Chemex and filter by pouring hot water through them both; this will also help reduce the flavor imparted by the paper.",
+    "recipeId": "toWtn71aE8",
+    "order": 2
+  },
+  "QGY24frfRSr5uQ8": {
+    "firebaseKey": "QGY24frfRSr5uQ8",
+    "direction": "Pour the water out of the back of the Chemex, while leaving the filter in place",
+    "recipeId": "toWtn71aE8",
+    "order": 3
+  },
+  "2nDqhrwvieF7rll": {
+    "firebaseKey": "2nDqhrwvieF7rll",
+    "direction": "Weigh out ~40 g of your favorite coffee and grind about the size of coarse sea salt.",
+    "recipeId": "toWtn71aE8",
+    "order": 4
+  },
+  "RVUVNleqvr6GZ0l": {
+    "firebaseKey": "RVUVNleqvr6GZ0l",
+    "direction": "Fill up gooseneck kettle with 195-205 degree water (wait 30 seconds after boiling).",
+    "recipeId": "toWtn71aE8",
+    "order": 5
+  },
+  "EABU67gW3FxoZA1": {
+    "firebaseKey": "EABU67gW3FxoZA1",
+    "direction": "Place Chemex with the filter on scale and zero. Add exactly 40 g of freshly ground coffee to the filter and level. Zero scale again.",
+    "recipeId": "toWtn71aE8",
+    "order": 6
+  },
+  "cHwfRyEzjVFwKba": {
+    "firebaseKey": "cHwfRyEzjVFwKba",
+    "direction": "Start the timer and pour ~80 g of water over the coffe, being sure to wet ALL the grounds. Allow the coffee to bloom until the timer reaches 45 seconds before adding more water.",
+    "recipeId": "toWtn71aE8",
+    "order": 7
+  },
+  "BSg6oYfO1Nlzs1D": {
+    "firebaseKey": "BSg6oYfO1Nlzs1D",
+    "direction": "At 45 seconds add  ~150 g of water by slowly pouring water over the coffee in small circles moving around the coffee bed but avoiding the edges of the filter. ",
+    "recipeId": "toWtn71aE8",
+    "order": 8
+  },
+  "AR1Z4F0Jz3TD8BY": {
+    "firebaseKey": "AR1Z4F0Jz3TD8BY",
+    "direction": "Pour another 150 g of water at 1:30, 2:30, and 3:30 finishing at exactly 680 g.",
+    "recipeId": "toWtn71aE8",
+    "order": 9
+  },
+  "cFYKvTohc3UOGtd": {
+    "firebaseKey": "cFYKvTohc3UOGtd",
+    "direction": "Allow the coffee to continue to drip until you have a slow drip (this should happen at 5-6 minutes). You should have a nice flat bed of coffee in your filter.",
+    "recipeId": "toWtn71aE8",
+    "order": 10
+  },
+  "itFjIQ2PVToE0Yq": {
+    "firebaseKey": "itFjIQ2PVToE0Yq",
+    "direction": "Remove filter and grounds, swirl your Chemex, and pour into your favorite coffee mug.",
+    "recipeId": "toWtn71aE8",
+    "order": 11
   }
-}     
+}      

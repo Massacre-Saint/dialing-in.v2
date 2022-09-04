@@ -9,4 +9,9 @@ const getDefaultRecipesByMethod = (firebaseKey) => new Promise((resolve, reject)
     .catch((error) => reject(error));
 });
 
-export default getDefaultRecipesByMethod;
+const getDefaultRecipe = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/defaultRecipes/${firebaseKey}.json`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+export { getDefaultRecipesByMethod, getDefaultRecipe };
