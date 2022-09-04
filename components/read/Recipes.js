@@ -64,7 +64,7 @@ export default function Recipes({ recipeObj, render }) {
                 <div>
                   <span>{convertTime(recipeObj.brewTime)} </span>
                   <span>{recipeObj.dose}g </span>
-                  <span>{recipeObj.amount}g</span>
+                  <span>{recipeObj.weight}g</span>
                 </div>
                 {
                   recipeObj.uid
@@ -88,7 +88,7 @@ Recipes.propTypes = {
     {
       brewTime: PropTypes.number,
       grindId: PropTypes.string,
-      amount: PropTypes.number,
+      weight: PropTypes.number,
       methodId: PropTypes.string,
       recipeName: PropTypes.string,
       dose: PropTypes.number,
@@ -107,7 +107,7 @@ Recipes.defaultProps = {
     {
       brewTime: 0,
       grindId: '',
-      amount: 0,
+      weight: 0,
       methodId: '',
       recipeName: '',
       dose: 0,

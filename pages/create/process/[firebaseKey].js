@@ -10,31 +10,36 @@ import StepCard from '../../../components/read/StepCard';
 import { useAuth } from '../../../utils/context/authContext';
 import { getAllData } from '../../../utils/data/apiData/mergeData';
 import { getSteps } from '../../../utils/data/apiData/steps';
+import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
 
 export default function CreateProcess() {
   const { user } = useAuth();
-  const [userRecipe, setUserRecipe] = useState({});
+  const [recipe, setRecipe] = useState({});
   const [steps, setSteps] = useState([]);
   const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const { firebaseKey } = router.query;
   const renderRecipe = () => {
-    getAllData(firebaseKey).then((obj) => setUserRecipe(obj));
+    getAllData(firebaseKey).then((obj) => setRecipe(obj));
     getSteps(firebaseKey).then((array) => setSteps(array));
   };
   const sortedSteps = (array) => {
     const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
     return orderedSteps;
   };
-  useEffect(() => {
-    renderRecipe();
-  }, [user]);
+
   const handleBack = (() => {
     setShow(false);
-    router.push(`/create/recipes/${userRecipe.firebaseKey}`);
+    router.push(`/create/recipes/${recipe.firebaseKey}`);
   });
+  const handleShow = () => {
+    if (recipe.uid) {
+      setShow(true);
+    } else {
+      router.back();
+    }
+  };
   const handleSave = () => {
     setShow(false);
     router.push('/');
@@ -45,17 +50,31 @@ export default function CreateProcess() {
       query: { firebaseKey },
     });
   };
-  // const handleDelete = () => {
-  //   getRecipe(userRecipe.firebaseKey).then((obj) => {
-  //     deleteProcess(obj.firebaseKey);
-  //     deleteRecipeSteps(obj.firebaseKey);
-  //     router.push('/');
-  //   });
-  // };
+  const handleSubmit = () => {
+    const payload = {
+      completed: true,
+    };
+    updateRecipe(recipe.firebaseKey, payload).then(() => {
+      renderRecipe();
+      router.push('/read/recipes/userRecipes');
+    });
+  };
+  const checkArray = () => {
+    const query = steps.map((step) => step.direction);
+    query.filter((string) => {
+      if (string === 'trash') { console.warn('met'); }
+      console.warn('not met');
+      return false;
+    });
+  };
+  useEffect(() => {
+    renderRecipe();
+    checkArray();
+  }, [user]);
   return (
     <>
       {
-      userRecipe.methodObject
+      recipe.methodObject
         ? (
           <>
             <Navbar>
@@ -64,7 +83,7 @@ export default function CreateProcess() {
               </Nav.Link>
               <Container>
                 <Navbar.Brand>
-                  {userRecipe.recipeName ? (userRecipe.recipeName) : ('Create Recipe')}
+                  {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
                 </Navbar.Brand>
               </Container>
               <Nav.Link>
@@ -74,30 +93,30 @@ export default function CreateProcess() {
             <div>
               <div>
                 <div>
-                  <div><span>Cofee: </span>{userRecipe.dose} g</div>
-                  <div><span>Water: </span>{userRecipe.weight} g</div>
-                  <div><span>Water: </span>{userRecipe.waterTemp} F°</div>
+                  <div><span>Coffee: </span>{recipe.dose} g</div>
+                  <div><span>Water: </span>{recipe.weight} g</div>
+                  <div><span>Water: </span>{recipe.waterTemp} F°</div>
                   <h2>Ratio</h2>
                 </div>
                 <div>
                   <div>
                     <ul>
-                      <ul>Recipe: {userRecipe.methodObject.name}</ul>
-                      <ul>Brew Time: {userRecipe?.brewTime}</ul>
-                      <ul> Grind Size: {userRecipe.grindObject.grindSize}</ul>
-                      <ul>Author: {userRecipe.userObject.name}</ul>
+                      <ul>Recipe: {recipe.methodObject.name}</ul>
+                      <ul>Brew Time: {recipe?.brewTime}</ul>
+                      <ul> Grind Size: {recipe.grindObject.grindSize}</ul>
+                      <ul>Author: {recipe?.userObject?.name}</ul>
                     </ul>
                   </div>
                   <div>
                     <h1>Directions:</h1>
                   </div>
                   <div>
-                    <div>
+                    <div className="directions">
                       {
                         steps.length
                           ? (
                             sortedSteps(steps).map((step) => (
-                              <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} />
+                              <StepCard check={checkArray} key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} />
                             ))
                           )
                           : 'Add Steps'
@@ -106,7 +125,8 @@ export default function CreateProcess() {
                   </div>
                 </div>
               </div>
-              <Button size="lg" type="button" onClick={handleClick}>{steps.length ? 'View Steps' : 'Add Step'}</Button>
+              <button type="button" onClick={handleClick}>{steps.length ? 'View Steps' : 'Add Step'}</button>
+              <button type="button" onClick={handleSubmit}>{steps.length > 5 && !recipe.completed ? 'Publish' : ''}</button>
             </div>
 
             <Modal show={show} onHide={handleClose} animation={false}>

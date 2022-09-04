@@ -19,9 +19,6 @@ export default function ShowSteps() {
   const handleBack = () => {
     router.back();
   };
-  // const handleDelete = () => {
-  //   console.warn('do nothing');
-  // };
   const renderSteps = () => {
     getSteps(firebaseKey).then((array) => setSteps(array));
     getRecipe(firebaseKey).then(setRecipe);
@@ -44,9 +41,6 @@ export default function ShowSteps() {
             Directions
           </Navbar.Brand>
         </Container>
-        {/* <Nav.Link onClick={handleDelete}>
-          Delete
-        </Nav.Link> */}
       </Navbar>
       <div>
         {
