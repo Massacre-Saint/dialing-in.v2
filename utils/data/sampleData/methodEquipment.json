@@ -17,22 +17,16 @@
     "name": "AeroPress Filter",
     "methodId":"6uzMhuhbCv"
   },
-  "8w9onep8id": {
-    "firebaseKey":"8w9onep8id",
-    "type": "Metal",
-    "name": "AeroPress Filter",
-    "methodId":"6uzMhuhbCv"
-  },
-  "cwFff4eLqp": {
-    "firebaseKey":"cwFff4eLqp",
-    "type": "Utensil",
-    "name": "Spoon",
-    "methodId":"6uzMhuhbCv"
-  },
   "uNW2lFHVbu": {
     "firebaseKey":"uNW2lFHVbu",
     "type": "Digital",
     "name": "Scale",
+    "methodId":"6uzMhuhbCv"
+  },
+  "qkD21PeEoROsE7v": {
+    "firebaseKey":"qkD21PeEoROsE7v",
+    "type": "Any",
+    "name": "Kettle",
     "methodId":"6uzMhuhbCv"
   },
   "0kOCqMvuY2": {
@@ -59,12 +53,7 @@
     "name": "Chemex Filter",
     "methodId":"NvDtuJVFJi"
   },
-  "YJQyhXFxPy": {
-    "firebaseKey":"YJQyhXFxPy",
-    "type": "Metal",
-    "name": "Chemex Filter",
-    "methodId":"NvDtuJVFJi"
-  },
+
   "ngsSujYJIl": {
     "firebaseKey":"ngsSujYJIl",
     "type": "Digital",
@@ -86,7 +75,7 @@
   "h2kSYF9uo4": {
     "firebaseKey":"h2kSYF9uo4",
     "type": "",
-    "name": "Measuring Sppon",
+    "name": "Measuring Spoon",
     "methodId":"j95EoGcuvw"
   },
   "sYNOson4lQ": {
@@ -110,12 +99,6 @@
   "Maq7BgHas9": {
     "firebaseKey":"Maq7BgHas9",
     "type": "Paper Filter",
-    "name": "V60 Filter",
-    "methodId":"N8kJJM5nBq"
-  },
-  "VXzEnfUfPj": {
-    "firebaseKey":"VXzEnfUfPj",
-    "type": "Metal",
     "name": "V60 Filter",
     "methodId":"N8kJJM5nBq"
   },
