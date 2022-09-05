@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react';
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
-import { IoIosAddCircleOutline } from 'react-icons/io';
 import { useAuth } from '../../../utils/context/authContext';
 import MethodEquipCard from '../../../components/read/MethodEquipCard';
 import EquipmentCard from '../../../components/read/EquipmentCard';
 import { getAllEquipment } from '../../../utils/data/apiData/mergeData';
+import EquipmentModal from '../../../components/modal/EquipmentModal';
 
 export default function ShowEquip() {
   const router = useRouter();
@@ -22,22 +22,22 @@ export default function ShowEquip() {
       setMethodEquip(obj.method);
     });
   };
+  const handleBack = () => {
+    router.back();
+  };
   useEffect(() => {
     renderEquipment();
   }, [user]);
   return (
     <>
       <Navbar>
-        <Nav.Link>
+        <Nav.Link onClick={handleBack}>
           Back
         </Nav.Link>
         <Container>
           <Navbar.Brand>
             Equipment
           </Navbar.Brand>
-          <Nav.Link>
-            <IoIosAddCircleOutline />
-          </Nav.Link>
         </Container>
       </Navbar>
       <div>
@@ -51,9 +51,12 @@ export default function ShowEquip() {
           <h2>Recipe Equipment</h2>
           <div>
             {recipeEquip.map((obj) => (
-              <EquipmentCard key={obj.firebaseKey} />
+              <EquipmentCard key={obj.firebaseKey} onUpdate={renderEquipment} obj={obj} />
             ))}
           </div>
+        </div>
+        <div>
+          <EquipmentModal onUpdate={renderEquipment} />
         </div>
       </div>
 

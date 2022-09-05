@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 
 export default function MethodEquipCard({ obj }) {
-  console.warn(obj);
   return (
     <div>
       <Card className="step-card">

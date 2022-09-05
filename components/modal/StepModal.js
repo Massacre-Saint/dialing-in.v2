@@ -4,7 +4,6 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { useRouter } from 'next/router';
 import { createStep } from '../../utils/data/apiData/steps';
 
 const initialSate = {
@@ -13,7 +12,6 @@ const initialSate = {
 
 export default function StepModal({ stepArray, recipeObj, onUpdate }) {
   const [show, setShow] = useState(false);
-  const router = useRouter();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [formInput, setFormInput] = useState(initialSate);
@@ -41,10 +39,6 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
     };
     createStep(payload).then(() => {
       onUpdate();
-      router.push({
-        pathname: '/create/recipes/steps/showSteps',
-        query: { firebaseKey: recipeObj.firebaseKey },
-      });
     });
     handleClose();
   };
