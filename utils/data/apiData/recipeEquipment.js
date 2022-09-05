@@ -35,7 +35,7 @@ const createEquipment = (equipObj) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/recipeEquipment.json`, equipObj)
     .then((response) => {
       const payload = { firebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/steps/${response.data.name}.json`, payload)
+      axios.patch(`${dbUrl}/recipeEquipment/${response.data.name}.json`, payload)
         .then(resolve);
     }).catch(reject);
 });

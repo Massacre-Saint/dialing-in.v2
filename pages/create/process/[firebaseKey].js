@@ -45,10 +45,7 @@ export default function CreateProcess() {
     router.push('/');
   };
   const handleClick = () => {
-    router.push({
-      pathname: '/create/recipes/steps/showSteps',
-      query: { firebaseKey },
-    });
+    router.push(`/create/recipes/steps/${recipe.firebaseKey}`);
   };
   const handleSubmit = () => {
     const payload = {
@@ -56,7 +53,6 @@ export default function CreateProcess() {
     };
     updateRecipe(recipe.firebaseKey, payload).then(() => {
       renderRecipe();
-      router.push('/read/recipes/userRecipes');
     });
   };
   const handleEquipment = () => {
