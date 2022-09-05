@@ -6,6 +6,8 @@ import { getUser } from './userData';
 import { getSingleGrind } from './grind';
 import { deleteStep, getSteps } from './steps';
 import { clientCredentials } from '../../client';
+import { deleteEquipment, getRecipeEquipment } from './recipeEquipment';
+import getMethodEquipment from './methodEquipment';
 
 const dbUrl = clientCredentials.databaseURL;
 const getMethodRecipesDefault = (methodfirebaseKey) => new Promise((resolve, reject) => {
@@ -14,7 +16,14 @@ const getMethodRecipesDefault = (methodfirebaseKey) => new Promise((resolve, rej
       resolve({ ...methodObj, defaultRecipes: defaultRecipesArray });
     }).catch((error) => reject(error));
 });
-
+const deleteRecipeEquipment = (recipeId) => new Promise((resolve, reject) => {
+  getRecipeEquipment(recipeId).then((equipArray) => {
+    const deleteEquipPromises = equipArray.map((equip) => deleteEquipment(equip.firebaseKey));
+    Promise.all(deleteEquipPromises).then(() => {
+      deleteRecipe(recipeId).then(resolve);
+    });
+  }).catch((error) => reject(error));
+});
 const getSingleRecipeMethod = (recipefirebaseKey) => new Promise((resolve, reject) => {
   getRecipe(recipefirebaseKey).then((recipeObj) => {
     getSingleMethod(recipeObj.methodId).then((methodObj) => {
@@ -91,6 +100,26 @@ const getAllSteps = (firebaseKey) => new Promise((resolve, reject) => {
     })
     .catch((error) => reject(error));
 });
+const getAllEquipment = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/userRecipes/${firebaseKey}.json`)
+    .then((response) => {
+      if (response.data) {
+        getRecipe(firebaseKey).then((recipeObj) => {
+          getMethodEquipment(recipeObj.methodId).then((method) => {
+            getRecipeEquipment(recipeObj.firebaseKey).then((recipe) => resolve({ method, recipe }));
+          });
+        });
+      } else {
+        getDefaultRecipe(firebaseKey).then((recipeObj) => {
+          getMethodEquipment(recipeObj.methodId).then((method) => {
+            getRecipeEquipment(recipeObj.firebaseKey).then((recipe) => resolve({ method, recipe }));
+          });
+        });
+      }
+    })
+    .catch((error) => reject(error));
+});
+
 export {
-  getMethodRecipesDefault, getSingleRecipeMethod, getSingleRecipeUser, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps,
+  getMethodRecipesDefault, getSingleRecipeMethod, getSingleRecipeUser, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps, deleteRecipeEquipment, getAllEquipment,
 };

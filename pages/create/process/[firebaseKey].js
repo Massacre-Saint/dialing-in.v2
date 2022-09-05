@@ -59,6 +59,9 @@ export default function CreateProcess() {
       router.push('/read/recipes/userRecipes');
     });
   };
+  const handleEquipment = () => {
+    router.push(`/read/equipment/${recipe.firebaseKey}`);
+  };
   const checkArray = () => {
     const query = steps.map((step) => step.direction);
     query.filter((string) => {
@@ -86,7 +89,7 @@ export default function CreateProcess() {
                   {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
                 </Navbar.Brand>
               </Container>
-              <Nav.Link>
+              <Nav.Link onClick={handleEquipment}>
                 Equipment
               </Nav.Link>
             </Navbar>

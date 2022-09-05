@@ -45,12 +45,12 @@
   },
   "B44eiyPAPl": {
     "firebaseKey": "B44eiyPAPl",
-    "brewTime": 480,
+    "brewTime": 240,
     "grindId": "tz0QsB0Amn",
     "amount": 946,
     "methodId": "j95EoGcuvw",
     "recipeName": "4-cup Serving",
-    "dose": 22,
+    "dose": 63,
     "waterTemp": 34,
     "favorite": false
   },
@@ -91,7 +91,7 @@
     "firebaseKey": "JWuSgc9xoL",
     "brewTime": 300,
     "grindId": "MyhOOSSEKv",
-    "amount": 4,
+    "amount": 960,
     "methodId": "OnXRMvsa1o",
     "recipeName": "4 cup Auto Drip",
     "dose": 60,
@@ -102,10 +102,10 @@
     "firebaseKey": "bTdaBRgtI0",
     "brewTime": 320,
     "grindId": "ixX4sDCLoD",
-    "amount": 2,
+    "amount": 120,
     "methodId": "fzv7rFn0Ch",
     "recipeName": "Traditional Method",
-    "dose": 44,
+    "dose": 14,
     "waterTemp": 34,
     "favorite": false
   }
