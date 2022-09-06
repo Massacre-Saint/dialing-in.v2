@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react';
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import PublishRecipeButton from '../../../components/buttons/PublishRecipeButton';
+import ViewAllSteps from '../../../components/buttons/ViewAllSteps';
+import UserProcessModal from '../../../components/modal/UserProcessModal';
 import StepCard from '../../../components/read/StepCard';
 import { useAuth } from '../../../utils/context/authContext';
 import { getAllData } from '../../../utils/data/apiData/mergeData';
 import { getSteps } from '../../../utils/data/apiData/steps';
-import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
 
 export default function CreateProcess() {
   const { user } = useAuth();
@@ -28,14 +28,15 @@ export default function CreateProcess() {
     const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
     return orderedSteps;
   };
-
   const handleBack = (() => {
     setShow(false);
     router.push(`/create/recipes/${recipe.firebaseKey}`);
   });
   const handleShow = () => {
     if (recipe.uid) {
-      setShow(true);
+      if (!recipe.completed) {
+        setShow(true);
+      } else router.push('/read/recipes/userRecipes');
     } else {
       router.back();
     }
@@ -43,17 +44,6 @@ export default function CreateProcess() {
   const handleSave = () => {
     setShow(false);
     router.push('/');
-  };
-  const handleClick = () => {
-    router.push(`/create/recipes/steps/${recipe.firebaseKey}`);
-  };
-  const handleSubmit = () => {
-    const payload = {
-      completed: true,
-    };
-    updateRecipe(recipe.firebaseKey, payload).then(() => {
-      renderRecipe();
-    });
   };
   const handleEquipment = () => {
     router.push(`/read/equipment/${recipe.firebaseKey}`);
@@ -91,11 +81,15 @@ export default function CreateProcess() {
             </Navbar>
             <div>
               <div>
-                <div>
-                  <div><span>Coffee: </span>{recipe.dose} g</div>
-                  <div><span>Water: </span>{recipe.weight} g</div>
-                  <div><span>Water: </span>{recipe.waterTemp} F°</div>
-                  <h2>Ratio</h2>
+                <div className="circles">
+                  <div className="circle"><span className="circle-content">{recipe.dose} g </span></div>
+                  <div className="circle"><span className="circle-content">{recipe.weight} g</span></div>
+                  <div className="circle"><span className="circle-content">{recipe.waterTemp} F°</span></div>
+                </div>
+                <div className="circle-footer">
+                  <div>Coffe</div>
+                  <div>Water</div>
+                  <div>Temp</div>
                 </div>
                 <div>
                   <div>
@@ -103,7 +97,9 @@ export default function CreateProcess() {
                       <ul>Recipe: {recipe.methodObject.name}</ul>
                       <ul>Brew Time: {recipe?.brewTime}</ul>
                       <ul> Grind Size: {recipe.grindObject.grindSize}</ul>
-                      <ul>Author: {recipe?.userObject?.name}</ul>
+                      {!recipe.uid
+                        ? ('')
+                        : (<ul>Author: {recipe?.userObject?.name}</ul>)}
                     </ul>
                   </div>
                   <div>
@@ -118,28 +114,20 @@ export default function CreateProcess() {
                               <StepCard check={checkArray} key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} />
                             ))
                           )
-                          : 'Add Steps'
+                          : ''
                       }
                     </div>
                   </div>
                 </div>
               </div>
-              <button type="button" onClick={handleClick}>{steps.length ? 'View Steps' : 'Add Step'}</button>
-              <button type="button" onClick={handleSubmit}>{steps.length > 5 && !recipe.completed ? 'Publish' : ''}</button>
+              {
+                !recipe.uid
+                  ? ('')
+                  : (<ViewAllSteps recipe={recipe} />)
+              }
+              <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
             </div>
-
-            <Modal show={show} onHide={handleClose} animation={false}>
-              <Modal.Header closeButton />
-              <Modal.Body>Back to Edit or Save as Draft?</Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleBack}>
-                  Edit
-                </Button>
-                <Button variant="primary" onClick={handleSave}>
-                  Save Changes
-                </Button>
-              </Modal.Footer>
-            </Modal>
+            <UserProcessModal handleBack={handleBack} show={show} handleClose={handleClose} handleSave={handleSave} />
           </>
         )
         : (

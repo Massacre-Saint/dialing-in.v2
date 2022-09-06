@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { deleteStep, updateStep } from '../../utils/data/apiData/steps';
 import { getAllSteps } from '../../utils/data/apiData/mergeData';
+import EditDeleteStepsButtons from '../buttons/EditDeleteStepsButtons';
 
 const initialSate = {
   direction: '',
@@ -73,13 +74,7 @@ export default function StepCard({ stepObj, onUpdate }) {
               </Card.Body>
             </Card>
             <div>
-              {objArray.uid
-                ? (
-                  <><button type="button" onClick={handleDelete}>Delete</button>
-                    <button type="button" onClick={handleShow}>Edit</button>
-                  </>
-                )
-                : '' }
+              <EditDeleteStepsButtons handleDelete={handleDelete} handleShow={handleShow} stepObj={objArray} />
             </div>
           </>
         )}

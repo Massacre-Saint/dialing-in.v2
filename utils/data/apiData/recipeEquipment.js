@@ -15,6 +15,11 @@ const getRecipeEquipment = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getUserRecipeEquipment = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/recipeEquipment.json?orderBy="recipeId"&equalTo="${firebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
 const getSingleEquipment = (firebaseKey) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/recipeEquipment/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
@@ -41,5 +46,5 @@ const createEquipment = (equipObj) => new Promise((resolve, reject) => {
 });
 
 export {
-  getRecipeEquipment, getSingleEquipment, deleteEquipment, updateEquipment, createEquipment,
+  getRecipeEquipment, getSingleEquipment, deleteEquipment, updateEquipment, createEquipment, getUserRecipeEquipment,
 };

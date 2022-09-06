@@ -3,22 +3,31 @@ import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { deleteRecipeSteps } from '../../utils/data/apiData/mergeData';
+import { deleteRecipeSteps, deleteUserRecipeEquipment } from '../../utils/data/apiData/mergeData';
 import { deleteProcess } from '../../utils/data/apiData/process';
 
 export default function Recipes({ recipeObj, render }) {
   const router = useRouter();
   const convertTime = (total) => {
-    const totalSeconds = total;
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = totalSeconds % 60;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    seconds = seconds < 10 ? `0${seconds}` : seconds;
-    const num = `${minutes}:${seconds}`;
-    return num;
+    if (total >= 3600) {
+      const result = new Date(total * 1000).toISOString().slice(11, 19);
+      return result;
+    }
+    const result = new Date(total * 1000).toISOString().slice(14, 19);
+    return result;
+
+    // let hours = Math.floor(totalSeconds / 3600);
+    // let minutes = Math.floor(totalSeconds / 60);
+    // let seconds = totalSeconds % 60;
+    // hours = hours < 10 ? `0${hours}` : hours;
+    // minutes = minutes < 10 ? `0${minutes}` : minutes;
+    // seconds = seconds < 10 ? `0${seconds}` : seconds;
+    // const num = `${hours}:${minutes}:${seconds}`;
+    // return num;
   };
   const handleClick = (e) => {
     if (e.target.type === 'button') {
+      deleteUserRecipeEquipment(recipeObj.firebaseKey);
       deleteRecipeSteps(recipeObj.firebaseKey).then(() => {
         deleteProcess(recipeObj.processId);
         render();
