@@ -72,11 +72,11 @@ export default function WaterTempModal({ recipeObj, onUpdate }) {
         <Offcanvas.Body>
           <div>
             <Form onSubmit={handleSubmit}>
-              <FloatingLabel controlId="floatingInput1" label="Choose Water Temp Needed" className="mb-3">
+              <FloatingLabel controlId="floatingInput1" label="Water Temperature Needed" className="mb-3">
                 <Form.Control type="number" min={34} max={212} placeholder="Typically around 205" name="waterTemp" value={formInput.waterTemp} onChange={handleChange} required />
               </FloatingLabel>
-              <FloatingLabel controlId="floatingInput2" label="How much" className="mb-3">
-                <Form.Control type="number" name="weight" value={formInput.weight} onChange={handleChange} required />
+              <FloatingLabel controlId="floatingInput2" label="How much water?" className="mb-3">
+                <Form.Control type="number" name="weight" value={formInput.weight} placeholder="Water needed" onChange={handleChange} required />
               </FloatingLabel>
               <Button type="submit" variant="success">Submit</Button>
             </Form>

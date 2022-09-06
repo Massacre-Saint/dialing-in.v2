@@ -56,7 +56,7 @@ export default function ShowEquip() {
           </div>
         </div>
         <div>
-          <EquipmentModal onUpdate={renderEquipment} />
+          <EquipmentModal recipeEquip={recipeEquip} onUpdate={renderEquipment} />
         </div>
       </div>
 

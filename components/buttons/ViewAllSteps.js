@@ -6,9 +6,8 @@ import { useAuth } from '../../utils/context/authContext';
 export default function ViewAllSteps({ recipe }) {
   const { user } = useAuth();
   const router = useRouter();
-  const { firebaseKey } = router.query;
   const handleClick = () => {
-    router.push(`/create/recipes/steps/${firebaseKey}`);
+    router.push(`/create/recipes/steps/${recipe.firebaseKey}`);
   };
   return (
     <>
@@ -28,11 +27,13 @@ ViewAllSteps.propTypes = {
   recipe: PropTypes.shape({
     uid: PropTypes.string,
     completed: PropTypes.bool,
+    firebaseKey: PropTypes.string,
   }),
 };
 ViewAllSteps.defaultProps = {
   recipe: PropTypes.shape({
     uid: '',
     completed: true,
+    firebaseKey: '',
   }),
 };

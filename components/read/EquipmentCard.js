@@ -64,7 +64,9 @@ export default function EquipmentCard({ obj, onUpdate }) {
             height: 'auto',
           }}
         >
-          <Offcanvas.Header closeButton />
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Descripe this step</Offcanvas.Title>
+          </Offcanvas.Header>
           <Offcanvas.Body>
             <Form onSubmit={handleSubmit}>
               <FloatingLabel controlId="floatingInput1" label="Equipment Name" className="mb-3">
