@@ -20,7 +20,7 @@ export default function ChooseMethod() {
 
   return (
     <>
-      <Navbar sticky="top" bg="light">
+      <Navbar sticky="top">
         <Nav.Link onClick={handleClick}>
           Go back
         </Nav.Link>
@@ -31,7 +31,7 @@ export default function ChooseMethod() {
         </Container>
       </Navbar>
       <div>
-        <div>
+        <div className="grinds">
           {grinds.map((i) => (
             <Grind key={i.firebaseKey} grindObj={i} />
           ))}

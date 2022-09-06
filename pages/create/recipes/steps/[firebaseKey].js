@@ -38,11 +38,11 @@ export default function ShowSteps() {
         </Nav.Link>
         <Container>
           <Navbar.Brand>
-            Directions
+            Steps
           </Navbar.Brand>
         </Container>
       </Navbar>
-      <div>
+      <div className="steps">
         {
       steps.length
         ? (
@@ -53,7 +53,13 @@ export default function ShowSteps() {
         : 'Add Steps'
     }
       </div>
-      <StepModal onUpdate={renderSteps} stepArray={steps} recipeObj={recipe} />
+      {recipe.completed
+        ? (
+          ''
+        )
+        : (
+          <StepModal onUpdate={renderSteps} stepArray={steps} recipeObj={recipe} />
+        )}
     </>
   );
 }

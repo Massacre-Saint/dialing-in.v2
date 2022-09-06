@@ -24,10 +24,40 @@ body {
   height: 40vh;
   overflow-y: auto;
 }
+.steps {
+  height:80vh;
+  overflow-y: auto;
+}
 .step-card {
   margin-top: 20px;
+}
+.grinds {
+  height: 90vh;
+  overflow-y: auto;
 }
 button {
   background-color: transparent;
   border: none;
+}
+.circles {
+  display: flex;
+  justify-content:space-around;
+  width: 100%;
+}
+.circle {
+  border: 2px solid black;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: azure;
+}
+.circle-content {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 35px;
+}
+.circle-footer {
+  display: flex;
+  justify-content: space-around;
+  font-weight: bolder;
 }

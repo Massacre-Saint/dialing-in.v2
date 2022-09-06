@@ -1,14 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { useRouter } from 'next/router';
 import EditDeleteEquip from '../buttons/EditDeleteEquip';
-import EquipmentForm from '../forms/EquipmentForm';
+import { updateEquipment } from '../../utils/data/apiData/recipeEquipment';
 
+const initialSate = {
+  type: '',
+  name: '',
+  setting: '',
+};
 export default function EquipmentCard({ obj, onUpdate }) {
+  const router = useRouter();
+  const [formInput, setFormInput] = useState(initialSate);
+  const { firebaseKey } = router.query;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      ...formInput,
+      recipeId: firebaseKey,
+    };
+    updateEquipment(obj.firebaseKey, payload).then(() => {
+      onUpdate();
+    });
+    handleClose();
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  useEffect(() => {
+    setFormInput(obj);
+  }, [obj]);
   return (
     <>
       <div>
@@ -33,7 +66,18 @@ export default function EquipmentCard({ obj, onUpdate }) {
         >
           <Offcanvas.Header closeButton />
           <Offcanvas.Body>
-            <EquipmentForm obj={obj} onUpdate={onUpdate} handleClose={handleClose} />
+            <Form onSubmit={handleSubmit}>
+              <FloatingLabel controlId="floatingInput1" label="Equipment Name" className="mb-3">
+                <Form.Control type="text" value={formInput.name} onChange={handleChange} name="name" required />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingInput2" label="What kind?" className="mb-3">
+                <Form.Control type="text" value={formInput.type} onChange={handleChange} name="type" required />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingInput3" label="Certain setting?" className="mb-3">
+                <Form.Control type="text" value={formInput.setting} onChange={handleChange} name="setting" />
+              </FloatingLabel>
+              <Button type="submit" variant="success">Submit</Button>
+            </Form>
           </Offcanvas.Body>
         </Offcanvas>
       </div>
@@ -48,13 +92,6 @@ EquipmentCard.propTypes = {
     type: PropTypes.string,
     setting: PropTypes.string,
   }),
-  // recipeEquip: PropTypes.arrayOf((PropTypes.shape({
-  //   firebaseKey: PropTypes.string,
-  //   type: PropTypes.string,
-  //   name: PropTypes.string,
-  //   recipeId: PropTypes.string,
-  //   setting: PropTypes.string,
-  // }))),
   onUpdate: PropTypes.func.isRequired,
 };
 EquipmentCard.defaultProps = {
@@ -65,11 +102,4 @@ EquipmentCard.defaultProps = {
     type: '',
     setting: '',
   }),
-  // recipeEquip: PropTypes.arrayOf((PropTypes.shape({
-  //   firebaseKey: '',
-  //   type: '',
-  //   name: '',
-  //   recipeId: '',
-  //   setting: '',
-  // }))),
 };

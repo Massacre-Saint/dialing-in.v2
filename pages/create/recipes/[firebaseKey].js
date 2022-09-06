@@ -2,8 +2,6 @@
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../utils/context/authContext';
@@ -13,6 +11,8 @@ import ChooseMethodCard from '../../../components/create/recipes/ChooseMethodCar
 import ChooseTempCard from '../../../components/create/recipes/ChooseTempCard';
 import CreateNameCard from '../../../components/create/recipes/CreateNameCard';
 import { createProcess, deleteProcess, getProcess } from '../../../utils/data/apiData/process';
+import DeleteRecipeModal from '../../../components/modal/DeleteRecipeModal';
+import ChooseBrewTime from '../../../components/create/recipes/ChooseBrewTime';
 
 export default function CreateRecipe() {
   const { user } = useAuth();
@@ -71,29 +71,17 @@ export default function CreateRecipe() {
           </Navbar.Brand>
         </Container>
         <Nav.Link onClick={handleSubmit}>
-          {userRecipe.recipeName ? 'Submit' : ''}
+          {Object.values(userRecipe).length > 8 ? 'Submit' : ''}
         </Nav.Link>
       </Navbar>
       <div>
         {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />) }
         {userRecipe.methodId ? (<ChooseGrindCard recipeObj={userRecipe} />) : ''}
         {userRecipe.grindId ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
-        {Object.values(userRecipe).length < 5 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={userRecipe} />)}
+        {userRecipe.weight ? (<ChooseBrewTime onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
+        {Object.values(userRecipe).length < 8 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={userRecipe} />)}
       </div>
-      <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Hold Up!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Going back will delete recipe. Are you sure?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClick}>
-            No
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteRecipeModal show={show} handleClose={handleClose} handleClick={handleClick} handleDelete={handleDelete} />
     </>
   );
 }

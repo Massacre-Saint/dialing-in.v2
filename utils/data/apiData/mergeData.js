@@ -6,24 +6,25 @@ import { getUser } from './userData';
 import { getSingleGrind } from './grind';
 import { deleteStep, getSteps } from './steps';
 import { clientCredentials } from '../../client';
-import { deleteEquipment, getRecipeEquipment } from './recipeEquipment';
+import { deleteEquipment, getRecipeEquipment, getUserRecipeEquipment } from './recipeEquipment';
 import getMethodEquipment from './methodEquipment';
 
 const dbUrl = clientCredentials.databaseURL;
+
 const getMethodRecipesDefault = (methodfirebaseKey) => new Promise((resolve, reject) => {
   Promise.all([getSingleMethod(methodfirebaseKey), getDefaultRecipesByMethod(methodfirebaseKey)])
     .then(([methodObj, defaultRecipesArray]) => {
       resolve({ ...methodObj, defaultRecipes: defaultRecipesArray });
     }).catch((error) => reject(error));
 });
-const deleteRecipeEquipment = (recipeId) => new Promise((resolve, reject) => {
-  getRecipeEquipment(recipeId).then((equipArray) => {
+
+const deleteUserRecipeEquipment = (firebaseKey) => new Promise((resolve, reject) => {
+  getUserRecipeEquipment(firebaseKey).then((equipArray) => {
     const deleteEquipPromises = equipArray.map((equip) => deleteEquipment(equip.firebaseKey));
-    Promise.all(deleteEquipPromises).then(() => {
-      deleteRecipe(recipeId).then(resolve);
-    });
+    Promise.all(deleteEquipPromises).then(resolve);
   }).catch((error) => reject(error));
 });
+
 const getSingleRecipeMethod = (recipefirebaseKey) => new Promise((resolve, reject) => {
   getRecipe(recipefirebaseKey).then((recipeObj) => {
     getSingleMethod(recipeObj.methodId).then((methodObj) => {
@@ -121,5 +122,5 @@ const getAllEquipment = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getMethodRecipesDefault, getSingleRecipeMethod, getSingleRecipeUser, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps, deleteRecipeEquipment, getAllEquipment,
+  getMethodRecipesDefault, getSingleRecipeMethod, getSingleRecipeUser, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps, deleteUserRecipeEquipment, getAllEquipment,
 };
