@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSingleMethod } from './methods';
 import { getDefaultRecipe, getDefaultRecipesByMethod } from './defaultRecipes';
-import { deleteRecipe, getRecipe } from './userRecipes';
+import { deleteRecipe, getRecipe, getUserRecipesByMethod } from './userRecipes';
 import { getUser } from './userData';
 import { getSingleGrind } from './grind';
 import { deleteStep, getSteps } from './steps';
@@ -17,7 +17,13 @@ const getMethodRecipesDefault = (methodfirebaseKey) => new Promise((resolve, rej
       resolve({ ...methodObj, defaultRecipes: defaultRecipesArray });
     }).catch((error) => reject(error));
 });
-
+const getMethodRecipesUser = (methodFirebaseKey) => new Promise((resolve, reject) => {
+  Promise.all([getSingleMethod(methodFirebaseKey),
+    getUserRecipesByMethod(methodFirebaseKey)])
+    .then(([methodObj, userRecipesArray]) => {
+      resolve({ ...methodObj, userRecipes: userRecipesArray });
+    }).catch((error) => reject(error));
+});
 const deleteUserRecipeEquipment = (firebaseKey) => new Promise((resolve, reject) => {
   getUserRecipeEquipment(firebaseKey).then((equipArray) => {
     const deleteEquipPromises = equipArray.map((equip) => deleteEquipment(equip.firebaseKey));
@@ -107,13 +113,13 @@ const getAllEquipment = (firebaseKey) => new Promise((resolve, reject) => {
       if (response.data) {
         getRecipe(firebaseKey).then((recipeObj) => {
           getMethodEquipment(recipeObj.methodId).then((method) => {
-            getRecipeEquipment(recipeObj.firebaseKey).then((recipe) => resolve({ method, recipe }));
+            getRecipeEquipment(recipeObj.firebaseKey).then((recipe) => resolve({ ...recipeObj, method, recipe }));
           });
         });
       } else {
         getDefaultRecipe(firebaseKey).then((recipeObj) => {
           getMethodEquipment(recipeObj.methodId).then((method) => {
-            getRecipeEquipment(recipeObj.firebaseKey).then((recipe) => resolve({ method, recipe }));
+            getRecipeEquipment(recipeObj.firebaseKey).then((recipe) => resolve({ ...recipeObj, method, recipe }));
           });
         });
       }
@@ -122,5 +128,5 @@ const getAllEquipment = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getMethodRecipesDefault, getSingleRecipeMethod, getSingleRecipeUser, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps, deleteUserRecipeEquipment, getAllEquipment,
+  getMethodRecipesDefault, getSingleRecipeMethod, getSingleRecipeUser, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps, deleteUserRecipeEquipment, getAllEquipment, getMethodRecipesUser,
 };
