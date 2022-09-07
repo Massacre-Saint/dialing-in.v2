@@ -14,14 +14,19 @@ export default function ShowEquip() {
   const router = useRouter();
   const { user } = useAuth();
   const { firebaseKey } = router.query;
+  const [recipe, setRecipe] = useState({});
   const [methodEquip, setMethodEquip] = useState([]);
   const [recipeEquip, setRecipeEquip] = useState([]);
+  console.warn(firebaseKey);
   const renderEquipment = () => {
     getAllEquipment(firebaseKey).then((obj) => {
+      console.warn(obj);
+      setRecipe(obj);
       setRecipeEquip(obj.recipe);
       setMethodEquip(obj.method);
     });
   };
+
   const handleBack = () => {
     router.back();
   };
@@ -56,7 +61,15 @@ export default function ShowEquip() {
           </div>
         </div>
         <div>
-          <EquipmentModal recipeEquip={recipeEquip} onUpdate={renderEquipment} />
+          {
+            recipe.uid !== user.uid
+              ? (
+                ''
+              )
+              : (
+                <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
+              )
+          }
         </div>
       </div>
 

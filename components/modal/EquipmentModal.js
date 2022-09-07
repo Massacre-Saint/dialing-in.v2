@@ -14,7 +14,7 @@ const initialSate = {
   name: '',
   setting: '',
 };
-export default function EquipmentModal({ recipeEquip, onUpdate }) {
+export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
   const router = useRouter();
   const { firebaseKey } = router.query;
   const [show, setShow] = useState(false);
@@ -44,7 +44,9 @@ export default function EquipmentModal({ recipeEquip, onUpdate }) {
   };
   return (
     <>
-      <AddEquipButton handleShow={handleShow} />
+      {recipe.completed === true
+        ? ('')
+        : (<AddEquipButton handleShow={handleShow} />)}
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -79,9 +81,17 @@ EquipmentModal.propTypes = {
   recipeEquip: PropTypes.arrayOf((PropTypes.shape({
     firebaseKey: PropTypes.string,
   }))),
+  recipe: PropTypes.shape({
+    completed: PropTypes.bool,
+    firebaseKey: PropTypes.string,
+  }),
 };
 EquipmentModal.defaultProps = {
   recipeEquip: PropTypes.arrayOf((PropTypes.shape({
     firebaseKey: '',
   }))),
+  recipe: PropTypes.shape({
+    completed: false,
+    firebaseKey: '',
+  }),
 };

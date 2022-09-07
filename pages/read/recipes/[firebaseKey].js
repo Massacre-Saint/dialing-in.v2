@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { getMethodRecipesDefault } from '../../../utils/data/apiData/mergeData';
+import { getMethodRecipesDefault, getMethodRecipesUser } from '../../../utils/data/apiData/mergeData';
 import { createRecipe, getRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
 import { useAuth } from '../../../utils/context/authContext';
@@ -17,13 +17,18 @@ export default function MethodRecipes() {
   const router = useRouter();
   const { firebaseKey } = router.query;
   const [recipes, setRecipes] = useState([]);
+  const [userRecipes, setUserRecipes] = useState([]);
   const [method, setMethod] = useState({});
   const getRoutedRecipes = () => {
     getMethodRecipesDefault(firebaseKey).then((methodObj) => {
       setMethod(methodObj);
       setRecipes(methodObj.defaultRecipes);
     });
+    getMethodRecipesUser(firebaseKey).then((methodObj) => {
+      setUserRecipes(methodObj.userRecipes);
+    });
   };
+  console.warn(userRecipes);
   const handleClick = () => {
     if (!user) {
       router.push('/settings');
@@ -67,6 +72,15 @@ export default function MethodRecipes() {
         </Nav.Link>
       </Navbar>
       <div>
+        {
+          userRecipes.length
+            ? (
+              userRecipes.map(((recipe) => (
+                <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
+              )))
+            )
+            : ('')
+        }
         {recipes.map((recipe) => (
           <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
         ))}
