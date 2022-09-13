@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 
 export default function AddEquipButton({ handleShow }) {
   return (
     <>
-      <Button type="button" onClick={handleShow}>Add Equipment</Button>
+      <button type="button" className="btn-lg btn-span-lg-bottom" onClick={handleShow}>Add Equipment</button>
     </>
   );
 }

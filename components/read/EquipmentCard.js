@@ -43,13 +43,11 @@ export default function EquipmentCard({ obj, onUpdate }) {
   }, [obj]);
   return (
     <>
-      <div>
-        <div className="step-card">
-          <div className="step-card-body">
-            <div>{obj.name}</div>
-            <div>{obj?.type}</div>
-            <div>{obj?.setting}</div>
-          </div>
+      <div className="equip-card">
+        <div className="equip-card-body">
+          <div>{obj.name}</div>
+          <div>{obj?.type}</div>
+          <div>{obj?.setting}</div>
         </div>
         <EditDeleteEquip handleShow={handleShow} obj={obj} onUpdate={onUpdate} />
       </div>

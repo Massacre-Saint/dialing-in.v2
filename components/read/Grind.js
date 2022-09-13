@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, Button } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import InputGroup from 'react-bootstrap/InputGroup';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { updateRecipe, getRecipe } from '../../utils/data/apiData/userRecipes';
@@ -73,9 +73,10 @@ export default function Grind({ grindObj }) {
         <Offcanvas.Body>
           <div>
             <Form onSubmit={handleSubmit}>
-              <FloatingLabel controlId="floatingInput1" label="How many grams of coffee?" className="mb-3">
-                <Form.Control type="number" name="dose" value={formInput.dose} onChange={handleChange} required />
-              </FloatingLabel>
+              <InputGroup className="mb-3">
+                <Form.Control type="number" name="dose" value={formInput.dose} onChange={handleChange} required aria-label="Amount (to the nearest gram)" />
+                <InputGroup.Text>grams</InputGroup.Text>
+              </InputGroup>
               <div>
                 <Button type="submit" variant="success">Submit</Button>
               </div>

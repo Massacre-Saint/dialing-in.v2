@@ -53,7 +53,7 @@ export default function ShowEquip() {
             <>
               <div>
                 <h2>Recipe Equipment</h2>
-                <div>
+                <div className="steps">
                   {recipeEquip.map((obj) => (
                     <EquipmentCard key={obj.firebaseKey} onUpdate={renderEquipment} obj={obj} />
                   ))}

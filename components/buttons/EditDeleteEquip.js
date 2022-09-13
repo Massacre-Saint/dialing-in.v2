@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MdDeleteForever } from 'react-icons/md';
+import { AiFillEdit } from 'react-icons/ai';
 import { deleteEquipment } from '../../utils/data/apiData/recipeEquipment';
 
 export default function EditDeleteEquip({ handleShow, obj, onUpdate }) {
@@ -8,9 +10,9 @@ export default function EditDeleteEquip({ handleShow, obj, onUpdate }) {
     onUpdate();
   };
   return (
-    <div className="card-delete">
-      <button type="button" onClick={handleDelete}>Delete</button>
-      <button type="button" onClick={handleShow}>Edit</button>
+    <div className="card-delete-btn">
+      <button type="button" aria-label="delete" className="btn-stripped" onClick={handleDelete}><MdDeleteForever /></button>
+      <button type="button" aria-label="edit" className="btn-stripped" onClick={handleShow}><AiFillEdit /></button>
     </div>
   );
 }
