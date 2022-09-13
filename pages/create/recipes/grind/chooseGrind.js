@@ -13,10 +13,10 @@ export default function ChooseMethod() {
   const router = useRouter();
   const [grinds, setGrinds] = useState([]);
   const handleClick = (router.back);
-
   useEffect(() => {
     getGrinds().then(setGrinds);
   }, [user]);
+  const sortedGrinds = grinds.sort((a, b) => ((a.order > b.order) ? 1 : -1));
   return (
     <>
       <Navbar sticky="top" className="navbar">
@@ -29,7 +29,7 @@ export default function ChooseMethod() {
       </Navbar>
       <div className="grinds-page">
         <div className="grinds">
-          {grinds.map((i) => (
+          {sortedGrinds.map((i) => (
             <Grind key={i.firebaseKey} grindObj={i} />
           ))}
         </div>
