@@ -48,7 +48,7 @@ export default function CreateNameModal({ recipeObj, onUpdate }) {
     <>
       <Card style={{ width: 'auto' }} onClick={handleShow}>
         <Card.Body>
-          <Card.Title>Recipe Name?</Card.Title>
+          <Card.Title>Recipe Name</Card.Title>
           <Card.Text>{recipeObj.recipeName}</Card.Text>
         </Card.Body>
       </Card>

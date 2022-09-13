@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { IoIosArrowBack, IoIosAddCircleOutline } from 'react-icons/io';
+import { IoIosAddCircleOutline } from 'react-icons/io';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { IconContext } from 'react-icons/lib';
 import { getMethodRecipesDefault, getMethodRecipesUser } from '../../../utils/data/apiData/mergeData';
 import { createRecipe, getRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
 import { useAuth } from '../../../utils/context/authContext';
 import MainNavBar from '../../../components/MainNavBar';
+import DefaultRecipes from '../../../components/read/DefaultRecipes';
 
 export default function MethodRecipes() {
   const { user } = useAuth();
@@ -28,7 +29,6 @@ export default function MethodRecipes() {
       setUserRecipes(methodObj.userRecipes);
     });
   };
-  console.warn(userRecipes);
   const handleClick = () => {
     if (!user) {
       router.push('/settings');
@@ -50,30 +50,22 @@ export default function MethodRecipes() {
   }, [user]);
   return (
     <>
-      <Navbar>
+      <Navbar className="navbar">
         <Nav.Link onClick={router.back}>
-          <IoIosArrowBack />
-          Methods
+          <button className="btn-sm" type="button">&#8249; Methods</button>
         </Nav.Link>
-        <Container>
-          <Navbar.Brand>
-            <Image
-              alt=""
-              src="/logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            {method.name} Recipes
-          </Navbar.Brand>
-        </Container>
-        <Nav.Link onClick={handleClick}>
-          <IoIosAddCircleOutline />
+        <div className="page-title">
+          {method.name}
+        </div>
+        <Nav.Link onClick={handleClick} className="nav-cta">
+          <IconContext.Provider value={{ size: '2em' }}>
+            <IoIosAddCircleOutline />
+          </IconContext.Provider>
         </Nav.Link>
       </Navbar>
       <div>
         {
-          userRecipes.length
+          userRecipes.length && user
             ? (
               userRecipes.map(((recipe) => (
                 <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
@@ -82,7 +74,7 @@ export default function MethodRecipes() {
             : ('')
         }
         {recipes.map((recipe) => (
-          <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
+          <DefaultRecipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
         ))}
       </div>
       <MainNavBar />

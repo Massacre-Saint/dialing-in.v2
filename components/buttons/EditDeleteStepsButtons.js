@@ -1,33 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MdDeleteForever } from 'react-icons/md';
+import { AiFillEdit } from 'react-icons/ai';
 
-export default function EditDeleteStepsButtons({ handleDelete, handleShow, stepObj }) {
+export default function EditDeleteStepsButtons({
+  handleDelete, handleShow, recipeObj,
+}) {
   return (
-    <>
-      {stepObj.completed
+    <div className="card-delete">
+      {recipeObj.completed === true
         ? (
           ''
         )
         : (
           <>
-            <button type="button" onClick={handleDelete}>Delete</button>
-            <button type="button" onClick={handleShow}>Edit</button>
+            <button type="button" className="btn-stripped" onClick={handleDelete} aria-label="delete"><MdDeleteForever /></button>
+            <button type="button" className="btn-stripped" onClick={handleShow} aria-label="edit"><AiFillEdit /></button>
           </>
         )}
-    </>
+    </div>
   );
 }
 EditDeleteStepsButtons.propTypes = {
   handleDelete: PropTypes.func.isRequired,
   handleShow: PropTypes.func.isRequired,
-  stepObj: PropTypes.shape({
-    uid: PropTypes.string,
+  recipeObj: PropTypes.shape({
     completed: PropTypes.bool,
   }),
 };
 EditDeleteStepsButtons.defaultProps = {
-  stepObj: PropTypes.shape({
-    uid: '',
+  recipeObj: PropTypes.shape({
     completed: false,
   }),
 };

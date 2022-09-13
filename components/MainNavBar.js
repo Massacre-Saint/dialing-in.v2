@@ -4,8 +4,8 @@ import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
 import { BiBookReader } from 'react-icons/bi';
-import { MdOutlineCoffeeMaker } from 'react-icons/md';
-import { GrFavorite, GrLogin } from 'react-icons/gr';
+import { AiOutlineHome } from 'react-icons/ai';
+import { FiLogIn, FiHeart } from 'react-icons/fi';
 import { useAuth } from '../utils/context/authContext';
 import SettingsModal from './modal/SettingsModal';
 
@@ -16,33 +16,38 @@ export default function MainNavBar() {
   };
 
   return (
-    <Navbar onClickCapture={handleClick} fixed="bottom" collapseOnSelect expand="true" bg="transparent" variant="dark">
+    <Navbar className="main-nav" onClickCapture={handleClick} fixed="bottom" collapseOnSelect expand="true">
       {
         user
           ? (
             <Container>
-              <Nav.Link href="read/recipes/userRecipes">
+              <Nav.Link href="/read/recipes/userRecipes" className="nav-item">
                 <BiBookReader id="user-recipe" />
+                Recipes
               </Nav.Link>
-              <Nav.Link id="home">
-                <MdOutlineCoffeeMaker />
+              <Nav.Link id="home" className="nav-item">
+                <AiOutlineHome />
+                Home
               </Nav.Link>
-              <Nav.Link id="fav" href="read/recipes/saved">
-                <GrFavorite />
+              <Nav.Link id="fav" href="/read/recipes/saved" className="nav-item">
+                <FiHeart />
+                Favorites
               </Nav.Link>
-              <Nav.Link>
+              <Nav.Link className="nav-item">
                 <SettingsModal />
+                Settings
               </Nav.Link>
             </Container>
           )
           : (
             <Container>
-              <Nav.Link href="/">
-                <MdOutlineCoffeeMaker />
+              <Nav.Link href="/" className="nav-item">
+                <AiOutlineHome />
+                Home
               </Nav.Link>
-              <Nav.Link href="/settings">
+              <Nav.Link href="/settings" className="nav-item">
+                <FiLogIn />
                 Login
-                <GrLogin />
               </Nav.Link>
             </Container>
           )

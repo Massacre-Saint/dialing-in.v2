@@ -4,7 +4,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { GrUserSettings } from 'react-icons/gr';
+import { FiSettings } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import AuthenticationButton from '../buttons/AuthenticationButton';
 
@@ -19,9 +19,9 @@ export default function SettingsModal() {
   };
   return (
     <>
-      <Button variant="link" onClick={handleShow}>
-        <GrUserSettings />
-      </Button>
+      <button type="button" variant="link" onClick={handleShow} className="btn-stripped nav-item">
+        <FiSettings />
+      </button>
       <Offcanvas
         show={show}
         onHide={handleClose}

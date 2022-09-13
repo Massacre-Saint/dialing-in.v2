@@ -14,14 +14,14 @@ export default function PublishRecipeButton({ onUpdate, steps, recipe }) {
   return (
     <>
       {
-        recipe.uid
-          ? (
-            <button type="button" onClick={handleSubmit}>{steps.length > 4 && !recipe.completed ? 'Publish' : ''}</button>
-          )
-          : (
-            ''
-          )
-      }
+      steps.length > 4 && !recipe.completed
+        ? (
+          <button type="button" onClick={handleSubmit}>Publish</button>
+        )
+        : (
+          ''
+        )
+    }
     </>
   );
 }

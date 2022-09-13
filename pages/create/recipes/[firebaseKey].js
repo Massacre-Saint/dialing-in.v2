@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -61,18 +61,13 @@ export default function CreateRecipe() {
   }, [user]);
   return (
     <>
-      <Navbar>
+      <Navbar className="navbar">
         <Nav.Link onClick={handleShow}>
-          Back
+          <button className="btn-sm" type="button">&#8249; Back</button>
         </Nav.Link>
-        <Container>
-          <Navbar.Brand>
-            {userRecipe.recipeName ? (userRecipe.recipeName) : ('Create Recipe')}
-          </Navbar.Brand>
-        </Container>
-        <Nav.Link onClick={handleSubmit}>
-          {Object.values(userRecipe).length > 8 ? 'Submit' : ''}
-        </Nav.Link>
+        <div className="page-title">
+          {userRecipe.recipeName ? (userRecipe.recipeName) : ('Create Recipe')}
+        </div>
       </Navbar>
       <div>
         {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />) }
@@ -80,6 +75,18 @@ export default function CreateRecipe() {
         {userRecipe.grindId ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
         {userRecipe.weight ? (<ChooseBrewTime onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
         {Object.values(userRecipe).length < 8 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={userRecipe} />)}
+      </div>
+      <div>
+        {Object.values(userRecipe).length > 8
+          ? (
+            <>
+              <div className="submit-prompt">
+                <p>Let&apos;s move on to more details!</p>
+              </div>
+              <button onClick={handleSubmit} type="submit" className="btn-submit">Submit</button>
+            </>
+          )
+          : ('')}
       </div>
       <DeleteRecipeModal show={show} handleClose={handleClose} handleClick={handleClick} handleDelete={handleDelete} />
     </>

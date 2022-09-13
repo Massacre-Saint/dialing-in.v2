@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Form from 'react-bootstrap/Form';
@@ -13,10 +12,9 @@ import EditDeleteStepsButtons from '../buttons/EditDeleteStepsButtons';
 const initialSate = {
   direction: '',
 };
-export default function StepCard({ stepObj, onUpdate }) {
+export default function StepCard({ stepObj, onUpdate, recipeObj }) {
   const [show, setShow] = useState(false);
   const router = useRouter();
-  const [objArray, setObjArray] = useState({});
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [formInput, setFormInput] = useState(initialSate);
@@ -43,8 +41,7 @@ export default function StepCard({ stepObj, onUpdate }) {
     });
   };
   useEffect(() => {
-    getAllSteps(stepObj.recipeId).then((response) => {
-      setObjArray(response);
+    getAllSteps(stepObj.recipeId).then(() => {
       setFormInput(stepObj);
     });
   }, [stepObj]);
@@ -52,29 +49,25 @@ export default function StepCard({ stepObj, onUpdate }) {
     <>
       {router.pathname.includes('/process')
         ? (
-          <Card className="step-card">
-            <Card.Body>
-              <Card.Title>Step: {stepObj?.order}</Card.Title>
-              <Card.Text />
+          <div className="step-card">
+            <div className="step-card-body">
+              <div className="step-num">{stepObj?.order}.</div>
               <div>
                 <span>{stepObj?.direction}</span>
               </div>
-            </Card.Body>
-          </Card>
+            </div>
+          </div>
         )
         : (
           <>
-            <Card className="step-card">
-              <Card.Body>
-                <Card.Title>Step: {stepObj?.order}</Card.Title>
-                <Card.Text />
+            <div className="step-card">
+              <div className="step-card-body">
+                <div className="step-num">{stepObj?.order}.</div>
                 <div>
                   <span>{stepObj?.direction}</span>
                 </div>
-              </Card.Body>
-            </Card>
-            <div>
-              <EditDeleteStepsButtons handleDelete={handleDelete} handleShow={handleShow} stepObj={objArray} />
+              </div>
+              <EditDeleteStepsButtons handleDelete={handleDelete} handleShow={handleShow} recipeObj={recipeObj} />
             </div>
           </>
         )}
@@ -112,6 +105,9 @@ StepCard.propTypes = {
     uid: PropTypes.string,
   }),
   onUpdate: PropTypes.func,
+  recipeObj: PropTypes.shape({
+    completed: PropTypes.bool,
+  }),
 };
 
 StepCard.defaultProps = {
@@ -123,4 +119,7 @@ StepCard.defaultProps = {
     uid: '',
   }),
   onUpdate: () => {},
+  recipeObj: PropTypes.shape({
+    completed: false,
+  }),
 };

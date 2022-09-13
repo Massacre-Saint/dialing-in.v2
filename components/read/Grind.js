@@ -53,8 +53,8 @@ export default function Grind({ grindObj }) {
     getRecipe(firebaseKey).then(setUserRecipe);
   }, [user]);
   return (
-    <div>
-      <Image width="200x" thumbnail src={grindObj.imageUrl} onClick={handleClick} />
+    <div className="images">
+      <Image className="image" src={grindObj.imageUrl} onClick={handleClick} />
       <h4>{grindObj.grindSize}</h4>
       <Offcanvas
         show={show}
@@ -91,6 +91,7 @@ Grind.propTypes = {
       imageUrl: PropTypes.string,
       grindSize: PropTypes.string,
       specified: PropTypes.bool,
+      order: PropTypes.number,
     },
   ),
 };
@@ -101,6 +102,7 @@ Grind.defaultProps = {
       imageUrl: '',
       grindSize: '',
       specified: false,
+      order: 0,
     },
   ),
 };

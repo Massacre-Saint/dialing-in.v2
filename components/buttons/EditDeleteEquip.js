@@ -8,10 +8,10 @@ export default function EditDeleteEquip({ handleShow, obj, onUpdate }) {
     onUpdate();
   };
   return (
-    <>
+    <div className="card-delete">
       <button type="button" onClick={handleDelete}>Delete</button>
       <button type="button" onClick={handleShow}>Edit</button>
-    </>
+    </div>
   );
 }
 EditDeleteEquip.propTypes = {

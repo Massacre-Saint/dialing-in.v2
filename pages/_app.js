@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 import { AuthProvider } from '../utils/context/authContext';
 import ViewDirectorBasedOnUserAuthStatus from '../utils/ViewDirector';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 function MyApp({ Component, pageProps }) {
   return (

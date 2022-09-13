@@ -8,6 +8,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRouter } from 'next/router';
 import { createEquipment } from '../../utils/data/apiData/recipeEquipment';
 import AddEquipButton from '../buttons/AddEquipButton';
+import { useAuth } from '../../utils/context/authContext';
 
 const initialSate = {
   type: '',
@@ -16,6 +17,7 @@ const initialSate = {
 };
 export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
   const router = useRouter();
+  const { user } = useAuth();
   const { firebaseKey } = router.query;
   const [show, setShow] = useState(false);
   const [formInput, setFormInput] = useState(initialSate);
@@ -44,9 +46,9 @@ export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
   };
   return (
     <>
-      {recipe.completed === true
-        ? ('')
-        : (<AddEquipButton handleShow={handleShow} />)}
+      {recipe.uid === user.uid && recipe.completed !== true
+        ? (<AddEquipButton handleShow={handleShow} />)
+        : ('')}
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -83,6 +85,7 @@ EquipmentModal.propTypes = {
   }))),
   recipe: PropTypes.shape({
     completed: PropTypes.bool,
+    uid: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };
@@ -92,6 +95,7 @@ EquipmentModal.defaultProps = {
   }))),
   recipe: PropTypes.shape({
     completed: false,
+    uid: '',
     firebaseKey: '',
   }),
 };

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
 import { getGrinds } from '../../../../utils/data/apiData/grind';
@@ -17,18 +17,15 @@ export default function ChooseMethod() {
   useEffect(() => {
     getGrinds().then(setGrinds);
   }, [user]);
-
   return (
     <>
-      <Navbar sticky="top">
+      <Navbar sticky="top" className="navbar">
         <Nav.Link onClick={handleClick}>
-          Go back
+          <button className="btn-sm" type="button">&#8249; Back</button>
         </Nav.Link>
-        <Container>
-          <Navbar.Brand>
-            Choose Grind
-          </Navbar.Brand>
-        </Container>
+        <div className="page-title">
+          Choose Grind
+        </div>
       </Navbar>
       <div>
         <div className="grinds">
