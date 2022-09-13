@@ -27,7 +27,7 @@ export default function ChooseMethod() {
           Choose Grind
         </div>
       </Navbar>
-      <div>
+      <div className="grinds-page">
         <div className="grinds">
           {grinds.map((i) => (
             <Grind key={i.firebaseKey} grindObj={i} />

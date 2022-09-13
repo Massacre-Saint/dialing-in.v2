@@ -53,8 +53,10 @@ export default function Grind({ grindObj }) {
     getRecipe(firebaseKey).then(setUserRecipe);
   }, [user]);
   return (
-    <div className="images">
-      <Image className="image" src={grindObj.imageUrl} onClick={handleClick} />
+    <div className="grind-container">
+      <div className="grind-circle">
+        <Image className="grind-circle-content" layout="responsive" src={grindObj.imageUrl} onClick={handleClick} />
+      </div>
       <h4>{grindObj.grindSize}</h4>
       <Offcanvas
         show={show}

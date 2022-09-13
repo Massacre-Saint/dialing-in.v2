@@ -162,16 +162,29 @@ body {
 .list-container {
   margin: 0px 24px;
 }
-.images {
+.grinds {
   display: flex;
-  ;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin: 30px 20px;
+  justify-content: space-around;
 }
-.image {
-  border: 2px solid black;
-  display: block;
-  max-width: 200px;
-  max-height: 100px;
-}
+
+ .grind-circle-content {
+  object-fit: none;
+  object-position: center -80px;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  box-shadow: 5px 6px 5px #6b573e;
+ }
+ .grind-container > h4 {
+  text-align: center;
+  font-size: 16px;
+  color: #F5F9E9;
+  text-transform: uppercase;
+  margin-top: 10px;
+ }
 .navbar {
   border-bottom: 1px solid #251605;
   display: flex;
