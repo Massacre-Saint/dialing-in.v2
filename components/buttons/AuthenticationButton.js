@@ -11,7 +11,7 @@ export default function AuthenticationButton() {
   };
   return (
     <>
-      <button variant={!user ? 'primary' : 'danger'} type="button" size="lg" className="btn-span-lg" onClick={handleClick}>
+      <button className="btn-med" variant={!user ? 'primary' : 'danger'} type="button" onClick={handleClick}>
         {!user ? 'Sign In' : 'Sign Out'}
       </button>
     </>

@@ -2,17 +2,18 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { IoIosArrowBack } from 'react-icons/io';
 import {
-  Button,
-  Navbar, Container, Nav, Image,
+  Navbar, Nav, Image,
 } from 'react-bootstrap';
+import { AiFillEdit } from 'react-icons/ai';
 import { useAuth } from '../../utils/context/authContext';
 import { getUser } from '../../utils/data/apiData/userData';
 import AuthenticationButton from '../buttons/AuthenticationButton';
+import { getSingleMethod } from '../../utils/data/apiData/methods';
 
 export default function ProfileCard() {
   const [userProfile, setUserProfile] = useState({});
+  const [method, setMethod] = useState({});
   const router = useRouter();
   const { user } = useAuth();
   const handleEdit = () => {
@@ -22,52 +23,67 @@ export default function ProfileCard() {
     router.push('/');
   };
   useEffect(() => {
-    getUser(user.uid).then(setUserProfile);
+    getUser(user.uid).then((obj) => {
+      setUserProfile(obj);
+      getSingleMethod(obj.brewMethod).then(setMethod);
+    });
   }, [user.photoURL]);
   return (
     <>
-      <Navbar>
+      <Navbar className="navbar">
         <Nav.Link onClick={handleBack}>
-          <IoIosArrowBack />
-          Methods
+          <button className="btn-sm" type="button">&#8249; Methods</button>
         </Nav.Link>
-        <Container>
+        <div className="page-title">
           <h4>Profile Page</h4>
-        </Container>
+        </div>
       </Navbar>
       <>
         <div>
-          <div>
-            {userProfile?.description
-              ? (
-                <>
-                  <div>
-                    <Image width="150px" rounded src={userProfile?.photoUrl} />
-                  </div>
-                  <div>
-                    <h3>Favorite Method: {userProfile.brewMethod}</h3>
-                    <h3>About: </h3>
-                    <div>
-                      <h4>{userProfile.description}</h4>
-                    </div>
-                    <h3>Favorite Roast: {userProfile.favRoast}</h3>
-                    <h3>Favorite Coffee Shop: {userProfile.favShop} </h3>
-                  </div>
-                  <div>
-                    <br />
-                    <h3>Edit you preferences?</h3>
-                    <Button onClick={handleEdit} variant="success">Edit Profile</Button>
-                  </div>
-                </>
-              )
-              : (
-                <div>
-                  <h2>Seems empty in here</h2>
-                  <p>Add your coffee preferences</p>
-                  <Button onClick={handleEdit} variant="success">Edit Profile</Button>
+          {userProfile?.description
+            ? (
+              <div className="profile-card">
+                <div className="profile-card-header">
+                  <Image className="profile-picture-lg" layout="responsive" src={userProfile?.photoUrl} />
+                  <h1>{userProfile.name}</h1>
                 </div>
-              )}
-          </div>
+                <div>
+                  <p className="profile-title">Favorite Method:
+                    <span className="profile-content">{method?.name}</span>
+                  </p>
+                  <p className="profile-title">About:
+                    <span className="profile-content">{userProfile.description}</span>
+                  </p>
+                  <p className="profile-title">
+                    Favorite Roast:
+                    <span className="profile-content">{userProfile.favRoast}</span>
+                  </p>
+                  <p className="profile-title">
+                    Favorite Coffee Shop:
+                    <span className="profile-content">{userProfile.favShop}</span>
+                  </p>
+                </div>
+                <div>
+                  <button aria-label="edit" type="button" className="btn-stripped card-delete" onClick={handleEdit} variant="success"><AiFillEdit /></button>
+                </div>
+              </div>
+            )
+            : (
+              <div className="profile-card blur">
+                <div className="profile-card-header">
+                  <Image className="profile-picture-lg" layout="responsive" src={userProfile?.photoUrl} />
+                  <h1>{userProfile.name}</h1>
+                </div>
+                <div>
+                  <p>Favorite Method: {userProfile.brewMethod}</p>
+                  <p>About: </p>
+                  <span>{userProfile.description}</span>
+                  <p>Favorite Roast: {userProfile.favRoast}</p>
+                  <p>Favorite Coffee Shop: {userProfile.favShop} </p>
+                </div>
+                <button aria-label="edit" type="button" className="btn-stripped card-delete-btn" onClick={handleEdit} variant="success"><AiFillEdit /></button>
+              </div>
+            )}
         </div>
       </>
       <div>

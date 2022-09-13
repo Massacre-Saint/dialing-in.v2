@@ -2,11 +2,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
-import Image from 'next/image';
-
-import { IoIosArrowBack, IoIosAddCircleOutline } from 'react-icons/io';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import MainNavbar from '../../../components/MainNavBar';
 import { useAuth } from '../../../utils/context/authContext';
 import { createRecipe, getUserRecipes, getRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
@@ -37,23 +36,13 @@ export default function UserRecipes() {
   }, [user]);
   return (
     <>
-      <Navbar>
+      <Navbar className="navbar">
         <Nav.Link onClick={handleBack}>
-          <IoIosArrowBack />
-          Methods
+          <button className="btn-sm" type="button">&#8249; Back</button>
         </Nav.Link>
-        <Container>
-          <Navbar.Brand>
-            <Image
-              alt=""
-              src="/logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            My Recipes
-          </Navbar.Brand>
-        </Container>
+        <div className="page-title">
+          Recipes
+        </div>
         <Nav.Link onClick={handleClick}>
           <IoIosAddCircleOutline />
         </Nav.Link>
@@ -71,6 +60,7 @@ export default function UserRecipes() {
             )
         }
       </div>
+      <MainNavbar />
     </>
   );
 }

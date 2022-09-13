@@ -48,7 +48,7 @@ function Settings() {
               </Nav.Link>
               Settings
             </Navbar>
-            <div>
+            <div className="settings-container">
               <div>
                 <IconContext.Provider value={{ size: '15em', color: '#251605' }}>
                   <div>

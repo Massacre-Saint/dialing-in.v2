@@ -56,6 +56,19 @@ body {
 @keyframes bounce {
   to { transform: scale(1.08); }
 }
+.btn-med {
+  display:inline-block;
+  padding:0.4em 2em;
+  margin: 5px;
+  border:0.1em solid #251605;
+  background-color: #F5F9E9;
+  border-radius:0.30em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  text-align:center;
+}
 .btn-sm {
   display:inline-block;
   padding:0.35em .35em;
@@ -200,6 +213,49 @@ body {
   height: 130px;
   box-shadow: 5px 6px 5px #6b573e;
  }
+ .user-form-cont {
+  margin-top: 10vh;
+ }
+ .profile-card {
+  position: relative;
+  background-color: #F5F9E9;
+  border-radius: 0.60em;
+  padding: 20px;
+  margin: 20px 10px;
+ }
+  .profile-card-header {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  .profile-card-header h1 {
+    position: relative;
+    left: 25px;
+    top: 20px;
+    font-size: 24px;
+  }
+  .profile-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #A38560;
+  }
+  .profile-content {
+    color: #251605;
+    margin-left: 5px;
+    font-size: 16px;
+  }
+  .profile-picture-lg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  .profile-card p {
+    font-family:'Roboto',sans-serif;
+    border-bottom: 1px solid #251605;
+  }
+  .blur p {
+    color: transparent;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);;
+  }
  .grind-container > h4 {
   text-align: center;
   font-size: 16px;
@@ -250,8 +306,9 @@ body {
   padding:4px 8px;
 }
 .bottom-cta {
-  position: relative;
-  top: 350px;
+  position: absolute;
+  bottom: 30px;
+  right: 35%;
 }
 
 .card {
@@ -268,6 +325,8 @@ body {
 }
 .card-delete-btn {
   display: flex;
+  font-size: 1.5em;
+  margin: 5px;
   flex-direction: column;
   position: absolute;
   top: 0px;
@@ -294,3 +353,24 @@ body {
     font-size: 2em;
     padding-top: 30vh;
   }
+.settings-modal {
+  background-color: #a38560;
+  height: 10vh;
+  padding: 0px;
+  margin: 0;
+}
+.settings-container {
+  width: fit-content;
+  text-align: center;
+  margin-top: 10vh;
+}
+.process-cta-container {
+  position: absolute;
+  bottom: 30px;
+  left:50px;
+}
+.form-box {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+}
