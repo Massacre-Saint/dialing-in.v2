@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { IconContext } from 'react-icons/lib';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { getMethods } from '../utils/data/apiData/methods';
 import Method from '../components/read/Method';
@@ -39,22 +39,15 @@ export default function Methods() {
   }, [user]);
   return (
     <>
-      <Navbar>
-        <Container>
-          <Navbar.Brand>
-            <Image
-              alt=""
-              src="/logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-            Dialing In
-          </Navbar.Brand>
-          <Nav.Link onClick={handleClick}>
+      <Navbar className="navbar">
+        <div className="page-title">
+          Dialing In
+        </div>
+        <Nav.Link onClick={handleClick} className="nav-cta">
+          <IconContext.Provider value={{ size: '2em' }}>
             <IoIosAddCircleOutline />
-          </Nav.Link>
-        </Container>
+          </IconContext.Provider>
+        </Nav.Link>
       </Navbar>
       <div>
         <div>

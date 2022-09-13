@@ -43,8 +43,8 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
     handleClose();
   };
   return (
-    <>
-      <Button type="button" onClick={handleShow}>Add Step</Button>
+    <div className="steps-btn-container">
+      <button type="button" className="btn-lg" onClick={handleShow}>Add Step</button>
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -67,7 +67,7 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
           </div>
         </Offcanvas.Body>
       </Offcanvas>
-    </>
+    </div>
   );
 }
 StepModal.propTypes = {

@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  Button,
-} from 'react-bootstrap';
 import { signIn, signOut } from '../../utils/auth';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -14,9 +11,9 @@ export default function AuthenticationButton() {
   };
   return (
     <>
-      <Button variant={!user ? 'primary' : 'danger'} type="button" size="lg" className="copy-btn" onClick={handleClick}>
+      <button className="btn-med" variant={!user ? 'primary' : 'danger'} type="button" onClick={handleClick}>
         {!user ? 'Sign In' : 'Sign Out'}
-      </Button>
+      </button>
     </>
   );
 }

@@ -2,10 +2,14 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
+import { GiCoffeePot } from 'react-icons/gi';
+import { TbCoffeeOff } from 'react-icons/tb';
+import { IconContext } from 'react-icons/lib';
 import PublishRecipeButton from '../../../components/buttons/PublishRecipeButton';
 import ViewAllSteps from '../../../components/buttons/ViewAllSteps';
+import MainNavBar from '../../../components/MainNavBar';
 import UserProcessModal from '../../../components/modal/UserProcessModal';
 import StepCard from '../../../components/read/StepCard';
 import { useAuth } from '../../../utils/context/authContext';
@@ -66,17 +70,18 @@ export default function CreateProcess() {
       recipe.methodObject
         ? (
           <>
-            <Navbar>
+            <Navbar className="navbar">
               <Nav.Link onClick={handleShow}>
-                Back
+                <button className="btn-sm" type="button">&#8249; Back</button>
               </Nav.Link>
-              <Container>
-                <Navbar.Brand>
-                  {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
-                </Navbar.Brand>
-              </Container>
-              <Nav.Link onClick={handleEquipment}>
-                Equipment
+              <div className="page-title">
+                {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
+              </div>
+              <Nav.Link onClick={handleEquipment} className="nav-cta nav-item">
+                <IconContext.Provider value={{ size: '2em' }}>
+                  <GiCoffeePot />
+                  Equipment
+                </IconContext.Provider>
               </Nav.Link>
             </Navbar>
             <div>
@@ -92,17 +97,17 @@ export default function CreateProcess() {
                   <div>Temp</div>
                 </div>
                 <div>
-                  <div>
+                  <div className="list-container">
                     <ul>
-                      <ul>Recipe: {recipe.methodObject.name}</ul>
-                      <ul>Brew Time: {recipe?.brewTime}</ul>
-                      <ul> Grind Size: {recipe.grindObject.grindSize}</ul>
+                      <li>Recipe: {recipe.methodObject.name}</li>
+                      <li>Brew Time: {recipe?.brewTime}</li>
+                      <li> Grind Size: {recipe.grindObject.grindSize}</li>
                       {!recipe.uid
                         ? ('')
-                        : (<ul>Author: {recipe?.userObject?.name}</ul>)}
+                        : (<li>Author: {recipe?.userObject?.name}</li>)}
                     </ul>
                   </div>
-                  <div>
+                  <div className="directions-title">
                     <h1>Directions:</h1>
                   </div>
                   <div>
@@ -111,21 +116,32 @@ export default function CreateProcess() {
                         steps.length
                           ? (
                             sortedSteps(steps).map((step) => (
-                              <StepCard check={checkArray} key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} />
+                              <StepCard check={checkArray} key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
                             ))
                           )
-                          : ''
+                          : (
+                            <div className="empty-content">
+                              <IconContext.Provider value={{ size: '4em', color: '#F8F4E3' }}>
+                                <TbCoffeeOff />
+                              </IconContext.Provider>
+                              <p>Seems empty...<br />Add steps below</p>
+                            </div>
+                          )
                       }
                     </div>
                   </div>
                 </div>
               </div>
-              {
-                !recipe.uid
-                  ? ('')
-                  : (<ViewAllSteps recipe={recipe} />)
-              }
-              <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
+              {recipe?.uid === user.uid
+                ? (
+                  <div className="process-cta-container">
+                    <ViewAllSteps recipe={recipe} />
+                    <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
+                  </div>
+                )
+                : (
+                  ''
+                )}
             </div>
             <UserProcessModal handleBack={handleBack} show={show} handleClose={handleClose} handleSave={handleSave} />
           </>
@@ -134,6 +150,11 @@ export default function CreateProcess() {
           ''
         )
     }
+      {recipe.completed || recipe.completed === undefined
+        ? (
+          <MainNavBar />
+        )
+        : ('')}
     </>
   );
 }

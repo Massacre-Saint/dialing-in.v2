@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../utils/context/authContext';
 import MethodEquipCard from '../../../components/read/MethodEquipCard';
@@ -17,10 +17,8 @@ export default function ShowEquip() {
   const [recipe, setRecipe] = useState({});
   const [methodEquip, setMethodEquip] = useState([]);
   const [recipeEquip, setRecipeEquip] = useState([]);
-  console.warn(firebaseKey);
   const renderEquipment = () => {
     getAllEquipment(firebaseKey).then((obj) => {
-      console.warn(obj);
       setRecipe(obj);
       setRecipeEquip(obj.recipe);
       setMethodEquip(obj.method);
@@ -35,15 +33,13 @@ export default function ShowEquip() {
   }, [user]);
   return (
     <>
-      <Navbar>
+      <Navbar className="navbar">
         <Nav.Link onClick={handleBack}>
-          Back
+          <button className="btn-sm" type="button">&#8249; Back</button>
         </Nav.Link>
-        <Container>
-          <Navbar.Brand>
-            Equipment
-          </Navbar.Brand>
-        </Container>
+        <div className="page-title">
+          Equipment
+        </div>
       </Navbar>
       <div>
         <h2>Method Equipment</h2>
@@ -52,25 +48,33 @@ export default function ShowEquip() {
             <MethodEquipCard key={obj.firebaseKey} obj={obj} />
           ))}
         </div>
-        <div>
-          <h2>Recipe Equipment</h2>
-          <div>
-            {recipeEquip.map((obj) => (
-              <EquipmentCard key={obj.firebaseKey} onUpdate={renderEquipment} obj={obj} />
-            ))}
-          </div>
-        </div>
-        <div>
-          {
-            recipe.uid !== user.uid
-              ? (
-                ''
-              )
-              : (
-                <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
-              )
-          }
-        </div>
+        {recipeEquip.length
+          ? (
+            <>
+              <div>
+                <h2>Recipe Equipment</h2>
+                <div className="steps">
+                  {recipeEquip.map((obj) => (
+                    <EquipmentCard key={obj.firebaseKey} onUpdate={renderEquipment} obj={obj} />
+                  ))}
+                </div>
+              </div>
+              <div>
+                {
+                  recipe.uid === user.uid && recipe.completed !== true
+                    ? (
+                      <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
+                    )
+                    : (
+                      ''
+                    )
+                }
+              </div>
+            </>
+          )
+          : (
+            <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
+          )}
       </div>
 
     </>

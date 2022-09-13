@@ -1,7 +1,6 @@
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
+import { Image } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
@@ -25,7 +24,9 @@ function NewUserForm({ obj }) {
     getMethods().then(setMethods);
     if (obj.favRoast) setFormInput(obj);
   }, [obj, user]);
-
+  const handleClick = () => {
+    router.push('/settings');
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -44,39 +45,48 @@ function NewUserForm({ obj }) {
 
   return (
     <>
-      <div>
-        <Form onSubmit={handleSubmit}>
-          <FloatingLabel controlId="floatingInput1" label="Short Introduction" className="mb-3">
-            <Form.Control type="text" placeholder="Tell us about you" name="description" value={formInput.description} onChange={handleChange} required />
-          </FloatingLabel>
-          <FloatingLabel controlId="floatingSelect1" label="Favorite Roast">
-            <Form.Select
-              aria-label="Favorite Roast"
-              name="favRoast"
-              onChange={handleChange}
-              value={formInput.favRoast}
-              required
-            >
-              <option value="">Choose your favorite roast</option>
-              <option value="Light">Light</option>
-              <option value="Medium">Medium</option>
-              <option value="Dark">Dark</option>
-            </Form.Select>
-          </FloatingLabel>
-          <br />
-          <FloatingLabel controlId="floatingInput2" label="Favorite Coffee Shop" className="mb-3">
-            <Form.Control type="text" placeholder="Favorite Coffee Shop" name="favShop" value={formInput.favShop} onChange={handleChange} required />
-          </FloatingLabel>
-          <FloatingLabel controlId="floatingSelect2" label="Favorite Method">
-            <Form.Select
-              aria-label="Favorite Method"
-              name="brewMethod"
-              onChange={handleChange}
-              value={formInput.brewMethod}
-              required
-            >
-              <option value="">Choose your favorite method</option>
-              {
+      <div className="profile-card">
+        <div className="profile-card-header">
+          <Image className="profile-picture-lg" layout="responsive" src={obj?.photoUrl} />
+          <h1>{obj.name}</h1>
+        </div>
+        <div>
+          <Form onSubmit={handleSubmit}>
+            <p>
+              Favorite Coffee Shop:
+              <Form.Control bsPrefix="form-box" type="text" placeholder="Click Me" name="favShop" value={formInput.favShop} onChange={handleChange} required />
+            </p>
+            <p>
+              Favorite Roast:
+              <Form.Select
+                aria-label="Favorite Roast"
+                name="favRoast"
+                onChange={handleChange}
+                value={formInput.favRoast}
+                bsPrefix="form-box"
+                required
+              >
+                <option value="">Click Me</option>
+                <option value="Light">Light</option>
+                <option value="Medium">Medium</option>
+                <option value="Dark">Dark</option>
+              </Form.Select>
+            </p>
+            <p>About:
+              <Form.Control bsPrefix="form-box" type="text" placeholder="Click me" name="description" value={formInput.description} onChange={handleChange} required />
+            </p>
+            <p>
+              Favorite Method:
+              <Form.Select
+                aria-label="Favorite Method"
+                name="brewMethod"
+                onChange={handleChange}
+                value={formInput.brewMethod}
+                bsPrefix="form-box"
+                required
+              >
+                <option value="">Choose your favorite method</option>
+                {
                 methods.map((method) => (
                   <option
                     key={method.firebaseKey}
@@ -86,14 +96,14 @@ function NewUserForm({ obj }) {
                   </option>
                 ))
               }
-            </Form.Select>
-          </FloatingLabel>
-          <br />
-          <Button type="submit" variant="success">Submit</Button>
-        </Form>
+              </Form.Select>
+            </p>
+          </Form>
+        </div>
       </div>
-      <div>
-        <Button variant="secondary">Maybe Later</Button>
+      <div className="process-cta-container">
+        <button type="button" className="btn-med" variant="secondary" onClick={handleClick}>Maybe Later</button>
+        <button type="submit" onClick={handleSubmit} className="btn-med" variant="success">Submit</button>
       </div>
     </>
   );

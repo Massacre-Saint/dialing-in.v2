@@ -15,15 +15,6 @@ export default function Recipes({ recipeObj, render }) {
     }
     const result = new Date(total * 1000).toISOString().slice(14, 19);
     return result;
-
-    // let hours = Math.floor(totalSeconds / 3600);
-    // let minutes = Math.floor(totalSeconds / 60);
-    // let seconds = totalSeconds % 60;
-    // hours = hours < 10 ? `0${hours}` : hours;
-    // minutes = minutes < 10 ? `0${minutes}` : minutes;
-    // seconds = seconds < 10 ? `0${seconds}` : seconds;
-    // const num = `${hours}:${minutes}:${seconds}`;
-    // return num;
   };
   const handleClick = (e) => {
     if (e.target.type === 'button') {
@@ -55,7 +46,7 @@ export default function Recipes({ recipeObj, render }) {
                 {
                   recipeObj.uid
                     ? (
-                      <button onClick={handleClick} type="button">Delete</button>
+                      <button className="card-delete" onClick={handleClick} type="button">Delete</button>
                     )
                     : (
                       ''
@@ -78,7 +69,7 @@ export default function Recipes({ recipeObj, render }) {
                 {
                   recipeObj.uid
                     ? (
-                      <button onClick={handleClick} type="button">Delete</button>
+                      <button className="card-delete" onClick={handleClick} type="button">Delete</button>
                     )
                     : (
                       ''

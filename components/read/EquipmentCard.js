@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Form from 'react-bootstrap/Form';
@@ -44,14 +43,12 @@ export default function EquipmentCard({ obj, onUpdate }) {
   }, [obj]);
   return (
     <>
-      <div>
-        <Card className="step-card">
-          <Card.Body>
-            <Card.Title>{obj.name}</Card.Title>
-            <Card.Text>{obj?.type}</Card.Text>
-            <Card.Text>{obj?.setting}</Card.Text>
-          </Card.Body>
-        </Card>
+      <div className="equip-card">
+        <div className="equip-card-body">
+          <div>{obj.name}</div>
+          <div>{obj?.type}</div>
+          <div>{obj?.setting}</div>
+        </div>
         <EditDeleteEquip handleShow={handleShow} obj={obj} onUpdate={onUpdate} />
       </div>
       <div>

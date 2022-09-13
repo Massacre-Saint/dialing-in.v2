@@ -1,10 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
-import {
-  Button,
-} from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { GrUserSettings } from 'react-icons/gr';
+import { FiSettings } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import AuthenticationButton from '../buttons/AuthenticationButton';
 
@@ -19,27 +16,24 @@ export default function SettingsModal() {
   };
   return (
     <>
-      <Button variant="link" onClick={handleShow}>
-        <GrUserSettings />
-      </Button>
+      <button type="button" variant="link" onClick={handleShow} className="btn-stripped nav-item">
+        <FiSettings />
+      </button>
       <Offcanvas
         show={show}
         onHide={handleClose}
-        placement="end"
+        className="settings-modal"
+        placement="bottom"
         style={{
-          width: '50vw',
+          height: '15vh',
         }}
       >
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Settings</Offcanvas.Title>
-        </Offcanvas.Header>
+        <Offcanvas.Header closeButton style={{ position: 'absolute', right: '5px' }} />
         <Offcanvas.Body>
           <>
-            <div>
-              <Button onClick={handleRoute} variant="link">Profile
-              </Button>
-            </div>
-            <div>
+            <div className="process-cta-container">
+              <button type="button" className="btn-med" onClick={handleRoute} variant="link">Profile
+              </button>
               <AuthenticationButton />
             </div>
           </>

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { deleteRecipeSteps, deleteUserRecipeEquipment } from '../../utils/data/apiData/mergeData';
 import { deleteProcess } from '../../utils/data/apiData/process';
 
-export default function RecipesCardNot({ recipeObj, render }) {
+export default function DefaultRecipes({ recipeObj, render }) {
   const router = useRouter();
   const convertTime = (total) => {
     if (total >= 3600) {
@@ -30,8 +30,8 @@ export default function RecipesCardNot({ recipeObj, render }) {
   useEffect(() => [recipeObj]);
   return (
     <>
-      <Card className="card" style={{ width: 'auto' }} onClick={handleClick}>
-        <Card.Body style={{ padding: '0px' }}>
+      <Card style={{ width: 'auto' }} onClick={handleClick}>
+        <Card.Body>
           <Card.Title>{recipeObj.recipeName}</Card.Title>
           <Card.Text />
           <div>
@@ -40,21 +40,12 @@ export default function RecipesCardNot({ recipeObj, render }) {
             <span>{recipeObj.weight}g</span>
           </div>
         </Card.Body>
-        {
-            recipeObj.uid
-              ? (
-                <button className="card-delete" onClick={handleClick} type="button">Delete</button>
-              )
-              : (
-                ''
-              )
-            }
       </Card>
     </>
   );
 }
 
-RecipesCardNot.propTypes = {
+DefaultRecipes.propTypes = {
   recipeObj: PropTypes.shape(
     {
       brewTime: PropTypes.number,
@@ -73,7 +64,7 @@ RecipesCardNot.propTypes = {
   ),
   render: PropTypes.func,
 };
-RecipesCardNot.defaultProps = {
+DefaultRecipes.defaultProps = {
   recipeObj: PropTypes.shape(
     {
       brewTime: 0,

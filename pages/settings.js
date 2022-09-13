@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { IoIosArrowBack } from 'react-icons/io';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
+import { IconContext } from 'react-icons/lib';
+import { GiCoffeeBeans } from 'react-icons/gi';
 import { useAuth } from '../utils/context/authContext';
 import { createUserProfile, getUser } from '../utils/data/apiData/userData';
 import ProfileCard from '../components/read/ProfileCard';
@@ -41,19 +42,28 @@ function Settings() {
       !user
         ? (
           <div>
-            <Navbar>
+            <Navbar className="navbar">
               <Nav.Link onClick={handleBack}>
-                <IoIosArrowBack />
-                Methods
+                <button type="button" className="back-nav">&#8249; Methods</button>
               </Nav.Link>
-              <Container>
-                Settings
-              </Container>
+              Settings
             </Navbar>
-            <div>
-              <h1>Please Login</h1>
+            <div className="settings-container">
+              <div>
+                <IconContext.Provider value={{ size: '15em', color: '#251605' }}>
+                  <div>
+                    <GiCoffeeBeans />
+                  </div>
+                </IconContext.Provider>
+              </div>
+              <div>
+                <h1>Let&apos;s sign you in</h1>
+              </div>
+              <div>
+                <p>Bring together your community, recipes, and knowledge about coffee into one app!</p>
+              </div>
             </div>
-            <div>
+            <div className="bottom-cta">
               <AuthenticationButton />
             </div>
           </div>

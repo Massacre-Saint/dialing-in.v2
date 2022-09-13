@@ -2,8 +2,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
-  Navbar, Container, Nav,
+  Navbar, Nav,
 } from 'react-bootstrap';
+import { IconContext } from 'react-icons/lib';
+import { AiOutlineArrowDown } from 'react-icons/ai';
 import { useAuth } from '../../../../utils/context/authContext';
 import { getSteps } from '../../../../utils/data/apiData/steps';
 import { getRecipe } from '../../../../utils/data/apiData/userRecipes';
@@ -32,28 +34,32 @@ export default function ShowSteps() {
   }, [user]);
   return (
     <>
-      <Navbar>
+      <Navbar className="navbar">
         <Nav.Link onClick={handleBack}>
-          Back
+          <button className="btn-sm" type="button">&#8249; Back</button>
         </Nav.Link>
-        <Container>
-          <Navbar.Brand>
-            Steps
-          </Navbar.Brand>
-        </Container>
+        <div className="page-title">
+          Steps
+        </div>
       </Navbar>
       <div className="steps">
         {
       steps.length
         ? (
           sortedSteps(steps).map((step) => (
-            <StepCard onUpdate={renderSteps} key={step.firebaseKey} stepObj={step} />
+            <StepCard onUpdate={renderSteps} key={step.firebaseKey} stepObj={step} recipeObj={recipe} />
           ))
         )
-        : 'Add Steps'
+        : (
+          <div className="empty-content-steps"><p>Seems empty...<br />Add steps below</p>
+            <IconContext.Provider value={{ size: '4em', color: '#F8F4E3' }}>
+              <AiOutlineArrowDown />
+            </IconContext.Provider>
+          </div>
+        )
     }
       </div>
-      {recipe.completed
+      {recipe.completed === true
         ? (
           ''
         )
