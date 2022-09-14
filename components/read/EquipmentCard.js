@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -7,6 +8,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRouter } from 'next/router';
 import EditDeleteEquip from '../buttons/EditDeleteEquip';
 import { updateEquipment } from '../../utils/data/apiData/recipeEquipment';
+import { getAllData } from '../../utils/data/apiData/mergeData';
 
 const initialSate = {
   type: '',
@@ -16,6 +18,7 @@ const initialSate = {
 export default function EquipmentCard({ obj, onUpdate }) {
   const router = useRouter();
   const [formInput, setFormInput] = useState(initialSate);
+  const [recipe, setRecipe] = useState({});
   const { firebaseKey } = router.query;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -40,6 +43,7 @@ export default function EquipmentCard({ obj, onUpdate }) {
   };
   useEffect(() => {
     setFormInput(obj);
+    getAllData(firebaseKey).then((data) => setRecipe(data));
   }, [obj]);
   return (
     <>
@@ -49,7 +53,7 @@ export default function EquipmentCard({ obj, onUpdate }) {
           <div>{obj?.type}</div>
           <div>{obj?.setting}</div>
         </div>
-        <EditDeleteEquip handleShow={handleShow} obj={obj} onUpdate={onUpdate} />
+        <EditDeleteEquip handleShow={handleShow} obj={obj} onUpdate={onUpdate} recipe={recipe} />
       </div>
       <div>
         <Offcanvas
