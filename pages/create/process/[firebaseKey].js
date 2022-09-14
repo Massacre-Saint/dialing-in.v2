@@ -15,6 +15,7 @@ import StepCard from '../../../components/read/StepCard';
 import { useAuth } from '../../../utils/context/authContext';
 import { getAllData } from '../../../utils/data/apiData/mergeData';
 import { getSteps } from '../../../utils/data/apiData/steps';
+import BrewButton from '../../../components/buttons/BrewButton';
 
 export default function CreateProcess() {
   const { user } = useAuth();
@@ -142,6 +143,9 @@ export default function CreateProcess() {
                 : (
                   ''
                 )}
+              {recipe?.completed === true || recipe?.completed === undefined
+                ? (<BrewButton />)
+                : ('')}
             </div>
             <UserProcessModal handleBack={handleBack} show={show} handleClose={handleClose} handleSave={handleSave} />
           </>

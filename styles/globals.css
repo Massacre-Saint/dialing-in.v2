@@ -32,10 +32,10 @@ body {
   color: #251605;
 }
 .btn-lg {
-  padding:0.5em 3em;
+  padding:0.4em 2em;
   border:0.16em solid #FFFFFF;
   border-radius: 0.30em;
-  margin:0 0.3em 0.3em 0;
+  margin:0 1em 0.3em 0;
   box-sizing: border-box;
   text-decoration:none;
   text-transform:uppercase;
@@ -43,18 +43,6 @@ body {
   font-weight:400;
   text-align:center;
   width: 80vw;
-  -webkit-animation: bounce 2s infinite alternate;
-  -moz-animation: bounce 2s infinite alternate;
-  animation: bounce 2s infinite alternate;
-}
-@-webkit-keyframes bounce {
-  to { -webkit-transform: scale(1.08); }
-}
-@-moz-keyframes bounce {
-  to { -moz-transform: scale(1.08); }
-}
-@keyframes bounce {
-  to { transform: scale(1.08); }
 }
 .btn-med {
   display:inline-block;
@@ -123,7 +111,7 @@ body {
 }
 .directions {
   position: relative;
-  height: 40vh;
+  height: 35vh;
   overflow-y: auto;
   
 }
@@ -365,12 +353,63 @@ body {
   margin-top: 10vh;
 }
 .process-cta-container {
-  position: absolute;
-  bottom: 30px;
-  left:50px;
+  display: flex;
+  margin: 20px 40px;
 }
 .form-box {
   background-color: transparent;
   border: none;
   width: 100%;
+}
+.stopwatch {
+  margin-top: 8vh;
+}
+.circle-cont {
+  position: relative;
+  margin: auto;
+  width: fit-content;
+}
+.progress {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #251605;
+}
+.progress-bar {
+  background-color: #251605;
+}
+
+.progress-circle {
+  position: absolute;
+  background-color: #F5F9E9;
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  top:12.5px;
+  left: 12.5px;
+}
+.stopwatch-numbers {
+  font-size: 2.5em;
+  font-weight: 600;
+  position: absolute;
+  top:75px;
+  left:65px;
+}
+.stopwatch-buttons {
+  position: absolute;
+  bottom:20px;
+  left:60px;
+}
+.start-btn {
+  margin: 2px;
+  border: 3px solid green;
+}
+.stop-btn {
+  margin: 2px;
+  border: 3px solid grey;
+}
+.reset-btn {
+  margin: 2px;
+  border: 3px solid red;
 }

@@ -5,6 +5,7 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { IconContext } from 'react-icons';
 import MainNavbar from '../../../components/MainNavBar';
 import { useAuth } from '../../../utils/context/authContext';
 import { createRecipe, getUserRecipes, getRecipe } from '../../../utils/data/apiData/userRecipes';
@@ -43,8 +44,10 @@ export default function UserRecipes() {
         <div className="page-title">
           Recipes
         </div>
-        <Nav.Link onClick={handleClick}>
-          <IoIosAddCircleOutline />
+        <Nav.Link onClick={handleClick} className="nav-cta">
+          <IconContext.Provider value={{ size: '2em' }}>
+            <IoIosAddCircleOutline />
+          </IconContext.Provider>
         </Nav.Link>
       </Navbar>
       <div>
