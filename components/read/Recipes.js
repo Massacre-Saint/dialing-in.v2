@@ -1,13 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
+import { GiCoffeeBeans } from 'react-icons/gi';
+import { IoTimeSharp, IoWaterSharp } from 'react-icons/io5';
+import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/router';
-import { deleteRecipeSteps, deleteUserRecipeEquipment } from '../../utils/data/apiData/mergeData';
 import { deleteProcess } from '../../utils/data/apiData/process';
+import { deleteRecipeSteps, deleteUserRecipeEquipment, getSingleRecipeUser } from '../../utils/data/apiData/mergeData';
 
 export default function Recipes({ recipeObj, render }) {
   const router = useRouter();
+  const [user, setUser] = useState({});
   const convertTime = (total) => {
     if (total >= 3600) {
       const result = new Date(total * 1000).toISOString().slice(11, 19);
@@ -27,7 +31,12 @@ export default function Recipes({ recipeObj, render }) {
       router.push(`/create/process/${recipeObj.firebaseKey}`);
     }
   };
-  useEffect(() => [recipeObj]);
+  const getUser = () => {
+    getSingleRecipeUser(recipeObj.firebaseKey).then((obj) => { setUser(obj); });
+  };
+  useEffect(() => {
+    getUser();
+  }, [recipeObj]);
   return (
     <>
       {
@@ -46,7 +55,7 @@ export default function Recipes({ recipeObj, render }) {
                 {
                   recipeObj.uid
                     ? (
-                      <button className="card-delete" onClick={handleClick} type="button">Delete</button>
+                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleClick} type="button"><MdDeleteForever /></button>
                     )
                     : (
                       ''
@@ -62,14 +71,24 @@ export default function Recipes({ recipeObj, render }) {
                 <Card.Title>{recipeObj.recipeName}</Card.Title>
                 <Card.Text />
                 <div>
-                  <span>{convertTime(recipeObj.brewTime)} </span>
-                  <span>{recipeObj.dose}g </span>
-                  <span>{recipeObj.weight}g</span>
+                  <div>{user.userObject?.name}</div>
+                  <span>
+                    <IoTimeSharp />
+                    {convertTime(recipeObj.brewTime)}&nbsp;&nbsp;
+                  </span>
+                  <span>
+                    <GiCoffeeBeans />
+                    {recipeObj.dose}g&nbsp;&nbsp;
+                  </span>
+                  <span>
+                    <IoWaterSharp />
+                    {recipeObj.weight}g&nbsp;&nbsp;
+                  </span>
                 </div>
                 {
                   recipeObj.uid
                     ? (
-                      <button className="card-delete" onClick={handleClick} type="button">Delete</button>
+                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleClick} type="button"><MdDeleteForever /></button>
                     )
                     : (
                       ''

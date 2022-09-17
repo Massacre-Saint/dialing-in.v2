@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import { GiCoffeeBeans } from 'react-icons/gi';
+import { IoTimeSharp, IoWaterSharp } from 'react-icons/io5';
 import { deleteRecipeSteps, deleteUserRecipeEquipment } from '../../utils/data/apiData/mergeData';
 import { deleteProcess } from '../../utils/data/apiData/process';
 
@@ -35,9 +37,18 @@ export default function DefaultRecipes({ recipeObj, render }) {
           <Card.Title>{recipeObj.recipeName}</Card.Title>
           <Card.Text />
           <div>
-            <span>{convertTime(recipeObj.brewTime)} </span>
-            <span>{recipeObj.dose}g </span>
-            <span>{recipeObj.weight}g</span>
+            <span>
+              <IoTimeSharp />
+              {convertTime(recipeObj.brewTime)}&nbsp;&nbsp;
+            </span>
+            <span>
+              <GiCoffeeBeans />
+              {recipeObj.dose}g&nbsp;&nbsp;
+            </span>
+            <span>
+              <IoWaterSharp />
+              {recipeObj.weight}g&nbsp;&nbsp;
+            </span>
           </div>
         </Card.Body>
       </Card>

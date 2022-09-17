@@ -53,17 +53,8 @@ export default function CreateProcess() {
   const handleEquipment = () => {
     router.push(`/read/equipment/${recipe.firebaseKey}`);
   };
-  const checkArray = () => {
-    const query = steps.map((step) => step.direction);
-    query.filter((string) => {
-      if (string === 'trash') { console.warn('met'); }
-      console.warn('not met');
-      return false;
-    });
-  };
   useEffect(() => {
     renderRecipe();
-    checkArray();
   }, [user]);
   return (
     <>
@@ -117,7 +108,7 @@ export default function CreateProcess() {
                         steps.length
                           ? (
                             sortedSteps(steps).map((step) => (
-                              <StepCard check={checkArray} key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
+                              <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
                             ))
                           )
                           : (
