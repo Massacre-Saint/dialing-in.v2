@@ -6,6 +6,7 @@ import {
   Navbar, Nav, Image,
 } from 'react-bootstrap';
 import { AiFillEdit } from 'react-icons/ai';
+import { IconContext } from 'react-icons';
 import { useAuth } from '../../utils/context/authContext';
 import { getUser } from '../../utils/data/apiData/userData';
 import AuthenticationButton from '../buttons/AuthenticationButton';
@@ -27,7 +28,7 @@ export default function ProfileCard() {
       setUserProfile(obj);
       getSingleMethod(obj.brewMethod).then(setMethod);
     });
-  }, [user.photoURL]);
+  }, [user]);
   return (
     <>
       <Navbar className="navbar">
@@ -64,7 +65,11 @@ export default function ProfileCard() {
                   </p>
                 </div>
                 <div>
-                  <button aria-label="edit" type="button" className="btn-stripped card-delete" onClick={handleEdit} variant="success"><AiFillEdit /></button>
+                  <button aria-label="edit" type="button" className="btn-stripped card-delete" onClick={handleEdit} variant="success">
+                    <IconContext.Provider value={{ size: '2em' }}>
+                      <AiFillEdit />
+                    </IconContext.Provider>
+                  </button>
                 </div>
               </div>
             )

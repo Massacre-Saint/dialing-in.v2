@@ -5,18 +5,15 @@ import {
 } from 'react-bootstrap';
 import { BiBookReader } from 'react-icons/bi';
 import { AiOutlineHome } from 'react-icons/ai';
-import { FiLogIn, FiHeart } from 'react-icons/fi';
+import { FiLogIn } from 'react-icons/fi';
 import { useAuth } from '../utils/context/authContext';
 import SettingsModal from './modal/SettingsModal';
 
 export default function MainNavBar() {
   const { user } = useAuth();
-  const handleClick = (e) => {
-    console.warn(e.target.id);
-  };
 
   return (
-    <Navbar className="main-nav" onClickCapture={handleClick} fixed="bottom" collapseOnSelect expand="true">
+    <Navbar className="main-nav" fixed="bottom" collapseOnSelect expand="true">
       {
         user
           ? (
@@ -28,10 +25,6 @@ export default function MainNavBar() {
               <Nav.Link id="home" className="nav-item">
                 <AiOutlineHome />
                 Home
-              </Nav.Link>
-              <Nav.Link id="fav" href="/read/recipes/saved" className="nav-item">
-                <FiHeart />
-                Favorites
               </Nav.Link>
               <Nav.Link className="nav-item">
                 <SettingsModal />

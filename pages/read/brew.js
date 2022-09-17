@@ -13,7 +13,6 @@ import StepCard from '../../components/read/StepCard';
 export default function Brew() {
   const router = useRouter();
   const { firebaseKey } = router.query;
-  console.warn(firebaseKey);
   const [recipe, setRecipe] = useState({});
   const [steps, setSteps] = useState([]);
   const { user } = useAuth();
