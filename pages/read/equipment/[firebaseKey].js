@@ -43,7 +43,7 @@ export default function ShowEquip() {
       </Navbar>
       <div>
         <h2>Method Equipment</h2>
-        <div>
+        <div className="cards-container">
           {methodEquip.map((obj) => (
             <MethodEquipCard key={obj.firebaseKey} obj={obj} />
           ))}

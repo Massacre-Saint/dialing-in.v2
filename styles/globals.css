@@ -111,9 +111,26 @@ body {
 }
 .directions {
   position: relative;
-  height: 20vh;
+  height: 35vh;
   overflow-y: auto;
-  
+}
+.guided-steps-title {
+  font-size: 32px;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin-top: 20px;
+  text-align: center;
+}
+.circles-container {
+  color: #F5F9E9;
+  margin: 15px 10px;
+  width: 90vw;
+  display: inline-flex;
+  flex: none;
+  overflow-x: auto;
+}
+.padding-circle {
+  margin: 0px 5px;
 }
 .steps {
   height:80vh;
@@ -150,6 +167,30 @@ body {
       font-size: 30px;
       margin-right: 5px;
     }
+.cards-container {
+  background-color: #F5F9E9;
+  border-radius: 0.30em;
+  padding: 15px;
+  margin: 5px;
+}
+.card-container {
+  border-bottom: 1px solid #251605;
+  padding: 10px;
+}
+.spaced-line-items {
+  display: flex;
+  justify-content: space-between;
+}
+.dotted-line {
+  width: 50%;
+  border-bottom: 1px dotted #251605;
+  margin: 0px 0px 9px 10px;
+}
+.line-item-header {
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+}
 .grinds {
   height: 90vh;
   overflow-y: auto;
@@ -169,12 +210,14 @@ body {
   border-radius: 50%;
   background-color: #251605;
   box-shadow: 5px 6px 5px #6b573e;
+  flex: none;
 }
 .circle-content {
   display: flex;
   justify-content: space-around;
   padding-top: 35px;
 }
+
 .circle-footer {
   display: flex;
   justify-content: space-around;
@@ -192,7 +235,12 @@ body {
   margin: 30px 20px;
   justify-content: space-around;
 }
-
+.method-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin: 30px 20px 100px 20px;
+}
  .grind-circle-content {
   object-fit: none;
   object-position: center -80px;
@@ -200,6 +248,26 @@ body {
   width: 130px;
   height: 130px;
   box-shadow: 5px 6px 5px #6b573e;
+ }
+ .method-circle-content {
+  object-fit: scale-down;
+  background-color: #F5F9E9;
+  border-radius: 50%;
+ }
+ .method-circle {
+  width: 140px;
+  height: 140px;
+  border: 2px solid #251605;
+  border-radius: 50%;
+  margin: 20px 15px 20px 15px;
+ }
+ .method-circle > h4 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #F5F9E9;
+  text-transform: uppercase;
+  margin-top: 10px;
  }
  .user-form-cont {
   margin-top: 10vh;
@@ -269,7 +337,11 @@ body {
     position: absolute;
     right: 4vw;
     color: #F8F4E3;
-    
+  }
+  .nav-info {
+   position: absolute;
+   right: 14vw;
+   color: #F5F9E9;
   }
 .main-nav {
   border-top: 1px solid #251605;
@@ -282,7 +354,7 @@ body {
   font-weight: bold;
   flex-direction: column;
   padding: 0px;
-  font-size: 10px;
+  font-size: 15px;
   text-transform: uppercase;
   align-items: center;
 

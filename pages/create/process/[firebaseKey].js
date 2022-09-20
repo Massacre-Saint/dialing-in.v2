@@ -29,6 +29,17 @@ export default function CreateProcess() {
     getAllData(firebaseKey).then((obj) => setRecipe(obj));
     getSteps(firebaseKey).then((array) => setSteps(array));
   };
+  const convertTime = (total) => {
+    if (total >= 3600) {
+      const result = new Date(total * 1000).toISOString().slice(11, 19);
+      return result;
+    }
+    const result = new Date(total * 1000).toISOString().slice(14, 19);
+    return result;
+  };
+  // const handleFavorite = () => {
+
+  // }
   const sortedSteps = (array) => {
     const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
     return orderedSteps;
@@ -54,7 +65,6 @@ export default function CreateProcess() {
     router.push(`/read/equipment/${recipe.firebaseKey}`);
   };
   useEffect(() => {
-    console.warn(recipe?.uid);
     renderRecipe();
   }, [user]);
   return (
@@ -73,7 +83,6 @@ export default function CreateProcess() {
               <Nav.Link onClick={handleEquipment} className="nav-cta nav-item">
                 <IconContext.Provider value={{ size: '2em' }}>
                   <GiCoffeePot />
-                  Equipment
                 </IconContext.Provider>
               </Nav.Link>
             </Navbar>
@@ -93,7 +102,7 @@ export default function CreateProcess() {
                   <div className="list-container">
                     <ul>
                       <li>Recipe: {recipe.methodObject.name}</li>
-                      <li>Brew Time: {recipe?.brewTime}</li>
+                      <li>Brew Time: {convertTime(recipe?.brewTime)}</li>
                       <li> Grind Size: {recipe.grindObject.grindSize}</li>
                       {!recipe.uid
                         ? ('')

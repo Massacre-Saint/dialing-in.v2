@@ -39,7 +39,7 @@ export default function Methods() {
   }, [user]);
   return (
     <>
-      <Navbar className="navbar">
+      <Navbar fixed="top" className="navbar">
         <div className="page-title">
           Dialing In
         </div>
@@ -50,7 +50,7 @@ export default function Methods() {
         </Nav.Link>
       </Navbar>
       <div>
-        <div>
+        <div className="method-container">
           {methods.map((i) => (
             <Method key={i.firebaseKey} methodObj={i} />
           ))}

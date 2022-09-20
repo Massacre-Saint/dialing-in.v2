@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { getRecipe, updateRecipe } from '../../utils/data/apiData/userRecipes';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -21,10 +22,16 @@ export default function Method({ methodObj }) {
   useEffect(() => {
     getRecipe(firebaseKey).then(setUserRecipe);
   }, [user]);
+  const src = `${methodObj.imageUrl}`;
   return (
-    <Nav.Link type="submit" onClick={handleSubmit}>
-      <h1>{methodObj.name}</h1>
-    </Nav.Link>
+    <div className="method-circle">
+      <div>
+        <Nav.Link type="submit" onClick={handleSubmit}>
+          <Image className="method-circle-content" loader={() => src} height={140} width={140} src={methodObj.imageUrl} />
+        </Nav.Link>
+      </div>
+      <h4>{methodObj.name}</h4>
+    </div>
   );
 }
 Method.propTypes = {

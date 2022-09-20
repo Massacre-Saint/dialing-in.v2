@@ -1,12 +1,19 @@
 import Link from 'next/link';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 export default function Method({ methodObj }) {
+  const src = `${methodObj.imageUrl}`;
   return (
-    <Link passHref href={`/read/recipes/${methodObj.firebaseKey}`}>
-      <h1>{methodObj.name}</h1>
-    </Link>
+    <div className="method-circle">
+      <div>
+        <Link passHref href={`/read/recipes/${methodObj.firebaseKey}`}>
+          <Image className="method-circle-content" loader={() => src} height={140} width={140} src={methodObj.imageUrl} />
+        </Link>
+      </div>
+      <h4>{methodObj.name}</h4>
+    </div>
   );
 }
 Method.propTypes = {

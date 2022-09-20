@@ -11,6 +11,7 @@ import { getSteps } from '../../../../utils/data/apiData/steps';
 import { getRecipe } from '../../../../utils/data/apiData/userRecipes';
 import StepCard from '../../../../components/read/StepCard';
 import StepModal from '../../../../components/modal/StepModal';
+import GuidedSteps from '../../../../components/read/GuidedSteps';
 
 export default function ShowSteps() {
   const { user } = useAuth();
@@ -42,23 +43,29 @@ export default function ShowSteps() {
           Steps
         </div>
       </Navbar>
-      <div className="steps">
-        {
-      steps.length
-        ? (
-          sortedSteps(steps).map((step) => (
-            <StepCard onUpdate={renderSteps} key={step.firebaseKey} stepObj={step} recipeObj={recipe} />
-          ))
-        )
-        : (
-          <div className="empty-content-steps"><p>Seems empty...<br />Add steps below</p>
-            <IconContext.Provider value={{ size: '4em', color: '#F8F4E3' }}>
-              <AiOutlineArrowDown />
-            </IconContext.Provider>
-          </div>
-        )
-    }
-      </div>
+      {
+        steps.length
+          ? (
+            <>
+              <div>
+                <GuidedSteps />
+              </div>
+              {
+                sortedSteps(steps).map((step) => (
+                  <StepCard onUpdate={renderSteps} key={step.firebaseKey} stepObj={step} recipeObj={recipe} />
+                ))
+              }
+            </>
+          )
+          : (
+            <div className="empty-content-steps">
+              <p>Seems Empty...<br />Add steps below</p>
+              <IconContext.Provider value={{ size: '4em', color: '#F8F4E3' }}>
+                <AiOutlineArrowDown />
+              </IconContext.Provider>
+            </div>
+          )
+      }
       {recipe.completed === true
         ? (
           ''
