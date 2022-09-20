@@ -54,6 +54,7 @@ export default function CreateProcess() {
     router.push(`/read/equipment/${recipe.firebaseKey}`);
   };
   useEffect(() => {
+    console.warn(recipe?.uid);
     renderRecipe();
   }, [user]);
   return (
@@ -124,15 +125,15 @@ export default function CreateProcess() {
                   </div>
                 </div>
               </div>
-              {recipe?.uid === user.uid
+              {recipe.uid === undefined
                 ? (
+                  ''
+                )
+                : (
                   <div className="process-cta-container">
                     <ViewAllSteps recipe={recipe} />
                     <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
                   </div>
-                )
-                : (
-                  ''
                 )}
               {recipe?.completed === true || recipe?.completed === undefined
                 ? (<BrewButton />)

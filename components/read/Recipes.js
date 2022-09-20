@@ -20,16 +20,15 @@ export default function Recipes({ recipeObj, render }) {
     const result = new Date(total * 1000).toISOString().slice(14, 19);
     return result;
   };
-  const handleClick = (e) => {
-    if (e.target.type === 'button') {
-      deleteUserRecipeEquipment(recipeObj.firebaseKey);
-      deleteRecipeSteps(recipeObj.firebaseKey).then(() => {
-        deleteProcess(recipeObj.processId);
-        render();
-      });
-    } else {
-      router.push(`/create/process/${recipeObj.firebaseKey}`);
-    }
+  const handleClick = () => {
+    router.push(`/create/process/${recipeObj.firebaseKey}`);
+  };
+  const handleDelete = () => {
+    deleteUserRecipeEquipment(recipeObj.firebaseKey);
+    deleteRecipeSteps(recipeObj.firebaseKey).then(() => {
+      deleteProcess(recipeObj.processId);
+      render();
+    });
   };
   const getUser = () => {
     getSingleRecipeUser(recipeObj.firebaseKey).then((obj) => { setUser(obj); });
@@ -55,7 +54,7 @@ export default function Recipes({ recipeObj, render }) {
                 {
                   recipeObj.uid
                     ? (
-                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleClick} type="button"><MdDeleteForever /></button>
+                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleDelete} type="button"><MdDeleteForever /></button>
                     )
                     : (
                       ''
@@ -88,7 +87,7 @@ export default function Recipes({ recipeObj, render }) {
                 {
                   recipeObj.uid
                     ? (
-                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleClick} type="button"><MdDeleteForever /></button>
+                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleDelete} type="button"><MdDeleteForever /></button>
                     )
                     : (
                       ''

@@ -10,7 +10,7 @@ export default function EditDeleteStepsButtons({
   const { user } = useAuth();
   return (
     <div className="card-delete">
-      {recipeObj.completed === true || recipeObj.uid !== user.uid
+      {recipeObj.completed || recipeObj.uid !== user.uid
         ? (
           ''
         )
