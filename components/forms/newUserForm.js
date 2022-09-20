@@ -60,6 +60,7 @@ function NewUserForm({ obj }) {
               Favorite Roast:
               <Form.Select
                 aria-label="Favorite Roast"
+                size="sm"
                 name="favRoast"
                 onChange={handleChange}
                 value={formInput.favRoast}
@@ -85,10 +86,11 @@ function NewUserForm({ obj }) {
                 bsPrefix="form-box"
                 required
               >
-                <option value="">Choose your favorite method</option>
+                <option className="form-drop" value="">Choose your favorite method</option>
                 {
                 methods.map((method) => (
                   <option
+                    className="form-drop"
                     key={method.firebaseKey}
                     value={method.firebaseKey}
                   >

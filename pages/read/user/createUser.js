@@ -6,7 +6,7 @@ import {
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../utils/context/authContext';
 import { getUser } from '../../../utils/data/apiData/userData';
-import NewUserForm from '../../../components/forms/newUserForm';
+import NewUserForm from '../../../components/forms/NewUserForm';
 
 export default function CreateUser() {
   const { user } = useAuth();

@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
+import { Button, InputGroup } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { getRecipe, updateRecipe } from '../../utils/data/apiData/userRecipes';
@@ -72,12 +71,14 @@ export default function WaterTempModal({ recipeObj, onUpdate }) {
         <Offcanvas.Body>
           <div>
             <Form onSubmit={handleSubmit}>
-              <FloatingLabel controlId="floatingInput1" label="Water Temperature Needed" className="mb-3">
-                <Form.Control type="number" min={34} max={212} placeholder="Typically around 205" name="waterTemp" value={formInput.waterTemp} onChange={handleChange} required />
-              </FloatingLabel>
-              <FloatingLabel controlId="floatingInput2" label="How much water?" className="mb-3">
+              <InputGroup label="Water Temperature Needed" className="mb-3">
+                <Form.Control type="number" min={34} max={212} placeholder="Typically around 205-212 °F" name="waterTemp" value={formInput.waterTemp} onChange={handleChange} required />
+                <InputGroup.Text>°F</InputGroup.Text>
+              </InputGroup>
+              <InputGroup label="How much water?" className="mb-3">
                 <Form.Control type="number" name="weight" value={formInput.weight} placeholder="Water needed" onChange={handleChange} required />
-              </FloatingLabel>
+                <InputGroup.Text>grams</InputGroup.Text>
+              </InputGroup>
               <Button type="submit" variant="success">Submit</Button>
             </Form>
           </div>

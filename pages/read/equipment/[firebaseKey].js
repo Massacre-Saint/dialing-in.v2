@@ -60,15 +60,7 @@ export default function ShowEquip() {
                 </div>
               </div>
               <div>
-                {
-                  recipe.uid === user.uid && recipe.completed !== true
-                    ? (
-                      <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
-                    )
-                    : (
-                      ''
-                    )
-                }
+                <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
               </div>
             </>
           )

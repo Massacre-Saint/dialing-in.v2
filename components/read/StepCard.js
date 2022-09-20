@@ -47,7 +47,7 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
   }, [stepObj]);
   return (
     <>
-      {router.pathname.includes('/process')
+      {router.pathname.includes('/process') || router.pathname.includes('/brew')
         ? (
           <div className="step-card">
             <div className="step-card-body">

@@ -1,15 +1,17 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from '../../utils/context/authContext';
 
 export default function ViewAllSteps({ recipe }) {
   const router = useRouter();
+  const { user } = useAuth();
   const handleClick = () => {
     router.push(`/create/recipes/steps/${recipe.firebaseKey}`);
   };
   return (
     <div className="steps-btn-container">
-      {recipe.completed === true
+      {recipe?.completed && recipe.uid === user.uid
         ? ('')
         : (
           <button type="button" className="btn-med" onClick={handleClick}>View All Steps</button>
