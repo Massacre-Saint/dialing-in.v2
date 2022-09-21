@@ -93,7 +93,6 @@ body {
   padding: 0px;
   margin: 0px;
 }
-
 .btn-span-lg {
   margin: 0 auto;
   display: block;
@@ -357,7 +356,6 @@ body {
   font-size: 15px;
   text-transform: uppercase;
   align-items: center;
-
 }
 .back-nav {
   width: auto;
@@ -489,7 +487,6 @@ body {
 }
 .time-slider {
   margin: 20px 0px;
-
 }
 .form-select {
   background-color: blue;
