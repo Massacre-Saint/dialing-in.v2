@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../utils/context/authContext';
-import NewUserForm from '../../../components/forms/NewUserForm2';
+import NewUserForm from '../../../components/forms/NewUserForm';
 import { getUser } from '../../../utils/data/apiData/userData';
 
 export default function CreateUser() {
