@@ -28,7 +28,6 @@ li {
 }
 body {
   background-color:#A38560;
-  /* background-color: #a38560; */
   color: #251605;
 }
 .btn-lg {
@@ -451,7 +450,6 @@ body {
 .progress-bar {
   background-color: #251605;
 }
-
 .progress-circle {
   position: absolute;
   background-color: #F5F9E9;
