@@ -14,7 +14,7 @@ const initialSate = {
   favShop: '',
 };
 
-function NewUserForm({ obj }) {
+export default function NewUserForm({ obj }) {
   const { user } = useAuth();
   const router = useRouter();
   const [formInput, setFormInput] = useState(initialSate);
@@ -110,8 +110,6 @@ function NewUserForm({ obj }) {
     </>
   );
 }
-
-export default NewUserForm;
 
 NewUserForm.propTypes = {
   obj: PropTypes.shape({
