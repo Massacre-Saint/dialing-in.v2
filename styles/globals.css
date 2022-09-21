@@ -28,7 +28,6 @@ li {
 }
 body {
   background-color:#A38560;
-  /* background-color: #a38560; */
   color: #251605;
 }
 .btn-lg {
@@ -93,7 +92,6 @@ body {
   padding: 0px;
   margin: 0px;
 }
-
 .btn-span-lg {
   margin: 0 auto;
   display: block;
@@ -357,7 +355,6 @@ body {
   font-size: 15px;
   text-transform: uppercase;
   align-items: center;
-
 }
 .back-nav {
   width: auto;
@@ -453,7 +450,6 @@ body {
 .progress-bar {
   background-color: #251605;
 }
-
 .progress-circle {
   position: absolute;
   background-color: #F5F9E9;
@@ -489,7 +485,6 @@ body {
 }
 .time-slider {
   margin: 20px 0px;
-
 }
 .form-select {
   background-color: blue;
