@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { updateRecipe } from '../../utils/data/apiData/userRecipes';
 
 const initialSate = {
-  brewTime: '',
+  brewTime: 60,
 };
 
 export default function ChooseBrewTimeModal({

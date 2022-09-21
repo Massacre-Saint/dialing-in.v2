@@ -54,7 +54,7 @@ export default function Grind({ grindObj }) {
   }, [user]);
   return (
     <div className="grind-container">
-      <div className="grind-circle">
+      <div>
         <Image className="grind-circle-content" layout="responsive" src={grindObj.imageUrl} onClick={handleClick} />
       </div>
       <h4>{grindObj.grindSize}</h4>

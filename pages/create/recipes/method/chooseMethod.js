@@ -40,7 +40,7 @@ export default function ChooseMethod() {
         </div>
       </Navbar>
       <div>
-        <div>
+        <div className="method-container">
           {methods.map((i) => (
             <Method key={i.firebaseKey} methodObj={i} />
           ))}

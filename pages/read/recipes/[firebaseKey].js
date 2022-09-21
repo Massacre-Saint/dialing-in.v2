@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { BsInfoCircle } from 'react-icons/bs';
 import {
   Navbar, Nav,
 } from 'react-bootstrap';
@@ -12,6 +13,7 @@ import Recipes from '../../../components/read/Recipes';
 import { useAuth } from '../../../utils/context/authContext';
 import MainNavBar from '../../../components/MainNavBar';
 import DefaultRecipes from '../../../components/read/DefaultRecipes';
+import MethodInfoModal from '../../../components/modal/MethodInfoModal';
 
 export default function MethodRecipes() {
   const { user } = useAuth();
@@ -20,6 +22,9 @@ export default function MethodRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [userRecipes, setUserRecipes] = useState([]);
   const [method, setMethod] = useState({});
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const getRoutedRecipes = () => {
     getMethodRecipesDefault(firebaseKey).then((methodObj) => {
       setMethod(methodObj);
@@ -47,7 +52,7 @@ export default function MethodRecipes() {
   };
   useEffect(() => {
     getRoutedRecipes();
-  }, [user]);
+  }, [user, method]);
   return (
     <>
       <Navbar className="navbar">
@@ -57,26 +62,28 @@ export default function MethodRecipes() {
         <div className="page-title">
           {method.name}
         </div>
+        <Nav.Link className="nav-info">
+          <IconContext.Provider value={{ size: '1.7em' }}>
+            <BsInfoCircle onClick={handleShow} />
+          </IconContext.Provider>
+        </Nav.Link>
         <Nav.Link onClick={handleClick} className="nav-cta">
           <IconContext.Provider value={{ size: '2em' }}>
             <IoIosAddCircleOutline />
           </IconContext.Provider>
         </Nav.Link>
       </Navbar>
-      <div>
-        {
-          userRecipes.length && user
-            ? (
-              userRecipes.map(((recipe) => (
-                <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
-              )))
-            )
-            : ('')
-        }
-        {recipes.map((recipe) => (
-          <DefaultRecipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
-        ))}
-      </div>
+      {userRecipes.length && user
+        ? (
+          userRecipes.map(((recipe) => (
+            <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
+          )))
+        )
+        : ('')}
+      {recipes.map((recipe) => (
+        <DefaultRecipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
+      ))}
+      <MethodInfoModal method={method} show={show} handleClose={handleClose} />
       <MainNavBar />
     </>
   );
