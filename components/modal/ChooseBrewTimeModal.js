@@ -78,20 +78,20 @@ export default function ChooseBrewTimeModal({
                     handleChange(x);
                     handleState(x);
                   }}
-                  // styles={{
-                  //   thumb: {
-                  //     width: 20,
-                  //     height: 20,
-                  //     backgroundColor: '#251605',
-                  //   },
-                  //   active: {
-                  //     backgroundColor: '#251605',
-                  //   },
-                  //   track: {
-                  //     width: 360,
-                  //     backgroundColor: '#a38560',
-                  //   },
-                  // }}
+                  styles={{
+                    thumb: {
+                      width: 20,
+                      height: 20,
+                      backgroundColor: '#251605',
+                    },
+                    active: {
+                      backgroundColor: '#251605',
+                    },
+                    track: {
+                      width: 360,
+                      backgroundColor: '#a38560',
+                    },
+                  }}
                 />
               </div>
               <Button type="submit" variant="success">Submit</Button>
