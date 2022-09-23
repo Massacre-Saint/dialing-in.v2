@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Navbar, Nav,
 } from 'react-bootstrap';
-import { GiCoffeePot } from 'react-icons/gi';
+import { GiManualMeatGrinder } from 'react-icons/gi';
 import { TbCoffeeOff } from 'react-icons/tb';
 import { IconContext } from 'react-icons/lib';
 import PublishRecipeButton from '../../../components/buttons/PublishRecipeButton';
@@ -80,10 +80,8 @@ export default function CreateProcess() {
               <div className="page-title">
                 {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
               </div>
-              <Nav.Link onClick={handleEquipment} className="nav-cta nav-item">
-                <IconContext.Provider value={{ size: '2em' }}>
-                  <GiCoffeePot />
-                </IconContext.Provider>
+              <Nav.Link onClick={handleEquipment} className="nav-cta">
+                <GiManualMeatGrinder />
               </Nav.Link>
             </Navbar>
             <div>
@@ -100,19 +98,29 @@ export default function CreateProcess() {
                 </div>
                 <div>
                   <div className="list-container">
-                    <ul>
-                      <li>Recipe: {recipe.methodObject.name}</li>
-                      <li>Brew Time: {convertTime(recipe?.brewTime)}</li>
-                      <li> Grind Size: {recipe.grindObject.grindSize}</li>
+                    <ul className="list-items">
+                      <li>Recipe:
+                        <span>{recipe.recipeName}</span>
+                      </li>
+                      <li>Brew Time:
+                        <span>{convertTime(recipe?.brewTime)}</span>
+                      </li>
+                      <li> Grind Size:
+                        <span>{recipe.grindObject.grindSize}</span>
+                      </li>
                       {!recipe.uid
                         ? ('')
-                        : (<li>Author: {recipe?.userObject?.name}</li>)}
+                        : (
+                          <li>Author:
+                            <span>{recipe?.userObject?.name}</span>
+                          </li>
+                        )}
                     </ul>
                   </div>
                   <div className="directions-title">
                     <h1>Directions:</h1>
                   </div>
-                  <div>
+                  <div className="fade-end">
                     <div className="directions">
                       {
                         steps.length

@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import { GiCoffeeBeans } from 'react-icons/gi';
 import { IoTimeSharp, IoWaterSharp } from 'react-icons/io5';
+import { Image } from 'react-bootstrap';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { deleteProcess } from '../../utils/data/apiData/process';
@@ -65,12 +66,14 @@ export default function Recipes({ recipeObj, render }) {
             </Card>
           )
           : (
-            <Card style={{ width: 'auto' }} onClick={handleClick}>
-              <Card.Body>
-                <Card.Title>{recipeObj.recipeName}</Card.Title>
-                <Card.Text />
+            <div className="recipe-card" onClick={() => { handleClick(); }} onKeyDown={handleClick} role="button" tabIndex={0}>
+              <div>
+                <div className="recipe-title">{recipeObj.recipeName}</div>
                 <div>
-                  <div>{user.userObject?.name}</div>
+                  <div>
+                    <Image className="user-photo-small" referrerPolicy="no-referrer" src={user.userObject?.photoUrl} />
+                    {user.userObject?.name}
+                  </div>
                   <span>
                     <IoTimeSharp />
                     {convertTime(recipeObj.brewTime)}&nbsp;&nbsp;
@@ -93,8 +96,8 @@ export default function Recipes({ recipeObj, render }) {
                       ''
                     )
                 }
-              </Card.Body>
-            </Card>
+              </div>
+            </div>
           )
       }
     </>

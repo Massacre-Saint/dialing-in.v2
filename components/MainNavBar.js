@@ -20,15 +20,12 @@ export default function MainNavBar() {
             <Container>
               <Nav.Link href="/read/recipes/userRecipes" className="nav-item">
                 <BiBookReader id="user-recipe" />
-                Recipes
               </Nav.Link>
               <Nav.Link id="home" className="nav-item">
                 <AiOutlineHome />
-                Home
               </Nav.Link>
               <Nav.Link className="nav-item">
                 <SettingsModal />
-                Settings
               </Nav.Link>
             </Container>
           )
@@ -36,11 +33,9 @@ export default function MainNavBar() {
             <Container>
               <Nav.Link href="/" className="nav-item">
                 <AiOutlineHome />
-                Home
               </Nav.Link>
               <Nav.Link href="/settings" className="nav-item">
                 <FiLogIn />
-                Login
               </Nav.Link>
             </Container>
           )

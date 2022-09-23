@@ -32,7 +32,7 @@ export default function SettingsModal() {
         <Offcanvas.Body>
           <>
             <div className="process-cta-container">
-              <button type="button" className="btn-med" onClick={handleRoute} variant="link">Profile
+              <button type="button" className="btn-lg" onClick={handleRoute} variant="link">Profile
               </button>
               <AuthenticationButton />
             </div>

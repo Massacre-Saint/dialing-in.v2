@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { IconContext } from 'react-icons/lib';
 import {
   Navbar, Nav,
 } from 'react-bootstrap';
@@ -44,9 +43,7 @@ export default function Methods() {
           Dialing In
         </div>
         <Nav.Link onClick={handleClick} className="nav-cta">
-          <IconContext.Provider value={{ size: '2em' }}>
-            <IoIosAddCircleOutline />
-          </IconContext.Provider>
+          <IoIosAddCircleOutline />
         </Nav.Link>
       </Navbar>
       <div>

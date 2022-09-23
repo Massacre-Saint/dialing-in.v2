@@ -82,19 +82,19 @@ export default function ChooseBrewTimeModal({
                     thumb: {
                       width: 20,
                       height: 20,
-                      backgroundColor: '#251605',
+                      backgroundColor: '#eb5e28',
                     },
                     active: {
-                      backgroundColor: '#251605',
+                      backgroundColor: '#eb5e28',
                     },
                     track: {
                       width: 360,
-                      backgroundColor: '#a38560',
+                      backgroundColor: '#ccc5b9',
                     },
                   }}
                 />
               </div>
-              <Button type="submit" variant="success">Submit</Button>
+              <Button type="submit" className="btn-med">Submit</Button>
             </Form>
           </div>
         </Offcanvas.Body>

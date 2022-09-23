@@ -11,6 +11,6 @@ export default function BrewButton() {
     });
   };
   return (
-    <button type="button" className="btn-lg" onClick={handleClick}>Start Brewing</button>
+    <button type="button" className="btn-lg btn-span-lg-bottom" onClick={handleClick}>Start Brewing</button>
   );
 }

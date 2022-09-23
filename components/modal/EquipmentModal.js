@@ -72,7 +72,7 @@ export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
             <FloatingLabel controlId="floatingInput3" label="Certain setting?" className="mb-3">
               <Form.Control type="text" value={formInput.setting} onChange={handleChange} name="setting" />
             </FloatingLabel>
-            <Button type="submit" variant="success">Submit</Button>
+            <Button type="submit" className="btn-lg">Submit</Button>
           </Form>
         </Offcanvas.Body>
       </Offcanvas>

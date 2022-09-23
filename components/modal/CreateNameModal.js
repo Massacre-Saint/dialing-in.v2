@@ -69,7 +69,7 @@ export default function CreateNameModal({ recipeObj, onUpdate }) {
               <FloatingLabel controlId="floatingInput1" label="Create Recipe Name" className="mb-3">
                 <Form.Control type="text" placeholder="Example..." name="recipeName" value={formInput.recipeName} onChange={handleChange} required />
               </FloatingLabel>
-              <Button type="submit" variant="success">Submit</Button>
+              <Button type="submit" className="btn-med">Submit</Button>
             </Form>
           </div>
         </Offcanvas.Body>

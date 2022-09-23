@@ -6,7 +6,6 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { IconContext } from 'react-icons/lib';
 import { getMethodRecipesDefault, getMethodRecipesUser } from '../../../utils/data/apiData/mergeData';
 import { createRecipe, getRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
@@ -52,7 +51,7 @@ export default function MethodRecipes() {
   };
   useEffect(() => {
     getRoutedRecipes();
-  }, [user, method]);
+  }, [user]);
   return (
     <>
       <Navbar className="navbar">
@@ -63,14 +62,10 @@ export default function MethodRecipes() {
           {method.name}
         </div>
         <Nav.Link className="nav-info">
-          <IconContext.Provider value={{ size: '1.7em' }}>
-            <BsInfoCircle onClick={handleShow} />
-          </IconContext.Provider>
+          <BsInfoCircle onClick={handleShow} />
         </Nav.Link>
         <Nav.Link onClick={handleClick} className="nav-cta">
-          <IconContext.Provider value={{ size: '2em' }}>
-            <IoIosAddCircleOutline />
-          </IconContext.Provider>
+          <IoIosAddCircleOutline />
         </Nav.Link>
       </Navbar>
       {userRecipes.length && user

@@ -44,7 +44,7 @@ export default function Brew() {
       <div className="directions-title">
         <h1>Directions:</h1>
       </div>
-      <div className="directions">
+      <div className="directions-scroll">
         {sortedSteps(steps).map((step) => (
           <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
         ))}
