@@ -44,7 +44,7 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
   };
   return (
     <div className="steps-btn-container">
-      <button type="button" className="btn-lg" onClick={handleShow}>Add Step</button>
+      <button type="button" className="btn-lg bottom-btn" onClick={handleShow}>Add Step</button>
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -62,7 +62,7 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
               <FloatingLabel controlId="floatingInput1" label="Create Step" className="mb-3">
                 <Form.Control type="text" value={formInput.direction} onChange={handleChange} placeholder="Example..." name="direction" required />
               </FloatingLabel>
-              <Button type="submit" variant="success">Submit</Button>
+              <Button type="submit" className="btn-lg">Submit</Button>
             </Form>
           </div>
         </Offcanvas.Body>

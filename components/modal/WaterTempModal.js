@@ -79,7 +79,7 @@ export default function WaterTempModal({ recipeObj, onUpdate }) {
                 <Form.Control type="number" name="weight" value={formInput.weight} placeholder="Water needed" onChange={handleChange} required />
                 <InputGroup.Text>grams</InputGroup.Text>
               </InputGroup>
-              <Button type="submit" variant="success">Submit</Button>
+              <Button type="submit" className="btn-med">Submit</Button>
             </Form>
           </div>
         </Offcanvas.Body>

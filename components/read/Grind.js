@@ -78,7 +78,7 @@ export default function Grind({ grindObj }) {
                 <InputGroup.Text>grams</InputGroup.Text>
               </InputGroup>
               <div>
-                <Button type="submit" variant="success">Submit</Button>
+                <Button className="btn-med" type="submit">Submit</Button>
               </div>
             </Form>
           </div>

@@ -14,7 +14,7 @@ export default function ViewAllSteps({ recipe }) {
       {recipe?.completed && recipe.uid === user.uid
         ? ('')
         : (
-          <button type="button" className="btn-med" onClick={handleClick}>View All Steps</button>
+          <button type="button" className="btn-lg" onClick={handleClick}>View All Steps</button>
         )}
     </div>
   );

@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
+import { BsFillPlayFill, BsStopFill } from 'react-icons/bs';
+import { BiReset } from 'react-icons/bi';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { getAllData } from '../utils/data/apiData/mergeData';
 import RatingsCommentsModal from './modal/RatingsCommentsModal';
@@ -41,9 +43,9 @@ export default function Stopwatch() {
           </div>
         </div>
         <div className="stopwatch-buttons">
-          <button type="button" className="btn-med start-btn" onClick={() => setRunning(true)}>Start</button>
-          <button type="button" className="btn-med stop-btn" onClick={() => setRunning(false)}>Stop</button>
-          <button type="button" className="btn-sm reset-btn" onClick={() => setTime(0)}>Reset</button>
+          <button type="button" aria-label="stop" className="circle-btn stop-btn" onClick={() => setRunning(false)}><BsStopFill /></button>
+          <button type="button" aria-label="start" className="circle-btn start-btn" onClick={() => setRunning(true)}><BsFillPlayFill /></button>
+          <button type="button" aria-label="stop" className="circle-btn reset-btn" onClick={() => setTime(0)}><BiReset /></button>
         </div>
       </div>
       <RatingsCommentsModal handleClose={handleClose} show={show} />
