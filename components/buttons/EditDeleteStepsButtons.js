@@ -16,7 +16,7 @@ export default function EditDeleteStepsButtons({
         )
         : (
           <>
-            <button type="button" className="btn-stripped" onClick={handleDelete} aria-label="delete"><MdDeleteForever /></button>
+            <button type="button" onClick={handleDelete} aria-label="delete"><MdDeleteForever /></button>
             <button type="button" className="btn-stripped" onClick={handleShow} aria-label="edit"><AiFillEdit /></button>
           </>
         )}

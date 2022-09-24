@@ -18,7 +18,8 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [formInput, setFormInput] = useState(initialSate);
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    console.warn(e);
     deleteStep(stepObj.firebaseKey).then(() => {
       onUpdate();
     });

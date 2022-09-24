@@ -43,7 +43,6 @@ export default function Recipes({ recipeObj, render }) {
         recipeObj.completed === false
           ? (
             <Card
-              id="card"
               style={{ width: 'auto' }}
               onClick={handleClick}
             >
@@ -52,15 +51,7 @@ export default function Recipes({ recipeObj, render }) {
                 <div>
                   <p>Choose to to finish recipe</p>
                 </div>
-                {
-                  recipeObj.uid
-                    ? (
-                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleDelete} type="button"><MdDeleteForever /></button>
-                    )
-                    : (
-                      ''
-                    )
-                }
+
                 <Card.Text />
               </Card.Body>
             </Card>
@@ -87,19 +78,19 @@ export default function Recipes({ recipeObj, render }) {
                     {recipeObj.weight}g&nbsp;&nbsp;
                   </span>
                 </div>
-                {
+              </div>
+            </div>
+          )
+      }
+      {
                   recipeObj.uid
                     ? (
-                      <button aria-label="delete" className="card-delete btn-stripped card-delete-btn" onClick={handleDelete} type="button"><MdDeleteForever /></button>
+                      <button aria-label="delete" className="last-min" onClick={handleDelete} type="button"><MdDeleteForever /></button>
                     )
                     : (
                       ''
                     )
                 }
-              </div>
-            </div>
-          )
-      }
     </>
   );
 }

@@ -37,9 +37,6 @@ export default function CreateProcess() {
     const result = new Date(total * 1000).toISOString().slice(14, 19);
     return result;
   };
-  // const handleFavorite = () => {
-
-  // }
   const sortedSteps = (array) => {
     const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
     return orderedSteps;
@@ -153,7 +150,7 @@ export default function CreateProcess() {
                   </div>
                 )}
               {recipe?.completed === true || recipe?.completed === undefined
-                ? (<BrewButton />)
+                ? (<BrewButton recipe={recipe} />)
                 : ('')}
             </div>
             <UserProcessModal handleBack={handleBack} show={show} handleClose={handleClose} handleSave={handleSave} />
