@@ -582,3 +582,9 @@ body {
   font-size: 18px;
   padding: 20px 30px;
 }
+.recipe-equip-header h2 {
+color: var(--font-main);
+margin-left: 25vw;
+margin-top: 3vh;
+margin-bottom: 10px;
+}
