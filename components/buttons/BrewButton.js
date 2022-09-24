@@ -13,7 +13,7 @@ export default function BrewButton({ recipe }) {
   };
   return (
     <>
-      {recipe?.completed === true
+      {recipe?.completed === true || recipe?.completed === undefined
         ? (
           <button type="button" className="btn-lg btn-span-lg-bottom" onClick={handleClick}>Start Brewing</button>
         )
