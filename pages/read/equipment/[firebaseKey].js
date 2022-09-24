@@ -41,7 +41,7 @@ export default function ShowEquip() {
           Equipment
         </div>
       </Navbar>
-      <div>
+      <div className="recipe-equip-header">
         <h2>Method Equipment</h2>
         <div className="cards-container">
           {methodEquip.map((obj) => (
@@ -51,7 +51,7 @@ export default function ShowEquip() {
         {recipeEquip.length
           ? (
             <>
-              <div>
+              <div className="recipe-equip-header">
                 <h2>Recipe Equipment</h2>
                 <div className="steps">
                   {recipeEquip.map((obj) => (
