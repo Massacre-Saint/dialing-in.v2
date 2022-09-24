@@ -141,7 +141,7 @@ body {
 .directions {
   position: relative;
   height: 35vh;
-  overflow-y:hidden;
+  overflow-y:auto;
 }
 .directions-scroll {
   position: relative;
@@ -197,7 +197,6 @@ body {
   border: 1px solid #251605;
   border-radius: 0.30em;
   box-shadow: 0px 3px 5px #6b573e;
-  z-index: -1;
 }
   .step-card-body {
     display: flex;
@@ -449,6 +448,11 @@ body {
   top: 0px;
   right: 0px;
   color: red;
+}
+.last-min {
+  position: relative;
+  bottom: 13px;
+  left: 15px
 }
 .submit-prompt p {
   margin-top: 100px;
