@@ -104,8 +104,8 @@ export default function NewUserForm({ obj }) {
         </div>
       </div>
       <div className="process-cta-container">
-        <button type="button" className="btn-med" variant="secondary" onClick={handleClick}>Maybe Later</button>
-        <button type="submit" onClick={handleSubmit} className="btn-med" variant="success">Submit</button>
+        <button type="button" className="btn-med" onClick={handleClick}>Later</button>
+        <button type="submit" onClick={handleSubmit} className="btn-lg">Submit</button>
       </div>
     </>
   );

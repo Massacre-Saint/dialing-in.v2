@@ -2,10 +2,8 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import {
-  Navbar, Nav,
+  Navbar, Nav, Image,
 } from 'react-bootstrap';
-import { IconContext } from 'react-icons/lib';
-import { GiCoffeeBeans } from 'react-icons/gi';
 import { useAuth } from '../utils/context/authContext';
 import { createUserProfile, getUser } from '../utils/data/apiData/userData';
 import ProfileCard from '../components/read/ProfileCard';
@@ -44,22 +42,18 @@ function Settings() {
           <div>
             <Navbar className="navbar">
               <Nav.Link onClick={handleBack}>
-                <button type="button" className="back-nav">&#8249; Methods</button>
+                <button type="button" className="btn-sm">&#8249; Methods</button>
               </Nav.Link>
-              Settings
+              <div className="page-title">Settings</div>
             </Navbar>
             <div className="settings-container">
               <div>
-                <IconContext.Provider value={{ size: '15em', color: '#251605' }}>
-                  <div>
-                    <GiCoffeeBeans />
-                  </div>
-                </IconContext.Provider>
+                <Image className="logo" src="/images/Dialing-Logo.svg" />
               </div>
-              <div>
+              <div className="signIn-content">
                 <h1>Let&apos;s sign you in</h1>
               </div>
-              <div>
+              <div className="signIn-content">
                 <p>Bring together your community, recipes, and knowledge about coffee into one app!</p>
               </div>
             </div>
