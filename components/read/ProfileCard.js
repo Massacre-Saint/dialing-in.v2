@@ -91,7 +91,7 @@ export default function ProfileCard() {
             )}
         </div>
       </>
-      <div>
+      <div className="profile-btn-cta">
         <AuthenticationButton />
       </div>
     </>

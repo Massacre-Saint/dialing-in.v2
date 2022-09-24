@@ -10,7 +10,7 @@ export default function ViewAllSteps({ recipe }) {
     router.push(`/create/recipes/steps/${recipe.firebaseKey}`);
   };
   return (
-    <div className="steps-btn-container">
+    <div>
       {recipe?.completed && recipe.uid === user.uid
         ? ('')
         : (

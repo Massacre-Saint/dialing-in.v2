@@ -53,7 +53,7 @@ body {
   display:inline-block;
   padding:0.35em .35em;
   border:0.1em solid var(--border);
-  margin-right: 10px;
+  margin:0 1em 0.3em 0;
   background-color: var(--icon);
   color: var(--border);
   border-radius:0.30em;
@@ -425,7 +425,7 @@ body {
 .bottom-cta {
   position: absolute;
   bottom: 30px;
-  right: 35%;
+  right: 20px;
 }
 
 .card {
@@ -479,7 +479,7 @@ body {
     color: var(--font-main);
   }
 .settings-modal {
-  background-color: #a38560;
+  background-color: var(--background-main);
   height: 10vh;
   padding: 0px;
   margin: 0;
@@ -491,7 +491,13 @@ body {
 }
 .process-cta-container {
   display: flex;
-  margin: 20px 40px;
+  flex-wrap: nowrap;
+  margin: 25px 15px;
+}
+.profile-btn-cta {
+ position: absolute;
+ bottom: 10vh;
+ left: 10vw
 }
 .form-box {
   background-color: transparent;
@@ -557,4 +563,18 @@ body {
   width: 25px;
   border-radius: 50%;
   margin-right: 10px;
+}
+.logo  {
+  width: 400px;
+}
+.logo-sm  {
+  width: 40px;
+}
+.signIn-content {
+  color: var(--font-main);
+}
+.signIn-content p {
+  color: var(--font-main);
+  font-size: 18px;
+  padding: 20px 30px;
 }
