@@ -8,7 +8,7 @@
     "recipeName": "Bialetti 6 cup",
     "dose": 20,
     "waterTemp": 32,
-    "favorite": false
+    "completed": true
   },
   "xyVKfeeNiv": {
     "firebaseKey": "xyVKfeeNiv",
@@ -19,7 +19,7 @@
     "recipeName": "James Hoffman: Short & Strong",
     "dose": 11,
     "waterTemp": 210,
-    "favorite": false
+    "completed": true
   },
   "RcYvDBpHjs": {
     "firebaseKey": "RcYvDBpHjs",
@@ -30,7 +30,7 @@
     "recipeName": "Standard Ratio",
     "dose": 27,
     "waterTemp": 212,
-    "favorite": true
+    "completed": true
   },
   "toWtn71aE8": {
     "firebaseKey": "toWtn71aE8",
@@ -41,7 +41,7 @@
     "recipeName": "Frothy Monkey Guide",
     "dose": 40,
     "waterTemp": 205,
-    "favorite": true
+    "completed": true
   },
   "B44eiyPAPl": {
     "firebaseKey": "B44eiyPAPl",
@@ -52,7 +52,7 @@
     "recipeName": "4-cup Serving",
     "dose": 63,
     "waterTemp": 34,
-    "favorite": false
+    "completed": true
   },
   "kOxico68GU": {
     "firebaseKey": "kOxico68GU",
@@ -63,7 +63,7 @@
     "recipeName": "Frothy Monkey Guide",
     "dose": 25,
     "waterTemp": 205,
-    "favorite": true
+    "completed": true
   },
   "PKbnh0hJPh": {
     "firebaseKey": "PKbnh0hJPh",
@@ -74,7 +74,7 @@
     "recipeName": "Stumptown Coffee's Method",
     "dose": 21,
     "waterTemp": 205,
-    "favorite": false
+    "completed": true
   },
   "P6uBYHFbaW": {
     "firebaseKey": "P6uBYHFbaW",
@@ -85,7 +85,7 @@
     "recipeName": "Toddy: At Home",
     "dose": 340,
     "waterTemp": 34,
-    "favorite": true
+    "completed": true
   },
   "JWuSgc9xoL": {
     "firebaseKey": "JWuSgc9xoL",
@@ -96,7 +96,7 @@
     "recipeName": "4 cup Auto Drip",
     "dose": 60,
     "waterTemp": 34,
-    "favorite": false
+    "completed": true
   },
   "bTdaBRgtI0": {
     "firebaseKey": "bTdaBRgtI0",
@@ -107,6 +107,6 @@
     "recipeName": "Traditional Method",
     "dose": 14,
     "waterTemp": 34,
-    "favorite": false
+    "completed": true
   }
 }

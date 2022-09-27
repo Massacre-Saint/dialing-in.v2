@@ -31,7 +31,7 @@ export default function CreateRecipe() {
   const handleClick = () => {
     handleClose();
   };
-  const create = (process) => {
+  const update = (process) => {
     const payload = {
       processId: process.firebaseKey,
       completed: false,
@@ -45,7 +45,7 @@ export default function CreateRecipe() {
     if (!userRecipe.processId) {
       createProcess(payload).then((processObj) => {
         getProcess(processObj.data.firebaseKey).then((process) => {
-          create(process);
+          update(process);
         });
       });
     }

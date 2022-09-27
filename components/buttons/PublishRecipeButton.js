@@ -6,6 +6,7 @@ export default function PublishRecipeButton({ onUpdate, steps, recipe }) {
   const handleSubmit = () => {
     const payload = {
       completed: true,
+      favoriteId: '',
     };
     updateRecipe(recipe.firebaseKey, payload).then(() => {
       onUpdate();
