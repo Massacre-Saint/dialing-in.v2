@@ -395,6 +395,13 @@ body {
     color: var(--icon);
     font-size: 35px;
   }
+  .nav-fav {
+    position: absolute;
+    right: 18vw;
+    bottom: 8px;
+    color: var(--icon);
+    font-size: 35px;
+  }
   .nav-info {
    position: absolute;
    right: 14vw;
@@ -587,4 +594,8 @@ color: var(--font-main);
 margin-left: 25vw;
 margin-top: 3vh;
 margin-bottom: 10px;
+}
+.color-fill {
+  color: #eb5e28;
+  fill: #eb5e28;
 }

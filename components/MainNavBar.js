@@ -4,7 +4,7 @@ import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
 import { BiBookReader } from 'react-icons/bi';
-import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineHeart } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 import { useAuth } from '../utils/context/authContext';
 import SettingsModal from './modal/SettingsModal';
@@ -20,6 +20,9 @@ export default function MainNavBar() {
             <Container>
               <Nav.Link href="/read/recipes/userRecipes" className="nav-item">
                 <BiBookReader id="user-recipe" />
+              </Nav.Link>
+              <Nav.Link href="/read/recipes/favRecipes" className="nav-item">
+                <AiOutlineHeart />
               </Nav.Link>
               <Nav.Link id="home" className="nav-item">
                 <AiOutlineHome />

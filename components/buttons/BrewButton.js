@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-export default function BrewButton({ recipe }) {
+export default function BrewButton() {
   const router = useRouter();
   const { firebaseKey } = router.query;
   const handleClick = () => {
@@ -13,24 +13,18 @@ export default function BrewButton({ recipe }) {
   };
   return (
     <>
-      {recipe?.completed === true || recipe?.completed === undefined
-        ? (
-          <button type="button" className="btn-lg btn-span-lg-bottom" onClick={handleClick}>Start Brewing</button>
-        )
-        : (
-          ''
-        )}
+      <button type="button" className="btn-lg btn-span-lg-bottom" onClick={handleClick}>Start Brewing</button>
     </>
   );
 }
 
-BrewButton.propTypes = {
-  recipe: PropTypes.shape({
-    completed: PropTypes.bool,
-  }),
-};
-BrewButton.defaultProps = {
-  recipe: PropTypes.shape({
-    completed: false,
-  }),
-};
+// BrewButton.propTypes = {
+//   recipe: PropTypes.shape({
+//     completed: PropTypes.bool,
+//   }),
+// };
+// BrewButton.defaultProps = {
+//   recipe: PropTypes.shape({
+//     completed: false,
+//   }),
+// };

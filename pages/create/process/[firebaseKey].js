@@ -16,18 +16,31 @@ import { useAuth } from '../../../utils/context/authContext';
 import { getAllData } from '../../../utils/data/apiData/mergeData';
 import { getSteps } from '../../../utils/data/apiData/steps';
 import BrewButton from '../../../components/buttons/BrewButton';
+import { createFavoriteRecipe, deleteFavoriteRecipe, getSingleFavoriteRecipe } from '../../../utils/data/apiData/favorites';
+import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
+import FavoriteButton from '../../../components/buttons/FavoriteButton';
 
 export default function CreateProcess() {
   const { user } = useAuth();
   const [recipe, setRecipe] = useState({});
   const [steps, setSteps] = useState([]);
   const router = useRouter();
+  const [favoriteState, setFavoriteState] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const { firebaseKey } = router.query;
+
   const renderRecipe = () => {
     getAllData(firebaseKey).then((obj) => setRecipe(obj));
     getSteps(firebaseKey).then((array) => setSteps(array));
+  };
+
+  const mountedFavState = () => {
+    if (!recipe?.favoriteId) {
+      setFavoriteState(false);
+    } else {
+      setFavoriteState(true);
+    }
   };
   const convertTime = (total) => {
     if (total >= 3600) {
@@ -54,6 +67,43 @@ export default function CreateProcess() {
       router.back();
     }
   };
+  const updateFavoritePayload = (favorite) => {
+    const payload = {
+      favoriteId: favorite.firebaseKey,
+    };
+    updateRecipe(favorite.recipeId, payload);
+  };
+  const handleFavorite = () => {
+    const payload = {
+      brewTime: recipe.brewTime,
+      grindId: recipe.grindId,
+      weight: recipe.weight,
+      dose: recipe.dose,
+      methodId: recipe.methodId,
+      processId: recipe.processId,
+      uid: recipe.uid,
+      recipeName: recipe.recipeName,
+      waterTemp: recipe.waterTemp,
+      recipeId: recipe.firebaseKey,
+      completed: recipe.completed,
+    };
+    if (favoriteState === true) {
+      deleteFavoriteRecipe(recipe.favoriteId).then(() => {
+        const deleteLoad = {
+          favoriteId: '',
+        };
+        updateRecipe(recipe.firebaseKey, deleteLoad);
+        setFavoriteState(false);
+      });
+    } else {
+      createFavoriteRecipe(payload).then((favoriteObj) => {
+        getSingleFavoriteRecipe(favoriteObj.data.firebaseKey).then((favorite) => {
+          updateFavoritePayload(favorite);
+        });
+      });
+      setFavoriteState(true);
+    }
+  };
   const handleSave = () => {
     setShow(false);
     router.push('/');
@@ -63,102 +113,108 @@ export default function CreateProcess() {
   };
   useEffect(() => {
     renderRecipe();
-  }, [user]);
+    mountedFavState();
+  }, [user, recipe?.favoriteId]);
   return (
     <>
       {
-      recipe.methodObject
-        ? (
-          <>
-            <Navbar className="navbar">
-              <Nav.Link onClick={handleShow}>
-                <button className="btn-sm" type="button">&#8249; Back</button>
-              </Nav.Link>
-              <div className="page-title">
-                {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
-              </div>
-              <Nav.Link onClick={handleEquipment} className="nav-cta">
-                <GiManualMeatGrinder />
-              </Nav.Link>
-            </Navbar>
-            <div>
+        recipe.methodObject
+          ? (
+            <>
+              <Navbar className="navbar">
+                <Nav.Link onClick={handleShow}>
+                  <button className="btn-sm" type="button">&#8249; Back</button>
+                </Nav.Link>
+                <div className="page-title">
+                  {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
+                </div>
+                <Nav.Link onClick={handleFavorite} className="nav-fav">
+                  {recipe.favoriteId !== undefined
+                    ? (<FavoriteButton favoriteState={favoriteState} />)
+                    : ('')}
+                </Nav.Link>
+                <Nav.Link onClick={handleEquipment} className="nav-cta">
+                  <GiManualMeatGrinder />
+                </Nav.Link>
+              </Navbar>
               <div>
-                <div className="circles">
-                  <div className="circle"><span className="circle-content">{recipe.dose} g </span></div>
-                  <div className="circle"><span className="circle-content">{recipe.weight} g</span></div>
-                  <div className="circle"><span className="circle-content">{recipe.waterTemp} F°</span></div>
-                </div>
-                <div className="circle-footer">
-                  <div>Coffe</div>
-                  <div>Water</div>
-                  <div>Temp</div>
-                </div>
                 <div>
-                  <div className="list-container">
-                    <ul className="list-items">
-                      <li>Recipe:
-                        <span>{recipe.recipeName}</span>
-                      </li>
-                      <li>Brew Time:
-                        <span>{convertTime(recipe?.brewTime)}</span>
-                      </li>
-                      <li> Grind Size:
-                        <span>{recipe.grindObject.grindSize}</span>
-                      </li>
-                      {!recipe.uid
-                        ? ('')
-                        : (
-                          <li>Author:
-                            <span>{recipe?.userObject?.name}</span>
-                          </li>
-                        )}
-                    </ul>
+                  <div className="circles">
+                    <div className="circle"><span className="circle-content">{recipe.dose} g </span></div>
+                    <div className="circle"><span className="circle-content">{recipe.weight} g</span></div>
+                    <div className="circle"><span className="circle-content">{recipe.waterTemp} F°</span></div>
                   </div>
-                  <div className="directions-title">
-                    <h1>Directions:</h1>
+                  <div className="circle-footer">
+                    <div>Coffe</div>
+                    <div>Water</div>
+                    <div>Temp</div>
                   </div>
-                  <div className="fade-end">
-                    <div className="directions">
-                      {
-                        steps.length
-                          ? (
-                            sortedSteps(steps).map((step) => (
-                              <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
-                            ))
-                          )
+                  <div>
+                    <div className="list-container">
+                      <ul className="list-items">
+                        <li>Recipe:
+                          <span>{recipe.recipeName}</span>
+                        </li>
+                        <li>Brew Time:
+                          <span>{convertTime(recipe?.brewTime)}</span>
+                        </li>
+                        <li> Grind Size:
+                          <span>{recipe.grindObject.grindSize}</span>
+                        </li>
+                        {!recipe.uid
+                          ? ('')
                           : (
-                            <div className="empty-content">
-                              <IconContext.Provider value={{ size: '4em', color: '#F8F4E3' }}>
-                                <TbCoffeeOff />
-                              </IconContext.Provider>
-                              <p>Seems empty...<br />Add steps below</p>
-                            </div>
-                          )
-                      }
+                            <li>Author:
+                              <span>{recipe?.userObject?.name}</span>
+                            </li>
+                          )}
+                      </ul>
+                    </div>
+                    <div className="directions-title">
+                      <h1>Directions:</h1>
+                    </div>
+                    <div className="fade-end">
+                      <div className="directions">
+                        {
+                          steps.length
+                            ? (
+                              sortedSteps(steps).map((step) => (
+                                <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
+                              ))
+                            )
+                            : (
+                              <div className="empty-content">
+                                <IconContext.Provider value={{ size: '4em', color: '#F8F4E3' }}>
+                                  <TbCoffeeOff />
+                                </IconContext.Provider>
+                                <p>Seems empty...<br />Add steps below</p>
+                              </div>
+                            )
+                        }
+                      </div>
                     </div>
                   </div>
                 </div>
+                {recipe.uid === undefined
+                  ? (
+                    ''
+                  )
+                  : (
+                    <div className="process-cta-container">
+                      <ViewAllSteps recipe={recipe} />
+                      <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
+                    </div>
+                  )}
+                {recipe?.completed
+                  ? (<BrewButton recipe={recipe} />)
+                  : ('')}
               </div>
-              {recipe.uid === undefined
-                ? (
-                  ''
-                )
-                : (
-                  <div className="process-cta-container">
-                    <ViewAllSteps recipe={recipe} />
-                    <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
-                  </div>
-                )}
-              {recipe?.completed === true || recipe?.completed === undefined
-                ? (<BrewButton recipe={recipe} />)
-                : ('')}
-            </div>
-            <UserProcessModal handleBack={handleBack} show={show} handleClose={handleClose} handleSave={handleSave} />
-          </>
-        )
-        : (
-          ''
-        )
+              <UserProcessModal handleBack={handleBack} show={show} handleClose={handleClose} handleSave={handleSave} />
+            </>
+          )
+          : (
+            ''
+          )
     }
       {recipe.completed || recipe.completed === undefined
         ? (
