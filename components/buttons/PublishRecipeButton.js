@@ -17,7 +17,7 @@ export default function PublishRecipeButton({ onUpdate, steps, recipe }) {
       {
       steps.length > 4 && !recipe.completed
         ? (
-          <button type="button" className="btn-med" onClick={handleSubmit}>Publish</button>
+          <button type="button" className="btn-lg" onClick={handleSubmit}>Publish</button>
         )
         : (
           ''

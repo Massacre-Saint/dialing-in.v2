@@ -503,7 +503,8 @@ body {
 .process-cta-container {
   display: flex;
   flex-wrap: nowrap;
-  margin: 25px 15px;
+  flex-direction: column;
+  margin: 25px 40px;
 }
 .profile-btn-cta {
  position: absolute;
