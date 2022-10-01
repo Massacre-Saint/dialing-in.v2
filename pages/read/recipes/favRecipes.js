@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
-
+import { AiOutlineHeart } from 'react-icons/ai';
+import { IconContext } from 'react-icons';
 import {
   Navbar, Nav,
 } from 'react-bootstrap';
@@ -42,7 +43,12 @@ export default function FavRecipes() {
               ))
             )
             : (
-              <h1>No Recipes</h1>
+              <div className="empty-content">
+                <IconContext.Provider value={{ size: '4em', color: '#ccc5b9' }}>
+                  <AiOutlineHeart />
+                </IconContext.Provider>
+                <p>Seems empty...<br /></p>
+              </div>
             )
         }
       </div>
