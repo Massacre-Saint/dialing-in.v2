@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,7 +10,15 @@ export default function Method({ methodObj }) {
     <div className="method-circle">
       <div>
         <Link passHref href={`/read/recipes/${methodObj.firebaseKey}`}>
-          <Image className="method-circle-content" loader={() => src} height={140} width={140} src={methodObj.imageUrl} />
+          <a>
+            <Image
+              className="method-circle-content"
+              loader={() => src}
+              height={140}
+              width={140}
+              src={methodObj.imageUrl}
+            />
+          </a>
         </Link>
       </div>
       <h4>{methodObj.name}</h4>
