@@ -65,7 +65,7 @@ export default function ProfileCard() {
                   </p>
                 </div>
                 <div>
-                  <button aria-label="edit" type="button" className="btn-stripped card-delete" onClick={handleEdit} variant="success">
+                  <button aria-label="edit" type="button" className="btn-stripped card-delete" onClick={handleEdit}>
                     <IconContext.Provider value={{ size: '2em' }}>
                       <AiFillEdit />
                     </IconContext.Provider>
@@ -86,7 +86,7 @@ export default function ProfileCard() {
                   <p>Favorite Roast: {userProfile.favRoast}</p>
                   <p>Favorite Coffee Shop: {userProfile.favShop} </p>
                 </div>
-                <button aria-label="edit" type="button" className="btn-stripped card-delete-btn" onClick={handleEdit} variant="success"><AiFillEdit /></button>
+                <button aria-label="edit" type="button" className="btn-stripped card-delete-btn" onClick={handleEdit}><AiFillEdit /></button>
               </div>
             )}
         </div>

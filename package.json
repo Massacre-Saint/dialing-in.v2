@@ -1,8 +1,8 @@
 {
-  "name": "dialing-in",
+  "name": "dialing-in.v2",
   "private": true,
   "version": "1.0.0",
-  "author": "Jacob Martin aka Massacre-Saint",
+  "author": "Jacob Martin",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

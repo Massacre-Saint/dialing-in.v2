@@ -16,7 +16,7 @@ export default function SettingsModal() {
   };
   return (
     <>
-      <button type="button" variant="link" onClick={handleShow} className="btn-stripped nav-item">
+      <button type="button" onClick={handleShow} className="btn-stripped nav-item">
         <FiSettings />
       </button>
       <Offcanvas
@@ -32,7 +32,7 @@ export default function SettingsModal() {
         <Offcanvas.Body>
           <>
             <div className="process-cta-container">
-              <button type="button" className="btn-lg" onClick={handleRoute} variant="link">Profile
+              <button type="button" className="btn-lg" onClick={handleRoute}>Profile
               </button>
               <AuthenticationButton />
             </div>
