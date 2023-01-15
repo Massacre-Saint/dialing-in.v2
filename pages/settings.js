@@ -5,23 +5,23 @@ import {
   Navbar, Nav, Image,
 } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
-import { createUserProfile, getUser } from '../utils/data/apiData/userData';
 import ProfileCard from '../components/read/ProfileCard';
 import AuthenticationButton from '../components/buttons/AuthenticationButton';
+import { checkUser, registerUser } from '../utils/auth';
 
 function Settings() {
   const router = useRouter();
   const { user } = useAuth();
   const payload = {
     uid: user.uid,
-    photoUrl: user.photoURL,
+    imageUrl: user.photoURL,
     name: user.displayName,
   };
   const validateUser = () => {
     if (user) {
-      getUser(user.uid).then((userObj) => {
-        if (!userObj) {
-          createUserProfile(payload).then(() => {
+      checkUser(user.uid).then((userObj) => {
+        if (!userObj.id) {
+          registerUser(payload).then(() => {
             router.push('/read/user/createUser');
           });
         }
