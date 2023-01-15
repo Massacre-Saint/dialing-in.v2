@@ -32,11 +32,4 @@ const updateUser = (uid, payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createUserProfile = (userObj) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/user/${userObj.uid}.json`, userObj)
-    .then(() => {
-      getUser(userObj.uid).then(resolve);
-    }).catch(reject);
-});
-
-export { getUser, createUserProfile, updateUser };
+export { getUser, updateUser };

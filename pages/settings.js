@@ -20,19 +20,12 @@ function Settings() {
   const validateUser = () => {
     if (user) {
       checkUser(user.uid).then((userObj) => {
-        if (!userObj) {
+        if (!userObj.id) {
           registerUser(payload).then(() => {
             router.push('/read/user/createUser');
           });
         }
       });
-      // getUser(user.uid).then((userObj) => {
-      //   if (!userObj) {
-      //     createUserProfile(payload).then(() => {
-      //       router.push('/read/user/createUser');
-      //     });
-      //   }
-      // });
     }
   };
   const handleBack = () => {
