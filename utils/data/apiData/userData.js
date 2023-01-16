@@ -1,10 +1,9 @@
-import axios from 'axios';
 import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getUser = (uid, userId) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/users/${userId}`, {
+const getUser = (pk, uid) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/users/${pk}`, {
     headers: {
       Authorization: uid,
     },
@@ -26,10 +25,19 @@ const getUser = (uid, userId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updateUser = (uid, payload) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/user/${uid}.json`, payload)
-    .then(() => getUser(uid).then(resolve))
-    .catch(reject);
-});
+// const updateUser = (pk, payload) => new Promise((resolve, reject) => {
+//   axios.patch(`${dbUrl}/user/${pk}`, payload)
+//     .then(() => getUser(uid).then(resolve))
+//     .catch(reject);
+// });
 
+const updateUser = (pk, data) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/users/${pk}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
 export { getUser, updateUser };
