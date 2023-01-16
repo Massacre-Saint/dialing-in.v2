@@ -10,11 +10,11 @@ import { IconContext } from 'react-icons';
 import { useAuth } from '../../utils/context/authContext';
 import { getUser } from '../../utils/data/apiData/userData';
 import AuthenticationButton from '../buttons/AuthenticationButton';
-import { getSingleMethod } from '../../utils/data/apiData/methods';
+import { checkUser } from '../../utils/auth';
 
 export default function ProfileCard() {
   const [userProfile, setUserProfile] = useState({});
-  const [method, setMethod] = useState({});
+  const [method] = useState({});
   const router = useRouter();
   const { user } = useAuth();
   const handleEdit = () => {
@@ -24,9 +24,8 @@ export default function ProfileCard() {
     router.push('/');
   };
   useEffect(() => {
-    getUser(user.uid).then((obj) => {
-      setUserProfile(obj);
-      getSingleMethod(obj.brewMethod).then(setMethod);
+    checkUser(user.uid).then((obj) => {
+      getUser(obj.id).then(setUserProfile);
     });
   }, [user]);
   return (
