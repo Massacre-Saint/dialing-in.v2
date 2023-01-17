@@ -5,18 +5,18 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 
 export default function Method({ methodObj }) {
-  const src = `${methodObj.imageUrl}`;
+  const src = `${methodObj.image_url}`;
   return (
     <div className="method-circle">
       <div>
-        <Link passHref href={`/read/recipes/${methodObj.firebaseKey}`}>
+        <Link passHref href={`/read/recipes/${methodObj.id}`}>
           <a>
             <Image
               className="method-circle-content"
               loader={() => src}
               height={140}
               width={140}
-              src={methodObj.imageUrl}
+              src={methodObj.image_url}
             />
           </a>
         </Link>
@@ -28,8 +28,8 @@ export default function Method({ methodObj }) {
 Method.propTypes = {
   methodObj: PropTypes.shape(
     {
-      firebaseKey: PropTypes.string,
-      imageUrl: PropTypes.string,
+      id: PropTypes.number,
+      image_url: PropTypes.string,
       description: PropTypes.string,
       name: PropTypes.string,
     },
@@ -38,8 +38,8 @@ Method.propTypes = {
 Method.defaultProps = {
   methodObj: PropTypes.shape(
     {
-      firebaseKey: '',
-      imageUrl: '',
+      id: '',
+      image_url: '',
       description: '',
       name: '',
     },

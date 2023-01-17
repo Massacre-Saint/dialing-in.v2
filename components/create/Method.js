@@ -14,7 +14,7 @@ export default function Method({ methodObj }) {
   const [userRecipe, setUserRecipe] = useState({});
   const payload = {
     ...userRecipe,
-    methodId: methodObj.firebaseKey,
+    methodId: methodObj.id,
   };
   const handleSubmit = () => {
     updateRecipe(userRecipe.firebaseKey, payload).then(() => router.push(`/create/recipes/${userRecipe.firebaseKey}`));
@@ -22,12 +22,12 @@ export default function Method({ methodObj }) {
   useEffect(() => {
     getRecipe(firebaseKey).then(setUserRecipe);
   }, [user]);
-  const src = `${methodObj.imageUrl}`;
+  const src = `${methodObj.image_url}`;
   return (
     <div className="method-circle">
       <div>
         <Nav.Link type="submit" onClick={handleSubmit}>
-          <Image className="method-circle-content" loader={() => src} height={140} width={140} src={methodObj.imageUrl} />
+          <Image className="method-circle-content" loader={() => src} height={140} width={140} src={methodObj.image_url} />
         </Nav.Link>
       </div>
       <h4>{methodObj.name}</h4>
@@ -37,8 +37,8 @@ export default function Method({ methodObj }) {
 Method.propTypes = {
   methodObj: PropTypes.shape(
     {
-      firebaseKey: PropTypes.string,
-      imageUrl: PropTypes.string,
+      id: PropTypes.string,
+      image_url: PropTypes.string,
       description: PropTypes.string,
       name: PropTypes.string,
     },
@@ -47,8 +47,8 @@ Method.propTypes = {
 Method.defaultProps = {
   methodObj: PropTypes.shape(
     {
-      firebaseKey: '',
-      imageUrl: '',
+      id: '',
+      image_url: '',
       description: '',
       name: '',
     },

@@ -25,12 +25,6 @@ const getUser = (pk, uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-// const updateUser = (pk, payload) => new Promise((resolve, reject) => {
-//   axios.patch(`${dbUrl}/user/${pk}`, payload)
-//     .then(() => getUser(uid).then(resolve))
-//     .catch(reject);
-// });
-
 const updateUser = (pk, data) => new Promise((resolve, reject) => {
   fetch(`${dbUrl}/users/${pk}`, {
     method: 'PUT',
