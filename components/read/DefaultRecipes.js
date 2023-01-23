@@ -20,13 +20,13 @@ export default function DefaultRecipes({ recipeObj, render }) {
   };
   const handleClick = (e) => {
     if (e.target.type === 'button') {
-      deleteUserRecipeEquipment(recipeObj.firebaseKey);
-      deleteRecipeSteps(recipeObj.firebaseKey).then(() => {
-        deleteProcess(recipeObj.processId);
+      deleteUserRecipeEquipment(recipeObj.id);
+      deleteRecipeSteps(recipeObj.id).then(() => {
+        deleteProcess(recipeObj.id);
         render();
       });
     } else {
-      router.push(`/create/process/${recipeObj.firebaseKey}`);
+      router.push(`/create/process/${recipeObj.id}`);
     }
   };
   useEffect(() => [recipeObj]);
@@ -34,12 +34,12 @@ export default function DefaultRecipes({ recipeObj, render }) {
     <>
       <Card style={{ width: 'auto' }} onClick={handleClick}>
         <Card.Body>
-          <Card.Title>{recipeObj.recipeName}</Card.Title>
+          <Card.Title>{recipeObj.recipe_name}</Card.Title>
           <Card.Text />
           <div>
             <span>
               <IoTimeSharp />
-              {convertTime(recipeObj.brewTime)}&nbsp;&nbsp;
+              {convertTime(recipeObj.brew_time)}&nbsp;&nbsp;
             </span>
             <span>
               <GiCoffeeBeans />
@@ -58,39 +58,38 @@ export default function DefaultRecipes({ recipeObj, render }) {
 
 DefaultRecipes.propTypes = {
   recipeObj: PropTypes.shape(
+
     {
-      brewTime: PropTypes.number,
-      grindId: PropTypes.string,
-      weight: PropTypes.number,
-      methodId: PropTypes.string,
-      recipeName: PropTypes.string,
+      brew_time: PropTypes.number,
+      default: PropTypes.bool,
       dose: PropTypes.number,
-      waterTemp: PropTypes.number,
-      favorite: PropTypes.string,
-      completed: PropTypes.bool,
-      firebaseKey: PropTypes.string,
-      uid: PropTypes.string,
-      processId: PropTypes.string,
+      grind_id: PropTypes.shape(
+        {
+          grind_size: PropTypes.string,
+          id: PropTypes.number,
+          image_url: PropTypes.string,
+          order: PropTypes.number,
+        },
+      ).isRequired,
+      id: PropTypes.number,
+      method_id: PropTypes.shape(
+        {
+          description: PropTypes.string,
+          dose_max: PropTypes.number,
+          dose_min: PropTypes.number,
+          id: PropTypes.number,
+          image_url: PropTypes.string,
+          name: PropTypes.string,
+          weight_max: PropTypes.number,
+        },
+      ).isRequired,
+      published: PropTypes.bool,
+      recipe_name: PropTypes.string,
+      weight: PropTypes.number,
     },
-  ),
+  ).isRequired,
   render: PropTypes.func,
 };
 DefaultRecipes.defaultProps = {
-  recipeObj: PropTypes.shape(
-    {
-      brewTime: 0,
-      grindId: '',
-      weight: 0,
-      methodId: '',
-      recipeName: '',
-      dose: 0,
-      waterTemp: 0,
-      favoriteId: '',
-      completed: false,
-      firebaseKey: '',
-      uid: '',
-      processId: '',
-    },
-  ),
   render: () => {},
 };

@@ -2,12 +2,8 @@ import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getUser = (pk, uid) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/users/${pk}`, {
-    headers: {
-      Authorization: uid,
-    },
-  })
+const getUser = (pk) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/users/${pk}`)
     .then((response) => response.json())
     .then((data) => {
       resolve({

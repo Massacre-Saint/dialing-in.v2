@@ -3,23 +3,6 @@ import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getUserRecipes = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/userRecipes.json?orderBy="uid"&equalTo="${uid}"`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
-});
-
-const getRecipe = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/userRecipes/${firebaseKey}.json`)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error));
-});
-const getUserRecipesByMethod = (methodId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/userRecipes.json?orderBy="methodId"&equalTo="${methodId}"`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
-});
-
 const updateRecipe = (firebaseKey, payload) => new Promise((resolve, reject) => {
   axios.patch(`${dbUrl}/userRecipes/${firebaseKey}.json`, payload)
     .then(resolve)
@@ -41,5 +24,5 @@ const deleteRecipe = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 export {
-  getUserRecipes, getUserRecipesByMethod, getRecipe, updateRecipe, createRecipe, deleteRecipe,
+  updateRecipe, createRecipe, deleteRecipe,
 };

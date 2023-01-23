@@ -9,7 +9,8 @@ import { getMethods } from '../utils/data/apiData/methods';
 import Method from '../components/read/Method';
 import MainNavbar from '../components/MainNavBar';
 import { useAuth } from '../utils/context/authContext';
-import { createRecipe, getRecipe } from '../utils/data/apiData/userRecipes';
+import { createRecipe } from '../utils/data/apiData/userRecipes';
+import { getRecipe } from '../utils/data/apiData/recipes';
 
 export default function Methods() {
   const { user } = useAuth();

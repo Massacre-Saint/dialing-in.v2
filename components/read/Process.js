@@ -7,20 +7,21 @@ import {
 import { GiManualMeatGrinder } from 'react-icons/gi';
 import { TbCoffeeOff } from 'react-icons/tb';
 import { IconContext } from 'react-icons/lib';
-import PublishRecipeButton from '../../../components/buttons/PublishRecipeButton';
-import ViewAllSteps from '../../../components/buttons/ViewAllSteps';
-import MainNavBar from '../../../components/MainNavBar';
-import UserProcessModal from '../../../components/modal/UserProcessModal';
-import StepCard from '../../../components/read/StepCard';
-import { useAuth } from '../../../utils/context/authContext';
-import { getAllData } from '../../../utils/data/apiData/mergeData';
-import { getSteps } from '../../../utils/data/apiData/steps';
-import BrewButton from '../../../components/buttons/BrewButton';
-import { createFavoriteRecipe, deleteFavoriteRecipe, getSingleFavoriteRecipe } from '../../../utils/data/apiData/favorites';
-import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
-import FavoriteButton from '../../../components/buttons/FavoriteButton';
+import { useAuth } from '../../utils/context/authContext';
+import PublishRecipeButton from '../buttons/PublishRecipeButton';
+import ViewAllSteps from '../buttons/ViewAllSteps';
+import MainNavBar from '../MainNavBar';
+import UserProcessModal from '../modal/UserProcessModal';
+import StepCard from './StepCard';
+import BrewButton from '../buttons/BrewButton';
+import FavoriteButton from '../buttons/FavoriteButton';
+import { getSingleOwnerRecipe } from '../../utils/data/apiData/owner';
+import { getSteps } from '../../utils/data/apiData/steps';
+import { createFavoriteRecipe, deleteFavoriteRecipe, getSingleFavoriteRecipe } from '../../utils/data/apiData/favorites';
+import { updateRecipe } from '../../utils/data/apiData/userRecipes';
+import { getRecipe } from '../../utils/data/apiData/recipes';
 
-export default function CreateProcess() {
+export default function Process() {
   const { user } = useAuth();
   const [recipe, setRecipe] = useState({});
   const [steps, setSteps] = useState([]);
@@ -28,13 +29,22 @@ export default function CreateProcess() {
   const [favoriteState, setFavoriteState] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
 
+  // const renderRecipe = () => {
+  //   getAllData(firebaseKey).then((obj) => setRecipe(obj));
+  //   getSteps(firebaseKey).then((array) => setSteps(array));
+  // };
   const renderRecipe = () => {
-    getAllData(firebaseKey).then((obj) => setRecipe(obj));
-    getSteps(firebaseKey).then((array) => setSteps(array));
+    getRecipe(id).then((obj) => {
+      if (!obj.default) {
+        getSingleOwnerRecipe(obj.id).then(setRecipe);
+        getSteps(id).then(setSteps);
+      }
+      setRecipe(obj);
+      getSteps(id).then(setSteps);
+    });
   };
-
   const mountedFavState = () => {
     if (!recipe?.favoriteId) {
       setFavoriteState(false);
@@ -56,7 +66,7 @@ export default function CreateProcess() {
   };
   const handleBack = (() => {
     setShow(false);
-    router.push(`/create/recipes/${recipe.firebaseKey}`);
+    router.push(`/create/recipes/${recipe.id}`);
   });
   const handleShow = () => {
     if (recipe.uid) {
@@ -118,7 +128,7 @@ export default function CreateProcess() {
   return (
     <>
       {
-        recipe.methodObject
+        recipe.method_id
           ? (
             <>
               <Navbar className="navbar">
@@ -142,30 +152,27 @@ export default function CreateProcess() {
                   <div className="circles">
                     <div className="circle"><span className="circle-content">{recipe.dose} g </span></div>
                     <div className="circle"><span className="circle-content">{recipe.weight} g</span></div>
-                    <div className="circle"><span className="circle-content">{recipe.waterTemp} F°</span></div>
+                    <div className="circle"><span className="circle-content">{convertTime(recipe?.brew_time)}</span></div>
                   </div>
                   <div className="circle-footer">
                     <div>Coffe</div>
                     <div>Water</div>
-                    <div>Temp</div>
+                    <div>Time</div>
                   </div>
                   <div>
                     <div className="list-container">
                       <ul className="list-items">
                         <li>Recipe:
-                          <span>{recipe.recipeName}</span>
-                        </li>
-                        <li>Brew Time:
-                          <span>{convertTime(recipe?.brewTime)}</span>
+                          <span>{recipe.recipe_name}</span>
                         </li>
                         <li> Grind Size:
-                          <span>{recipe.grindObject.grindSize}</span>
+                          <span>{recipe.grind_id.grind_size}</span>
                         </li>
                         {!recipe.uid
                           ? ('')
                           : (
                             <li>Author:
-                              <span>{recipe?.userObject?.name}</span>
+                              <span>{recipe?.user_id?.name}</span>
                             </li>
                           )}
                       </ul>
@@ -179,7 +186,7 @@ export default function CreateProcess() {
                           steps.length
                             ? (
                               sortedSteps(steps).map((step) => (
-                                <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
+                                <StepCard key={step.id} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
                               ))
                             )
                             : (
@@ -205,7 +212,7 @@ export default function CreateProcess() {
                       <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
                     </div>
                   )}
-                {recipe?.completed
+                {recipe?.published
                   ? (<BrewButton recipe={recipe} />)
                   : ('')}
               </div>
@@ -216,7 +223,7 @@ export default function CreateProcess() {
             ''
           )
     }
-      {recipe.completed || recipe.completed === undefined
+      {recipe.published
         ? (
           <MainNavBar />
         )
