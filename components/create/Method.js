@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { getRecipe, updateRecipe } from '../../utils/data/apiData/userRecipes';
+import { updateRecipe } from '../../utils/data/apiData/userRecipes';
 import { useAuth } from '../../utils/context/authContext';
+import { getRecipe } from '../../utils/data/apiData/recipes';
 
 export default function Method({ methodObj }) {
   const { user } = useAuth();
   const router = useRouter();
-  const firebaseKey = router.query.data;
+  const id = router.query.data;
   const [userRecipe, setUserRecipe] = useState({});
   const payload = {
     ...userRecipe,
@@ -20,7 +21,7 @@ export default function Method({ methodObj }) {
     updateRecipe(userRecipe.firebaseKey, payload).then(() => router.push(`/create/recipes/${userRecipe.firebaseKey}`));
   };
   useEffect(() => {
-    getRecipe(firebaseKey).then(setUserRecipe);
+    getRecipe(id).then(setUserRecipe);
   }, [user]);
   const src = `${methodObj.image_url}`;
   return (

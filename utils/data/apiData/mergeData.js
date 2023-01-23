@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getSingleMethod } from './methods';
-import { getDefaultRecipe, getDefaultRecipesByMethod } from './defaultRecipes';
+import { getDefaultRecipe } from './defaultRecipes';
 import { deleteRecipe, getRecipe, getUserRecipesByMethod } from './userRecipes';
 import { getUser } from './userData';
 import { getSingleGrind } from './grind';
@@ -11,12 +11,6 @@ import getMethodEquipment from './methodEquipment';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getMethodRecipesDefault = (methodfirebaseKey) => new Promise((resolve, reject) => {
-  Promise.all([getSingleMethod(methodfirebaseKey), getDefaultRecipesByMethod(methodfirebaseKey)])
-    .then(([methodObj, defaultRecipesArray]) => {
-      resolve({ ...methodObj, defaultRecipes: defaultRecipesArray });
-    }).catch((error) => reject(error));
-});
 const getMethodRecipesUser = (methodFirebaseKey) => new Promise((resolve, reject) => {
   Promise.all([getSingleMethod(methodFirebaseKey),
     getUserRecipesByMethod(methodFirebaseKey)])
@@ -35,13 +29,6 @@ const getSingleRecipeMethod = (recipefirebaseKey) => new Promise((resolve, rejec
   getRecipe(recipefirebaseKey).then((recipeObj) => {
     getSingleMethod(recipeObj.methodId).then((methodObj) => {
       resolve({ methodObj, ...recipeObj });
-    }).catch((error) => reject(error));
-  });
-});
-const getSingleRecipeUser = (firebaseKey) => new Promise((resolve, reject) => {
-  getRecipe(firebaseKey).then((recipeObj) => {
-    getUser(recipeObj.uid).then((userObject) => {
-      resolve({ userObject, ...recipeObj });
     }).catch((error) => reject(error));
   });
 });
@@ -128,5 +115,5 @@ const getAllEquipment = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getMethodRecipesDefault, getSingleRecipeMethod, getSingleRecipeUser, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps, deleteUserRecipeEquipment, getAllEquipment, getMethodRecipesUser,
+  getSingleRecipeMethod, getRecipeGrind, getAllData, deleteRecipeSteps, getAllSteps, deleteUserRecipeEquipment, getAllEquipment, getMethodRecipesUser,
 };

@@ -6,51 +6,52 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { getMethodRecipesDefault, getMethodRecipesUser } from '../../../utils/data/apiData/mergeData';
-import { createRecipe, getRecipe } from '../../../utils/data/apiData/userRecipes';
+import { createRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
 import { useAuth } from '../../../utils/context/authContext';
 import MainNavBar from '../../../components/MainNavBar';
 import DefaultRecipes from '../../../components/read/DefaultRecipes';
 import MethodInfoModal from '../../../components/modal/MethodInfoModal';
+import { getDefaultRecipesByMethod, getRecipe } from '../../../utils/data/apiData/recipes';
+import { getSingleMethod } from '../../../utils/data/apiData/methods';
+import { getCreatedMethodRecipes } from '../../../utils/data/apiData/owner';
 
 export default function MethodRecipes() {
   const { user } = useAuth();
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
   const [recipes, setRecipes] = useState([]);
   const [userRecipes, setUserRecipes] = useState([]);
   const [method, setMethod] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const getRoutedRecipes = () => {
-    getMethodRecipesDefault(firebaseKey).then((methodObj) => {
-      setMethod(methodObj);
-      setRecipes(methodObj.defaultRecipes);
-    });
-    getMethodRecipesUser(firebaseKey).then((methodObj) => {
-      setUserRecipes(methodObj.userRecipes);
-    });
+
+  const getRoutedData = () => {
+    getSingleMethod(id).then((data) => setMethod(data));
+    getDefaultRecipesByMethod(id).then((data) => setRecipes(data));
+    if (user) {
+      getCreatedMethodRecipes(id).then(setUserRecipes);
+    }
   };
   const handleClick = () => {
     if (!user) {
       router.push('/settings');
     } else {
-      getRoutedRecipes();
+      getRoutedData();
       const payload = {
         uid: user.uid,
         methodId: method.firebaseKey,
       };
       createRecipe(payload).then((recipeObj) => {
-        getRecipe(recipeObj.data.firebaseKey).then((obj) => {
+        getRecipe(recipeObj.data.id).then((obj) => {
           router.push(`/create/recipes/${obj.firebaseKey}`);
         });
       });
     }
   };
   useEffect(() => {
-    getRoutedRecipes();
+    getRoutedData();
   }, [user]);
   return (
     <>
@@ -68,15 +69,15 @@ export default function MethodRecipes() {
           <IoIosAddCircleOutline />
         </Nav.Link>
       </Navbar>
-      {userRecipes.length && user
+      {userRecipes
         ? (
           userRecipes.map(((recipe) => (
-            <Recipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
+            <Recipes key={recipe.recipe_id.id} recipeObj={recipe} />
           )))
         )
-        : ('')}
+        : (<><h2>Hello</h2></>)}
       {recipes.map((recipe) => (
-        <DefaultRecipes key={recipe.firebaseKey} methodObj={method} recipeObj={recipe} />
+        <DefaultRecipes key={recipe.id} recipeObj={recipe} />
       ))}
       <MethodInfoModal method={method} show={show} handleClose={handleClose} />
       <MainNavBar />

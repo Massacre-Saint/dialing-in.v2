@@ -7,26 +7,27 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
-import { deleteRecipe, getRecipe } from '../../../../utils/data/apiData/userRecipes';
+import { deleteRecipe } from '../../../../utils/data/apiData/userRecipes';
 import { getMethods } from '../../../../utils/data/apiData/methods';
 import Method from '../../../../components/create/Method';
+import { getRecipe } from '../../../../utils/data/apiData/recipes';
 
 export default function ChooseMethod() {
   const { user } = useAuth();
   const router = useRouter();
-  const firebaseKey = router.query.data;
+  const id = router.query.data;
   const [, setUserRecipe] = useState({});
   const [methods, setMethods] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleDelete = () => {
-    deleteRecipe(firebaseKey).then(() => {
+    deleteRecipe(id).then(() => {
       router.push('/');
     });
   };
   useEffect(() => {
-    getRecipe(firebaseKey).then(setUserRecipe);
+    getRecipe(id).then(setUserRecipe);
     getMethods().then(setMethods);
   }, [user]);
   return (
