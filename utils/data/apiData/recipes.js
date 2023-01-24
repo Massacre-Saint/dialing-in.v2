@@ -2,13 +2,6 @@ import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-// const getRecipes = () => new Promise((resolve, reject) => {
-//   fetch(`${dbUrl}/recipes`)
-//     .then((response) => response.json())
-//     .then(resolve)
-//     .catch(reject);
-// });
-
 const getRecipe = (recipeId) => new Promise((resolve, reject) => {
   fetch(`${dbUrl}/recipes/${recipeId}`)
     .then((response) => response.json())

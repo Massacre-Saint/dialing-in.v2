@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getMethodEquipment = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/methodEquipment.json?orderBy="methodId"&equalTo="${firebaseKey}"`)
-    .then((response) => resolve(Object.values(response.data)))
+const getMethodEquipment = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/method_equip?methodId=${id}`)
+    .then((response) => response.json())
+    .then(resolve)
     .catch((error) => reject(error));
 });
 

@@ -7,22 +7,22 @@ import {
 import { useAuth } from '../../../utils/context/authContext';
 import MethodEquipCard from '../../../components/read/MethodEquipCard';
 import EquipmentCard from '../../../components/read/EquipmentCard';
-import { getAllEquipment } from '../../../utils/data/apiData/mergeData';
 import EquipmentModal from '../../../components/modal/EquipmentModal';
+import { getRecipe } from '../../../utils/data/apiData/recipes';
+import getMethodEquipment from '../../../utils/data/apiData/methodEquipment';
+import { getRecipeEquipment } from '../../../utils/data/apiData/recipeEquipment';
 
 export default function ShowEquip() {
   const router = useRouter();
   const { user } = useAuth();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
   const [recipe, setRecipe] = useState({});
   const [methodEquip, setMethodEquip] = useState([]);
   const [recipeEquip, setRecipeEquip] = useState([]);
   const renderEquipment = () => {
-    getAllEquipment(firebaseKey).then((obj) => {
-      setRecipe(obj);
-      setRecipeEquip(obj.recipe);
-      setMethodEquip(obj.method);
-    });
+    getRecipe(id).then(setRecipe);
+    getMethodEquipment(id).then(setMethodEquip);
+    getRecipeEquipment(id).then(setRecipeEquip);
   };
 
   const handleBack = () => {
@@ -45,7 +45,7 @@ export default function ShowEquip() {
         <h2>Method Equipment</h2>
         <div className="cards-container">
           {methodEquip.map((obj) => (
-            <MethodEquipCard key={obj.firebaseKey} obj={obj} />
+            <MethodEquipCard key={obj.id} obj={obj} />
           ))}
         </div>
         {recipeEquip.length
@@ -55,7 +55,7 @@ export default function ShowEquip() {
                 <h2>Recipe Equipment</h2>
                 <div className="steps">
                   {recipeEquip.map((obj) => (
-                    <EquipmentCard key={obj.firebaseKey} onUpdate={renderEquipment} obj={obj} />
+                    <EquipmentCard key={obj.id} onUpdate={renderEquipment} recipe={recipe} obj={obj} />
                   ))}
                 </div>
               </div>

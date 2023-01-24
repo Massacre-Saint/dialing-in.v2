@@ -16,8 +16,7 @@ import { useAuth } from '../../../utils/context/authContext';
 import { getSingleOwnerRecipe } from '../../../utils/data/apiData/owner';
 import { getSteps } from '../../../utils/data/apiData/steps';
 import BrewButton from '../../../components/buttons/BrewButton';
-import { createFavoriteRecipe, deleteFavoriteRecipe, getSingleFavoriteRecipe } from '../../../utils/data/apiData/favorites';
-import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
+import { getFavoritebyRecipe } from '../../../utils/data/apiData/favorites';
 import FavoriteButton from '../../../components/buttons/FavoriteButton';
 import { getRecipe } from '../../../utils/data/apiData/recipes';
 
@@ -35,18 +34,24 @@ export default function CreateProcess() {
     getRecipe(id).then((obj) => {
       if (!obj.default) {
         getSingleOwnerRecipe(obj.id).then(setRecipe);
-        getSteps(id).then(setSteps);
       }
       setRecipe(obj);
       getSteps(id).then(setSteps);
     });
   };
   const mountedFavState = () => {
-    if (!recipe?.favoriteId) {
-      setFavoriteState(false);
-    } else {
-      setFavoriteState(true);
-    }
+    getFavoritebyRecipe(user.uid, id).then((response) => {
+      if (response.length) {
+        setFavoriteState(true);
+      } else {
+        setFavoriteState(false);
+      }
+    });
+    // if (!recipe?.favoriteId) {
+    //   setFavoriteState(false);
+    // } else {
+    //   setFavoriteState(true);
+    // }
   };
   const convertTime = (total) => {
     if (total >= 3600) {
@@ -56,71 +61,72 @@ export default function CreateProcess() {
     const result = new Date(total * 1000).toISOString().slice(14, 19);
     return result;
   };
-  const sortedSteps = (array) => {
-    const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
-    return orderedSteps;
-  };
+
   const handleBack = (() => {
     setShow(false);
     router.push(`/create/recipes/${recipe.id}`);
   });
   const handleShow = () => {
-    if (recipe.uid) {
-      if (!recipe.completed) {
+    if (recipe.user_id) {
+      if (!recipe.published) {
         setShow(true);
       } else router.push('/read/recipes/userRecipes');
     } else {
       router.back();
     }
   };
-  const updateFavoritePayload = (favorite) => {
-    const payload = {
-      favoriteId: favorite.firebaseKey,
-    };
-    updateRecipe(favorite.recipeId, payload);
-  };
-  const handleFavorite = () => {
-    const payload = {
-      brewTime: recipe.brewTime,
-      grindId: recipe.grindId,
-      weight: recipe.weight,
-      dose: recipe.dose,
-      methodId: recipe.methodId,
-      processId: recipe.processId,
-      uid: recipe.uid,
-      recipeName: recipe.recipeName,
-      waterTemp: recipe.waterTemp,
-      recipeId: recipe.firebaseKey,
-      completed: recipe.completed,
-    };
-    if (favoriteState === true) {
-      deleteFavoriteRecipe(recipe.favoriteId).then(() => {
-        const deleteLoad = {
-          favoriteId: '',
-        };
-        updateRecipe(recipe.firebaseKey, deleteLoad);
-        setFavoriteState(false);
-      });
-    } else {
-      createFavoriteRecipe(payload).then((favoriteObj) => {
-        getSingleFavoriteRecipe(favoriteObj.data.firebaseKey).then((favorite) => {
-          updateFavoritePayload(favorite);
-        });
-      });
-      setFavoriteState(true);
-    }
-  };
+  // const updateFavoritePayload = (favorite) => {
+  //   const payload = {
+  //     favoriteId: favorite.firebaseKey,
+  //   };
+  //   updateRecipe(favorite.recipeId, payload);
+  // };
+  // const handleFavorite = () => {
+  //   const payload = {
+  //     brewTime: recipe.brewTime,
+  //     grindId: recipe.grindId,
+  //     weight: recipe.weight,
+  //     dose: recipe.dose,
+  //     methodId: recipe.methodId,
+  //     processId: recipe.processId,
+  //     uid: recipe.uid,
+  //     recipeName: recipe.recipeName,
+  //     waterTemp: recipe.waterTemp,
+  //     recipeId: recipe.firebaseKey,
+  //     completed: recipe.completed,
+  //   };
+  //   if (favoriteState === true) {
+  //     deleteFavoriteRecipe(recipe.favoriteId).then(() => {
+  //       const deleteLoad = {
+  //         favoriteId: '',
+  //       };
+  //       updateRecipe(recipe.firebaseKey, deleteLoad);
+  //       setFavoriteState(false);
+  //     });
+  //   } else {
+  // createFavoriteRecipe(payload).then((favoriteObj) => {
+  //   getSingleFavoriteRecipe(favoriteObj.data.firebaseKey).then((favorite) => {
+  //     updateFavoritePayload(favorite);
+  //   });
+  // });
+  // setFavoriteState(true);
+  //   }
+  // };
   const handleSave = () => {
     setShow(false);
     router.push('/');
   };
   const handleEquipment = () => {
-    router.push(`/read/equipment/${recipe.firebaseKey}`);
+    router.push(`/read/equipment/${recipe.id}`);
   };
+  // useEffect(() => {
+  //   renderRecipe();
+  //   mountedFavState();
+  // }, [user, recipe?.favoriteId]);
   useEffect(() => {
     renderRecipe();
     mountedFavState();
-  }, [user, recipe?.favoriteId]);
+  }, [user, favoriteState]);
   return (
     <>
       {
@@ -132,12 +138,11 @@ export default function CreateProcess() {
                   <button className="btn-sm" type="button">&#8249; Back</button>
                 </Nav.Link>
                 <div className="page-title">
-                  {recipe.recipeName ? (recipe.recipeName) : ('Create Recipe')}
+                  {recipe.recipe_name ? (recipe.recipe_name) : ('Create Recipe')}
                 </div>
-                <Nav.Link onClick={handleFavorite} className="nav-fav">
-                  {recipe.favoriteId !== undefined
-                    ? (<FavoriteButton favoriteState={favoriteState} />)
-                    : ('')}
+                {/* Chnage line below to handlefavorite */}
+                <Nav.Link onClick={handleEquipment} className="nav-fav">
+                  <FavoriteButton favoriteState={favoriteState} />
                 </Nav.Link>
                 <Nav.Link onClick={handleEquipment} className="nav-cta">
                   <GiManualMeatGrinder />
@@ -181,7 +186,7 @@ export default function CreateProcess() {
                         {
                           steps.length
                             ? (
-                              sortedSteps(steps).map((step) => (
+                              steps.map((step) => (
                                 <StepCard key={step.id} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
                               ))
                             )

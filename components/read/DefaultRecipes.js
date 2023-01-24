@@ -5,10 +5,8 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { GiCoffeeBeans } from 'react-icons/gi';
 import { IoTimeSharp, IoWaterSharp } from 'react-icons/io5';
-import { deleteRecipeSteps, deleteUserRecipeEquipment } from '../../utils/data/apiData/mergeData';
-import { deleteProcess } from '../../utils/data/apiData/process';
 
-export default function DefaultRecipes({ recipeObj, render }) {
+export default function DefaultRecipes({ recipeObj }) {
   const router = useRouter();
   const convertTime = (total) => {
     if (total >= 3600) {
@@ -18,16 +16,8 @@ export default function DefaultRecipes({ recipeObj, render }) {
     const result = new Date(total * 1000).toISOString().slice(14, 19);
     return result;
   };
-  const handleClick = (e) => {
-    if (e.target.type === 'button') {
-      deleteUserRecipeEquipment(recipeObj.id);
-      deleteRecipeSteps(recipeObj.id).then(() => {
-        deleteProcess(recipeObj.id);
-        render();
-      });
-    } else {
-      router.push(`/create/process/${recipeObj.id}`);
-    }
+  const handleClick = () => {
+    router.push(`/create/process/${recipeObj.id}`);
   };
   useEffect(() => [recipeObj]);
   return (
@@ -88,8 +78,4 @@ DefaultRecipes.propTypes = {
       weight: PropTypes.number,
     },
   ).isRequired,
-  render: PropTypes.func,
-};
-DefaultRecipes.defaultProps = {
-  render: () => {},
 };

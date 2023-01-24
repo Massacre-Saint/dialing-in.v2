@@ -24,7 +24,7 @@ export default function MainNavBar() {
               <Nav.Link href="/read/recipes/favRecipes" className="nav-item">
                 <AiOutlineHeart />
               </Nav.Link>
-              <Nav.Link id="home" className="nav-item">
+              <Nav.Link href="/" id="home" className="nav-item">
                 <AiOutlineHome />
               </Nav.Link>
               <Nav.Link className="nav-item">

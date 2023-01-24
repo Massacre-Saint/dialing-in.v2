@@ -3,16 +3,33 @@ import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getFavoriteRecipes = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/favorites.json?orderBy="uid"&equalTo="${uid}"`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
+const getFavorites = (uid) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/favorites`, {
+    headers: {
+      Authorization: uid,
+    },
+  })
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
 });
 
-const getSingleFavoriteRecipe = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/favorites/${firebaseKey}.json`)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error));
+const getFavorite = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/favorites/${id}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getFavoritebyRecipe = (uid, recipeId) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/favorites?recipeId=${recipeId}`, {
+    headers: {
+      Authorization: uid,
+    },
+  })
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
 });
 
 const updateFavoriteRecipe = (firebaseKey, payload) => new Promise((resolve, reject) => {
@@ -35,5 +52,5 @@ const deleteFavoriteRecipe = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 export {
-  getFavoriteRecipes, getSingleFavoriteRecipe, updateFavoriteRecipe, createFavoriteRecipe, deleteFavoriteRecipe,
+  getFavorites, getFavorite, getFavoritebyRecipe, updateFavoriteRecipe, createFavoriteRecipe, deleteFavoriteRecipe,
 };

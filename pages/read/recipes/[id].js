@@ -41,11 +41,11 @@ export default function MethodRecipes() {
       getRoutedData();
       const payload = {
         uid: user.uid,
-        methodId: method.firebaseKey,
+        methodId: method.id,
       };
       createRecipe(payload).then((recipeObj) => {
         getRecipe(recipeObj.data.id).then((obj) => {
-          router.push(`/create/recipes/${obj.firebaseKey}`);
+          router.push(`/create/recipes/${obj.id}`);
         });
       });
     }
@@ -72,7 +72,7 @@ export default function MethodRecipes() {
       {userRecipes
         ? (
           userRecipes.map(((recipe) => (
-            <Recipes key={recipe.recipe_id.id} recipeObj={recipe} />
+            <Recipes key={recipe.recipe_id.id} recipeObj={recipe} render={getRoutedData} />
           )))
         )
         : (<><h2>Hello</h2></>)}

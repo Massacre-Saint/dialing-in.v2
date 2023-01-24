@@ -3,15 +3,10 @@ import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getRecipeEquipment = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/recipeEquipment.json?orderBy="recipeId"&equalTo="${firebaseKey}"`)
-    .then((response) => {
-      if (response.data) {
-        resolve(Object.values(response.data));
-      } else {
-        resolve([]);
-      }
-    })
+const getRecipeEquipment = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/recipe_equip?recipeId=${id}`)
+    .then((response) => response.json())
+    .then(resolve)
     .catch((error) => reject(error));
 });
 

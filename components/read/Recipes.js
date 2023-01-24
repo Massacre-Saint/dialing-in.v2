@@ -68,8 +68,8 @@ export default function Recipes({ recipeObj, render }) {
                 <div className="recipe-title">{recipeObj.recipe_id.recipe_name}</div>
                 <div>
                   <div>
-                    <Image className="user-photo-small" referrerPolicy="no-referrer" src={user.userObject?.photoUrl} />
-                    {user.userObject?.name}
+                    <Image className="user-photo-small" referrerPolicy="no-referrer" src={recipeObj.user_id.image_url} />
+                    {recipeObj.user_id.name}
                   </div>
                   <span>
                     <IoTimeSharp />
@@ -148,21 +148,5 @@ Recipes.propTypes = {
   render: PropTypes.func,
 };
 Recipes.defaultProps = {
-  // recipeObj: PropTypes.shape(
-  //   {
-  //     brewTime: 0,
-  //     grindId: '',
-  //     weight: 0,
-  //     methodId: '',
-  //     recipeName: '',
-  //     dose: 0,
-  //     waterTemp: 0,
-  //     favorite: false,
-  //     completed: false,
-  //     firebaseKey: '',
-  //     uid: '',
-  //     processId: '',
-  //   },
-  // ),
   render: () => {},
 };

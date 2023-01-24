@@ -10,6 +10,13 @@ const getSteps = (recipeId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getStep = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/steps/${id}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch((error) => reject(error));
+});
+
 const updateStep = (firebaseKey, payload) => new Promise((resolve, reject) => {
   axios.patch(`${dbUrl}/steps/${firebaseKey}.json`, payload)
     .then(resolve)
@@ -31,5 +38,5 @@ const deleteStep = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getSteps, updateStep, createStep, deleteStep,
+  getSteps, getStep, updateStep, createStep, deleteStep,
 };
