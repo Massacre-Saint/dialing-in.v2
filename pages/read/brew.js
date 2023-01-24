@@ -6,19 +6,19 @@ import {
 } from 'react-bootstrap';
 import Stopwatch from '../../components/Stopwatch';
 import { useAuth } from '../../utils/context/authContext';
-import { getAllData } from '../../utils/data/apiData/mergeData';
 import { getSteps } from '../../utils/data/apiData/steps';
 import StepCard from '../../components/read/StepCard';
+import { getRecipe } from '../../utils/data/apiData/recipes';
 
 export default function Brew() {
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
   const [recipe, setRecipe] = useState({});
   const [steps, setSteps] = useState([]);
   const { user } = useAuth();
   const renderRecipe = () => {
-    getAllData(firebaseKey).then((obj) => setRecipe(obj));
-    getSteps(firebaseKey).then((array) => setSteps(array));
+    getRecipe(id).then((obj) => setRecipe(obj));
+    getSteps(id).then((array) => setSteps(array));
   };
   const sortedSteps = (array) => {
     const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
@@ -40,13 +40,13 @@ export default function Brew() {
           Equipment
         </div>
       </Navbar>
-      <div><Stopwatch /></div>
+      <div><Stopwatch recipe={recipe} /></div>
       <div className="directions-title">
         <h1>Directions:</h1>
       </div>
       <div className="directions-scroll">
         {sortedSteps(steps).map((step) => (
-          <StepCard key={step.firebaseKey} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
+          <StepCard key={step.id} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
         ))}
       </div>
     </>

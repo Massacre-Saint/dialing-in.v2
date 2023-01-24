@@ -25,7 +25,6 @@ export default function MethodEquipCard({ obj }) {
 MethodEquipCard.propTypes = {
   obj: PropTypes.shape({
     firebaseKey: PropTypes.string,
-    methodId: PropTypes.string,
     name: PropTypes.string,
     type: PropTypes.string,
   }).isRequired,

@@ -6,7 +6,6 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { deleteStep, updateStep } from '../../utils/data/apiData/steps';
-import { getAllSteps } from '../../utils/data/apiData/mergeData';
 import EditDeleteStepsButtons from '../buttons/EditDeleteStepsButtons';
 
 const initialSate = {
@@ -18,9 +17,8 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [formInput, setFormInput] = useState(initialSate);
-  const handleDelete = (e) => {
-    console.warn(e);
-    deleteStep(stepObj.firebaseKey).then(() => {
+  const handleDelete = () => {
+    deleteStep(stepObj.id).then(() => {
       onUpdate();
     });
   };
@@ -36,15 +34,13 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
     const payload = {
       ...formInput,
     };
-    updateStep(stepObj.firebaseKey, payload).then(() => {
+    updateStep(stepObj.id, payload).then(() => {
       onUpdate();
       handleClose();
     });
   };
   useEffect(() => {
-    getAllSteps(stepObj.recipeId).then(() => {
-      setFormInput(stepObj);
-    });
+    setFormInput(stepObj);
   }, [stepObj]);
   return (
     <>
@@ -54,7 +50,7 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
             <div className="step-card-body">
               <div className="step-num">{stepObj?.order}.</div>
               <div>
-                <span>{stepObj?.direction}</span>
+                <span>{stepObj?.description}</span>
               </div>
             </div>
           </div>
@@ -65,7 +61,7 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
               <div className="step-card-body">
                 <div className="step-num">{stepObj?.order}.</div>
                 <div>
-                  <span>{stepObj?.direction}</span>
+                  <span>{stepObj?.description}</span>
                 </div>
               </div>
               <EditDeleteStepsButtons handleDelete={handleDelete} handleShow={handleShow} recipeObj={recipeObj} />
@@ -99,12 +95,11 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
 }
 StepCard.propTypes = {
   stepObj: PropTypes.shape({
-    direction: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    description: PropTypes.string,
+    id: PropTypes.number,
     order: PropTypes.number,
     recipeId: PropTypes.string,
-    uid: PropTypes.string,
-  }),
+  }).isRequired,
   onUpdate: PropTypes.func,
   recipeObj: PropTypes.shape({
     completed: PropTypes.bool,
@@ -112,13 +107,6 @@ StepCard.propTypes = {
 };
 
 StepCard.defaultProps = {
-  stepObj: PropTypes.shape({
-    direction: '',
-    firebaseKey: '',
-    order: '',
-    recipeId: '',
-    uid: '',
-  }),
   onUpdate: () => {},
   recipeObj: PropTypes.shape({
     completed: false,

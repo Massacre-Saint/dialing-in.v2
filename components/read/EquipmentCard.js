@@ -8,17 +8,15 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRouter } from 'next/router';
 import EditDeleteEquip from '../buttons/EditDeleteEquip';
 import { updateEquipment } from '../../utils/data/apiData/recipeEquipment';
-import { getAllData } from '../../utils/data/apiData/mergeData';
 
 const initialSate = {
   type: '',
   name: '',
   setting: '',
 };
-export default function EquipmentCard({ obj, onUpdate }) {
+export default function EquipmentCard({ obj, onUpdate, recipe }) {
   const router = useRouter();
   const [formInput, setFormInput] = useState(initialSate);
-  const [recipe, setRecipe] = useState({});
   const { firebaseKey } = router.query;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -29,7 +27,7 @@ export default function EquipmentCard({ obj, onUpdate }) {
       ...formInput,
       recipeId: firebaseKey,
     };
-    updateEquipment(obj.firebaseKey, payload).then(() => {
+    updateEquipment(obj.id, payload).then(() => {
       onUpdate();
     });
     handleClose();
@@ -43,7 +41,6 @@ export default function EquipmentCard({ obj, onUpdate }) {
   };
   useEffect(() => {
     setFormInput(obj);
-    getAllData(firebaseKey).then((data) => setRecipe(data));
   }, [obj]);
   return (
     <>
@@ -89,20 +86,54 @@ export default function EquipmentCard({ obj, onUpdate }) {
 }
 EquipmentCard.propTypes = {
   obj: PropTypes.shape({
-    firebaseKey: PropTypes.string,
-    recipeId: PropTypes.string,
+    id: PropTypes.number,
+    recipe_id: PropTypes.number,
     name: PropTypes.string,
     type: PropTypes.string,
     setting: PropTypes.string,
-  }),
+  }).isRequired,
   onUpdate: PropTypes.func.isRequired,
-};
-EquipmentCard.defaultProps = {
-  obj: PropTypes.shape({
-    firebaseKey: '',
-    recipeId: '',
-    name: '',
-    type: '',
-    setting: '',
-  }),
+  recipe: PropTypes.shape(
+    {
+      id: PropTypes.number,
+      recipe_id: PropTypes.shape(
+        {
+          brew_time: PropTypes.number,
+          default: PropTypes.bool,
+          dose: PropTypes.number,
+          grind_id: PropTypes.shape(
+            {
+              grind_size: PropTypes.string,
+              id: PropTypes.number,
+              image_url: PropTypes.string,
+              order: PropTypes.number,
+            },
+          ).isRequired,
+          id: PropTypes.number,
+          method_id: PropTypes.shape(
+            {
+              description: PropTypes.string,
+              dose_max: PropTypes.number,
+              dose_min: PropTypes.number,
+              id: PropTypes.number,
+              image_url: PropTypes.string,
+              name: PropTypes.string,
+              weight_max: PropTypes.number,
+            },
+          ).isRequired,
+          published: PropTypes.bool,
+          recipe_name: PropTypes.string,
+          weight: PropTypes.number,
+        },
+      ).isRequired,
+      user_id: PropTypes.shape(
+        {
+          id: PropTypes.number,
+          image_url: PropTypes.string,
+          name: PropTypes.string,
+          uid: PropTypes.string,
+        },
+      ).isRequired,
+    },
+  ).isRequired,
 };

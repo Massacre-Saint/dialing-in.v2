@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 
 export default function BrewButton() {
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
   const handleClick = () => {
     router.push({
       pathname: '/read/brew',
-      query: { firebaseKey },
+      query: { id },
     });
   };
   return (
@@ -17,14 +17,3 @@ export default function BrewButton() {
     </>
   );
 }
-
-// BrewButton.propTypes = {
-//   recipe: PropTypes.shape({
-//     completed: PropTypes.bool,
-//   }),
-// };
-// BrewButton.defaultProps = {
-//   recipe: PropTypes.shape({
-//     completed: false,
-//   }),
-// };

@@ -1,25 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { BsFillPlayFill, BsStopFill } from 'react-icons/bs';
 import { BiReset } from 'react-icons/bi';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { getAllData } from '../utils/data/apiData/mergeData';
 import RatingsCommentsModal from './modal/RatingsCommentsModal';
 
-export default function Stopwatch() {
-  const router = useRouter();
-  const { firebaseKey } = router.query;
-  const [recipe, setRecipe] = useState({});
+export default function Stopwatch({ recipe }) {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const getRecipeTime = () => {
-    getAllData(firebaseKey).then((obj) => setRecipe(obj));
-  };
   useEffect(() => {
-    getRecipeTime();
     let interval;
     if (running) {
       interval = setInterval(() => {
@@ -34,7 +26,7 @@ export default function Stopwatch() {
     <>
       <div className="stopwatch">
         <div className="circle-cont">
-          <ProgressBar color="brown" animated bsPrefix="progress" max={recipe.brewTime} now={time / 1000} />
+          <ProgressBar color="brown" animated bsPrefix="progress" max={recipe.brew_time} now={time / 1000} />
           <div className="progress-circle">
             <div className="stopwatch-numbers">
               <span>{(`0${Math.floor((time / 60000) % 60)}`).slice(-2)}:</span>
@@ -52,3 +44,15 @@ export default function Stopwatch() {
     </>
   );
 }
+
+Stopwatch.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.number,
+    brew_time: PropTypes.number,
+    default: PropTypes.bool,
+    dose: PropTypes.number,
+    published: PropTypes.bool,
+    recipe_name: PropTypes.string,
+    weight: PropTypes.number,
+  }).isRequired,
+};
