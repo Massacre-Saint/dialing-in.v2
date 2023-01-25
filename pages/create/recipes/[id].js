@@ -5,7 +5,7 @@ import {
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../utils/context/authContext';
-import { deleteRecipe } from '../../../utils/data/apiData/userRecipes';
+import { getRecipe } from '../../../utils/data/apiData/recipes';
 import ChooseGrindCard from '../../../components/create/recipes/ChooseGrindCard';
 import ChooseMethodCard from '../../../components/create/recipes/ChooseMethodCard';
 import ChooseTempCard from '../../../components/create/recipes/ChooseTempCard';
@@ -16,48 +16,40 @@ import ChooseBrewTime from '../../../components/create/recipes/ChooseBrewTime';
 export default function CreateRecipe() {
   const { user } = useAuth();
   const router = useRouter();
-  const { firebaseKey } = router.query;
-  const [userRecipe] = useState({});
+  const { id } = router.query;
+  const [recipe, setRecipe] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleDelete = () => {
     handleClose();
     router.push('/');
-    deleteRecipe(firebaseKey);
-    // deleteProcess(userRecipe.processId);
   };
   const handleClick = () => {
     handleClose();
   };
-  // const update = (process) => {
-  //   const payload = {
-  //     processId: process.firebaseKey,
-  //     completed: false,
-  //   };
-  //   updateRecipe(process.recipeId, payload);
-  // };
-  // const handleSubmit = () => {
-  //   const payload = {
-  //     recipeId: userRecipe.firebaseKey,
-  //   };
-    // if (!userRecipe.processId) {
-    //   createProcess(payload).then((processObj) => {
-    //     getProcess(processObj.data.firebaseKey).then((process) => {
-    //       update(process);
-    //     });
-    //   });
-    // }
-  //   router.push(`/create/process/${userRecipe.firebaseKey}`);
-  // };
-  const renderRecipe = () => {
-    // getRecipe(id).then((obj) => {
-    //   setUserRecipe(obj);
-    // });
+
+  const handleSubmit = () => {
+    router.push(`/create/process/${recipe.id}`);
   };
+  const renderRecipe = () => {
+    getRecipe(id).then((obj) => {
+      setRecipe(obj);
+    });
+  };
+  const findLength = (array) => {
+    const fields = array;
+    fields.forEach((field) => {
+      let length = 0;
+      if (field) { length += 1; }
+      return length;
+    });
+  };
+  const recipeProgress = findLength(Object.values(recipe));
   useEffect(() => {
     renderRecipe();
-  }, [user]);
+    findLength(Object.values(recipe));
+  }, [user, recipeProgress]);
   return (
     <>
       <Navbar className="navbar">
@@ -65,25 +57,24 @@ export default function CreateRecipe() {
           <button className="btn-sm" type="button">&#8249; Back</button>
         </Nav.Link>
         <div className="page-title">
-          {userRecipe.recipeName ? (userRecipe.recipeName) : ('Create Recipe')}
+          {recipe.recipe_name ? (recipe.recipe_name) : ('Create Recipe')}
         </div>
       </Navbar>
       <div>
-        {!userRecipe.methodId ? (<ChooseMethodCard recipeObj={userRecipe} />) : (<ChooseMethodCard recipeObj={userRecipe} />) }
-        {userRecipe.methodId ? (<ChooseGrindCard recipeObj={userRecipe} />) : ''}
-        {userRecipe.grindId ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
-        {userRecipe.weight ? (<ChooseBrewTime onUpdate={renderRecipe} recipeObj={userRecipe} />) : ''}
-        {Object.values(userRecipe).length < 8 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={userRecipe} />)}
+        <ChooseMethodCard recipeObj={recipe} />
+        {recipe.method_id ? (<ChooseGrindCard recipeObj={recipe} />) : ''}
+        {recipe.grind_id ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={recipe} />) : ''}
+        {recipe.weight ? (<ChooseBrewTime onUpdate={renderRecipe} recipeObj={recipe} />) : ''}
+        {recipeProgress < 7 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={recipe} />)}
       </div>
       <div>
-        {Object.values(userRecipe).length > 8
+        {recipeProgress > 8
           ? (
             <>
               <div className="submit-prompt">
                 <p>Let&apos;s move on to more details!</p>
               </div>
-              {/* will need to be handle submit */}
-              <button type="submit" className="btn-submit">Submit</button>
+              <button type="submit" onClick={handleSubmit} className="btn-submit">Submit</button>
             </>
           )
           : ('')}

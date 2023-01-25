@@ -1,22 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Image, Button } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { updateRecipe, getRecipe } from '../../utils/data/apiData/userRecipes';
-import { useAuth } from '../../utils/context/authContext';
+import { updateRecipe } from '../../utils/data/apiData/recipes';
 
 const initialSate = {
   dose: '',
 };
 export default function Grind({ grindObj }) {
-  const { user } = useAuth();
   const router = useRouter();
-  const firebaseKey = router.query.data;
-  const [userRecipe, setUserRecipe] = useState({});
+  const id = router.query.data;
   const [formInput, setFormInput] = useState(initialSate);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -33,10 +30,9 @@ export default function Grind({ grindObj }) {
 
   const handleClick = () => {
     const payload = {
-      ...userRecipe,
-      grindId: grindObj.firebaseKey,
+      grindId: grindObj.id,
     };
-    updateRecipe(userRecipe.firebaseKey, payload);
+    updateRecipe(id, payload);
     handleShow();
   };
   const handleSubmit = (e) => {
@@ -44,20 +40,17 @@ export default function Grind({ grindObj }) {
     const payload = {
       ...formInput,
     };
-    updateRecipe(userRecipe.firebaseKey, payload).then(() => {
-      router.push(`/create/recipes/${userRecipe.firebaseKey}`);
+    updateRecipe(id, payload).then(() => {
+      router.push(`/create/recipes/${id}`);
       handleClose();
     });
   };
-  useEffect(() => {
-    getRecipe(firebaseKey).then(setUserRecipe);
-  }, [user]);
   return (
     <div className="grind-container">
       <div>
-        <Image className="grind-circle-content" layout="responsive" src={grindObj.imageUrl} onClick={handleClick} />
+        <Image className="grind-circle-content" layout="responsive" src={grindObj.image_url} onClick={handleClick} />
       </div>
-      <h4>{grindObj.grindSize}</h4>
+      <h4>{grindObj.grind_size}</h4>
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -90,10 +83,9 @@ export default function Grind({ grindObj }) {
 Grind.propTypes = {
   grindObj: PropTypes.shape(
     {
-      firebaseKey: PropTypes.string,
-      imageUrl: PropTypes.string,
-      grindSize: PropTypes.string,
-      specified: PropTypes.bool,
+      id: PropTypes.number,
+      image_url: PropTypes.string,
+      grind_size: PropTypes.string,
       order: PropTypes.number,
     },
   ),
@@ -101,11 +93,27 @@ Grind.propTypes = {
 Grind.defaultProps = {
   grindObj: PropTypes.shape(
     {
-      firebaseKey: '',
+      id: '',
       imageUrl: '',
       grindSize: '',
       specified: false,
       order: 0,
     },
   ),
+  // recipe: PropTypes.shape({
+  //   id: PropTypes.number,
+  //   brew_time: PropTypes.number,
+  //   weight: PropTypes.number,
+  //   dose: PropTypes.number,
+  //   recipe_name: PropTypes.string,
+  //   published: PropTypes.bool,
+  //   method_id: PropTypes.shape({
+  //     id: PropTypes.number,
+  //     name: PropTypes.string,
+  //   }),
+  //   grind_id: PropTypes.shape({
+  //     grind_size: PropTypes.string,
+  //     image_url: PropTypes.string,
+  //   })
+  // }).isRequired,
 };

@@ -9,8 +9,8 @@ import { getMethods } from '../utils/data/apiData/methods';
 import Method from '../components/read/Method';
 import MainNavbar from '../components/MainNavBar';
 import { useAuth } from '../utils/context/authContext';
-import { createRecipe } from '../utils/data/apiData/userRecipes';
-import { getRecipe } from '../utils/data/apiData/recipes';
+import { createRecipe, getRecipe } from '../utils/data/apiData/recipes';
+import { createOwnerRecipe } from '../utils/data/apiData/owner';
 
 export default function Methods() {
   const { user } = useAuth();
@@ -20,16 +20,14 @@ export default function Methods() {
     getMethods().then(setMethods);
   };
   const handleClick = () => {
-    const payload = {
-      uid: user.uid,
-      methodId: '',
-    };
     if (!user) {
       router.push('/settings');
     } else {
-      createRecipe(payload).then((recipeObj) => {
-        getRecipe(recipeObj.data.firebaseKey).then((obj) => {
-          router.push(`/create/recipes/${obj.firebaseKey}`);
+      createRecipe().then((recipeObj) => {
+        getRecipe(recipeObj.id).then((obj) => {
+          createOwnerRecipe(obj, user).then(() => {
+            router.push(`/create/recipes/${obj.id}`);
+          });
         });
       });
     }

@@ -33,9 +33,29 @@ const getCreatedMethodRecipes = (methodId) => new Promise((resolve, reject) => {
     .then(resolve)
     .catch(reject);
 });
+
+const createOwnerRecipe = (payload, user) => new Promise((resolve, reject) => {
+  const recipe = {
+    recipe_id: payload.id,
+  };
+  fetch(`${dbUrl}/owner`, {
+    method: 'POST',
+    body: JSON.stringify({
+      recipe_id: payload.id
+    }),
+    headers: {
+      'content-type': 'application/json',
+      Authorization: user.uid,
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch((error) => reject(error));
+});
+
 export {
   getYourRecipes,
   getSingleOwnerRecipe,
   getRecipesByUser,
   getCreatedMethodRecipes,
+  createOwnerRecipe,
 };

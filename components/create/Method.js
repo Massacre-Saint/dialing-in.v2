@@ -1,28 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { updateRecipe } from '../../utils/data/apiData/userRecipes';
-import { useAuth } from '../../utils/context/authContext';
-import { getRecipe } from '../../utils/data/apiData/recipes';
+import { updateRecipe } from '../../utils/data/apiData/recipes';
 
-export default function Method({ methodObj }) {
-  const { user } = useAuth();
+export default function Method({ methodObj, recipe }) {
   const router = useRouter();
-  const id = router.query.data;
-  const [userRecipe, setUserRecipe] = useState({});
   const payload = {
-    ...userRecipe,
     methodId: methodObj.id,
   };
   const handleSubmit = () => {
-    updateRecipe(userRecipe.firebaseKey, payload).then(() => router.push(`/create/recipes/${userRecipe.firebaseKey}`));
+    updateRecipe(recipe.id, payload).then(() => router.push(`/create/recipes/${recipe.id}`));
   };
-  useEffect(() => {
-    getRecipe(id).then(setUserRecipe);
-  }, [user]);
+
   const src = `${methodObj.image_url}`;
   return (
     <div className="method-circle">
@@ -38,20 +30,13 @@ export default function Method({ methodObj }) {
 Method.propTypes = {
   methodObj: PropTypes.shape(
     {
-      id: PropTypes.string,
+      id: PropTypes.number,
       image_url: PropTypes.string,
       description: PropTypes.string,
       name: PropTypes.string,
     },
-  ),
-};
-Method.defaultProps = {
-  methodObj: PropTypes.shape(
-    {
-      id: '',
-      image_url: '',
-      description: '',
-      name: '',
-    },
-  ),
+  ).isRequired,
+  recipe: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
 };

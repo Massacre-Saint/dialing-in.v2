@@ -6,13 +6,12 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { createRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
 import { useAuth } from '../../../utils/context/authContext';
 import MainNavBar from '../../../components/MainNavBar';
 import DefaultRecipes from '../../../components/read/DefaultRecipes';
 import MethodInfoModal from '../../../components/modal/MethodInfoModal';
-import { getDefaultRecipesByMethod, getRecipe } from '../../../utils/data/apiData/recipes';
+import { createRecipe, getDefaultRecipesByMethod, getRecipe } from '../../../utils/data/apiData/recipes';
 import { getSingleMethod } from '../../../utils/data/apiData/methods';
 import { getCreatedMethodRecipes } from '../../../utils/data/apiData/owner';
 
