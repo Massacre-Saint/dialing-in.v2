@@ -7,10 +7,9 @@ import {
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import MainNavbar from '../../../components/MainNavBar';
 import { useAuth } from '../../../utils/context/authContext';
-import { createRecipe } from '../../../utils/data/apiData/userRecipes';
 import Recipes from '../../../components/read/Recipes';
 import { getYourRecipes } from '../../../utils/data/apiData/owner';
-import { getRecipe } from '../../../utils/data/apiData/recipes';
+import { createRecipe, getRecipe } from '../../../utils/data/apiData/recipes';
 
 export default function UserRecipes() {
   const { user } = useAuth();

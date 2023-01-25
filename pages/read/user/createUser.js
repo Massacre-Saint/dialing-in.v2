@@ -7,12 +7,25 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../../utils/context/authContext';
 import NewUserForm from '../../../components/forms/NewUserForm';
 import { getUser } from '../../../utils/data/apiData/userData';
+import { checkUser } from '../../../utils/auth';
 
 export default function CreateUser() {
   const { user } = useAuth();
   const [userProfile, setUserProfile] = useState({});
   useEffect(() => {
-    getUser(user.uid).then(setUserProfile);
+    checkUser(user.uid).then((obj) => {
+      getUser(obj.id).then((data) => {
+        setUserProfile({
+          id: data.id,
+          uid: data.uid,
+          favRoast: data.fav_roast,
+          favShop: data.favShop,
+          imageUrl: data.image_url,
+          name: data.name,
+          methodId: data.method_id,
+        });
+      });
+    });
   }, [user]);
   const router = useRouter();
   return (
@@ -25,7 +38,10 @@ export default function CreateUser() {
       </Navbar>
       <div>
         <div>
-          <NewUserForm obj={userProfile} />
+          <NewUserForm
+            obj={userProfile}
+            user={user}
+          />
         </div>
       </div>
     </>

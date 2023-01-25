@@ -21,6 +21,39 @@ const getRecipesByMethod = (methodId) => new Promise((resolve, reject) => {
     .then(resolve)
     .catch((error) => reject(error));
 });
+const createRecipe = () => new Promise((resolve, reject) => {
+  const recipe = {};
+  fetch(`${dbUrl}/recipes`, {
+    method: 'POST',
+    body: JSON.stringify(recipe),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch((error) => reject(error));
+});
+const updateRecipe = (id, data) => new Promise((resolve, reject) => {
+  const recipe = {
+    id: data.id,
+    brew_time: data.brewTime,
+    weight: data.weight,
+    recipe_name: data.recipeName,
+    published: data.published,
+    grind_id: data.grindId,
+    method_id: data.methodId,
+    dose: data.dose,
+  }
+  fetch(`${dbUrl}/recipes/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(recipe),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
 export {
-  getRecipe, getDefaultRecipesByMethod, getRecipesByMethod,
+  getRecipe, getDefaultRecipesByMethod, getRecipesByMethod, createRecipe, updateRecipe,
 };

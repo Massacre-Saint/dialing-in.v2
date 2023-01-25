@@ -7,7 +7,7 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
-import { deleteRecipe } from '../../../../utils/data/apiData/userRecipes';
+import deleteRecipe from '../../../../utils/data/apiData/userRecipes';
 import { getMethods } from '../../../../utils/data/apiData/methods';
 import Method from '../../../../components/create/Method';
 import { getRecipe } from '../../../../utils/data/apiData/recipes';
@@ -16,7 +16,7 @@ export default function ChooseMethod() {
   const { user } = useAuth();
   const router = useRouter();
   const id = router.query.data;
-  const [, setUserRecipe] = useState({});
+  const [userRecipe, setUserRecipe] = useState({});
   const [methods, setMethods] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -43,7 +43,7 @@ export default function ChooseMethod() {
       <div>
         <div className="method-container">
           {methods.map((i) => (
-            <Method key={i.id} methodObj={i} />
+            <Method key={i.id} methodObj={i} recipe={userRecipe} />
           ))}
         </div>
       </div>

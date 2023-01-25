@@ -13,13 +13,11 @@ export default function ChooseTempCard({ recipeObj, onUpdate }) {
 
 ChooseTempCard.propTypes = {
   recipeObj: PropTypes.shape({
-    waterTemp: PropTypes.number,
   }),
   onUpdate: PropTypes.func,
 };
 ChooseTempCard.defaultProps = {
   recipeObj: PropTypes.shape({
-    waterTemp: 205,
   }),
   onUpdate: () => {},
 };

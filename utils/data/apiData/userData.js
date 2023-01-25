@@ -9,8 +9,7 @@ const getUser = (pk) => new Promise((resolve, reject) => {
       resolve({
         id: data.id,
         uid: data.uid,
-        firstName: data.first_name,
-        lastName: data.last_name,
+        name: data.name,
         methodId: data.method_id,
         favRoast: data.fav_roast,
         favShop: data.fav_shop,
@@ -22,6 +21,12 @@ const getUser = (pk) => new Promise((resolve, reject) => {
 });
 
 const updateUser = (pk, data) => new Promise((resolve, reject) => {
+  const user = {
+    fav_roast: data.favRoast,
+    fav_shop: data.favShop,
+    description: data.description,
+    method_id: data.methodId
+  }
   fetch(`${dbUrl}/users/${pk}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

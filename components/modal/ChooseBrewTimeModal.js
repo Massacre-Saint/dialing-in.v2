@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import Slider from 'react-input-slider';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { updateRecipe } from '../../utils/data/apiData/userRecipes';
+import { updateRecipe } from '../../utils/data/apiData/recipes';
 
 const initialSate = {
-  brewTime: 60,
+  brew_time: 60,
 };
 
 export default function ChooseBrewTimeModal({
@@ -16,10 +16,10 @@ export default function ChooseBrewTimeModal({
   const [state, setState] = useState({ x: 60 });
   const [formInput, setFormInput] = useState(initialSate);
   useEffect(() => {
-    if (recipeObj.brewTime) setFormInput(recipeObj);
+    if (recipeObj.brew_time) setFormInput(recipeObj);
   }, [recipeObj]);
   const convertTime = (total) => {
-    if (recipeObj?.brewTime) {
+    if (recipeObj?.brew_time) {
       const result = new Date(total * 1000).toISOString().slice(14, 19);
       return result;
     }
@@ -36,14 +36,14 @@ export default function ChooseBrewTimeModal({
   };
   const handleState = (x) => {
     setState(() => ({ ...state, x }));
-    setFormInput(() => ({ ...initialSate, brewTime: x }));
+    setFormInput(() => ({ ...initialSate, brew_time: x }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
       ...formInput,
     };
-    updateRecipe(recipeObj.firebaseKey, payload).then(() => {
+    updateRecipe(recipeObj.id, payload).then(() => {
       onUpdate();
       handleClose();
     });
@@ -72,7 +72,7 @@ export default function ChooseBrewTimeModal({
                   type="number"
                   xstep={15}
                   xmax={360}
-                  name="brewTime"
+                  name="brew_time"
                   value={state.x}
                   onChange={({ x }) => {
                     handleChange(x);
@@ -104,8 +104,8 @@ export default function ChooseBrewTimeModal({
 }
 ChooseBrewTimeModal.propTypes = {
   recipeObj: PropTypes.shape({
-    firebaseKey: PropTypes.string,
-    brewTime: PropTypes.number,
+    id: PropTypes.number,
+    brew_time: PropTypes.number,
   }),
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
@@ -113,7 +113,7 @@ ChooseBrewTimeModal.propTypes = {
 };
 ChooseBrewTimeModal.defaultProps = {
   recipeObj: PropTypes.shape({
-    firebaseKey: '',
-    brewTime: 0,
+    id: '',
+    brew_time: 0,
   }),
 };

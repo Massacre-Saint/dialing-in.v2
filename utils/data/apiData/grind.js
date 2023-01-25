@@ -1,22 +1,17 @@
-import axios from 'axios';
 import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
 
 const getGrinds = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/grind.json`)
-    .then((response) => {
-      if (response.data) {
-        resolve(Object.values(response.data));
-      } else {
-        resolve([]);
-      }
-    })
-    .catch((error) => reject(error));
+  fetch(`${dbUrl}/grinds`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
 });
-const getSingleGrind = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/grind/${firebaseKey}.json`)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error));
+const getSingleGrind = (grindId) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/grinds/${grindId}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
 });
 export { getGrinds, getSingleGrind };

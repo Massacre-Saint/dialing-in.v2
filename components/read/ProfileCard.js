@@ -14,7 +14,6 @@ import { checkUser } from '../../utils/auth';
 
 export default function ProfileCard() {
   const [userProfile, setUserProfile] = useState({});
-  const [method] = useState({});
   const router = useRouter();
   const { user } = useAuth();
   const handleEdit = () => {
@@ -44,12 +43,12 @@ export default function ProfileCard() {
             ? (
               <div className="profile-card">
                 <div className="profile-card-header">
-                  <Image className="profile-picture-lg" layout="responsive" src={userProfile?.photoUrl} />
+                  <Image className="profile-picture-lg" layout="responsive" src={userProfile.imageUrl} />
                   <h1>{userProfile.name}</h1>
                 </div>
                 <div>
                   <p className="profile-title">Favorite Method:
-                    <span className="profile-content">{method?.name}</span>
+                    <span className="profile-content">{userProfile.methodId.name}</span>
                   </p>
                   <p className="profile-title">About:
                     <span className="profile-content">{userProfile.description}</span>
@@ -75,11 +74,11 @@ export default function ProfileCard() {
             : (
               <div className="profile-card blur">
                 <div className="profile-card-header">
-                  <Image className="profile-picture-lg" layout="responsive" src={userProfile?.photoUrl} />
+                  <Image className="profile-picture-lg" layout="responsive" src={userProfile?.imageUrl} />
                   <h1>{userProfile.name}</h1>
                 </div>
                 <div>
-                  <p>Favorite Method: {userProfile.brewMethod}</p>
+                  <p>Favorite Method: {userProfile.methodId}.name</p>
                   <p>About: </p>
                   <span>{userProfile.description}</span>
                   <p>Favorite Roast: {userProfile.favRoast}</p>

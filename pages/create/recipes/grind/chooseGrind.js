@@ -16,7 +16,6 @@ export default function ChooseMethod() {
   useEffect(() => {
     getGrinds().then(setGrinds);
   }, [user]);
-  const sortedGrinds = grinds.sort((a, b) => ((a.order > b.order) ? 1 : -1));
   return (
     <>
       <Navbar sticky="top" className="navbar">
@@ -29,8 +28,8 @@ export default function ChooseMethod() {
       </Navbar>
       <div className="grinds-page">
         <div className="grinds">
-          {sortedGrinds.map((i) => (
-            <Grind key={i.firebaseKey} grindObj={i} />
+          {grinds.map((i) => (
+            <Grind key={i.id} grindObj={i} />
           ))}
         </div>
       </div>

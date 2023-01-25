@@ -3,19 +3,17 @@ import PropTypes from 'prop-types';
 import { Image } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../utils/context/authContext';
 import { getMethods } from '../../utils/data/apiData/methods';
 import { updateUser } from '../../utils/data/apiData/userData';
 
 const initialSate = {
   favRoast: '',
   description: '',
-  brewMethod: '',
+  methodId: '',
   favShop: '',
 };
 
-export default function NewUserForm({ obj }) {
-  const { user } = useAuth();
+export default function NewUserForm({ obj, user }) {
   const router = useRouter();
   const [formInput, setFormInput] = useState(initialSate);
   const [methods, setMethods] = useState([]);
@@ -40,14 +38,14 @@ export default function NewUserForm({ obj }) {
     const payload = {
       ...formInput,
     };
-    updateUser(obj.uid, payload).then(() => router.push('/settings'));
+    updateUser(obj.id, payload).then(() => router.push('/settings'));
   };
 
   return (
     <>
       <div className="profile-card">
         <div className="profile-card-header">
-          <Image className="profile-picture-lg" layout="responsive" src={obj?.photoUrl} />
+          <Image className="profile-picture-lg" layout="responsive" src={user?.photoUrl} />
           <h1>{obj.name}</h1>
         </div>
         <div>
@@ -80,9 +78,9 @@ export default function NewUserForm({ obj }) {
               Favorite Method:
               <Form.Select
                 aria-label="Favorite Method"
-                name="brewMethod"
+                name="methodId"
                 onChange={handleChange}
-                value={formInput.brewMethod}
+                value={formInput.methodId}
                 bsPrefix="form-box"
                 required
               >
@@ -91,8 +89,8 @@ export default function NewUserForm({ obj }) {
                 methods.map((method) => (
                   <option
                     className="form-drop"
-                    key={method.firebaseKey}
-                    value={method.firebaseKey}
+                    key={method.id}
+                    value={method.id}
                   >
                     {method.name}
                   </option>
@@ -113,25 +111,26 @@ export default function NewUserForm({ obj }) {
 
 NewUserForm.propTypes = {
   obj: PropTypes.shape({
-    uid: PropTypes.string,
-    brewMethod: PropTypes.string,
+    id: PropTypes.number,
+    methodId: PropTypes.string,
     favRoast: PropTypes.string,
     favShop: PropTypes.string,
-    coffeeRankId: PropTypes.string,
     desciption: PropTypes.string,
-    photoUrl: PropTypes.string,
+    imageUrl: PropTypes.string,
     name: PropTypes.string,
-  }),
+  }).isRequired,
+  user: PropTypes.shape({
+    photoUrl: PropTypes.string,
+  }).isRequired,
 };
-NewUserForm.defaultProps = {
-  obj: PropTypes.shape({
-    uid: '',
-    brewMethod: '',
-    favRoast: '',
-    favShop: '',
-    coffeeRankId: '',
-    desciption: '',
-    photoUrl: '',
-    name: '',
-  }),
-};
+// NewUserForm.defaultProps = {
+//   obj: PropTypes.shape({
+//     uid: '',
+//     method_id: '',
+//     fav_roast: '',
+//     fav_shop: '',
+//     desciption: '',
+//     image_url: '',
+//     name: '',
+//   }),
+// };

@@ -3,56 +3,50 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
-import { useAuth } from '../../../utils/context/authContext';
-import { updateRecipe } from '../../../utils/data/apiData/userRecipes';
-import { getSingleRecipeMethod } from '../../../utils/data/apiData/mergeData';
 import ChooseMethodModal from '../../modal/ChooseMethodModal';
+import { updateRecipe } from '../../../utils/data/apiData/recipes';
 
 export default function ChooseMethodCard({ recipeObj }) {
-  const { user } = useAuth();
   const [recipeMethod, setRecipeMethod] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const router = useRouter();
+
   const payload = {
-    firebaseKey: recipeObj.firebaseKey,
-    uid: user.uid,
     methodId: null,
     grindId: null,
-    waterTemp: null,
-    brewTime: null,
-    recipeName: null,
+    brew_time: null,
     weight: null,
     dose: null,
+    recipe_name: null,
   };
 
   const handleClick = () => {
-    if (recipeObj.methodId) {
+    if (recipeObj.method_id) {
       handleShow();
     } else {
       (router.push({
         pathname: '/create/recipes/method/chooseMethod',
-        query: { data: recipeObj.firebaseKey },
+        query: { data: recipeObj.id },
       })
       );
     }
   };
   const handleReset = () => {
-    updateRecipe(recipeObj.firebaseKey, payload).then(() => router.push({
+    updateRecipe(recipeObj.id, payload);
+    router.push({
       pathname: '/create/recipes/method/chooseMethod',
-      query: { data: recipeObj.firebaseKey },
-    }));
+      query: { data: recipeObj.id },
+    });
   };
   const handleKeep = () => {
     handleClose();
   };
 
   useEffect(() => {
-    if (recipeObj.methodId) {
-      getSingleRecipeMethod(recipeObj.firebaseKey).then((methodObj) => {
-        setRecipeMethod(methodObj);
-      });
+    if (recipeObj.method_id) {
+      setRecipeMethod(recipeObj.method_id);
     }
   }, [recipeObj]);
   return (
@@ -60,7 +54,7 @@ export default function ChooseMethodCard({ recipeObj }) {
       <Card style={{ width: 'auto' }} onClick={handleClick}>
         <Card.Body>
           <Card.Title>Method:</Card.Title>
-          <Card.Text>{recipeMethod ? (recipeMethod?.methodObj?.name) : 'no method'}</Card.Text>
+          <Card.Text>{recipeMethod ? (recipeMethod.name) : 'no method'}</Card.Text>
         </Card.Body>
       </Card>
       <ChooseMethodModal show={show} handleClose={handleClose} handleReset={handleReset} handleKeep={handleKeep} />
@@ -69,14 +63,9 @@ export default function ChooseMethodCard({ recipeObj }) {
 }
 ChooseMethodCard.propTypes = {
   recipeObj: PropTypes.shape({
-    methodId: PropTypes.string,
-    firebaseKey: PropTypes.string,
-  }),
-};
-
-ChooseMethodCard.defaultProps = {
-  recipeObj: PropTypes.shape({
-    firebaseKey: '',
-    methodId: '',
-  }),
+    method_id: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    id: PropTypes.number,
+  }).isRequired,
 };

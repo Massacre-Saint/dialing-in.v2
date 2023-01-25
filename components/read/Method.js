@@ -33,15 +33,5 @@ Method.propTypes = {
       description: PropTypes.string,
       name: PropTypes.string,
     },
-  ),
-};
-Method.defaultProps = {
-  methodObj: PropTypes.shape(
-    {
-      id: '',
-      image_url: '',
-      description: '',
-      name: '',
-    },
-  ),
+  ).isRequired,
 };
