@@ -28,20 +28,28 @@ export default function ChooseBrewTimeModal({
   };
   const handleChange = (x) => {
     const { name, value } = x;
-    // const convert = parseInt(value, 10);
+    const convert = parseInt(value, 10);
     setFormInput((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: convert,
     }));
   };
   const handleState = (x) => {
     setState(() => ({ ...state, x }));
-    setFormInput(() => ({ ...initialSate, brew_time: x }));
+    setFormInput(() => ({
+      ...initialSate,
+      brewTime: x,
+    }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
       ...formInput,
+      dose: recipeObj.dose,
+      recipeName: recipeObj.recipe_name,
+      grindId: recipeObj.grind_id.id,
+      methodId: recipeObj.method_id.id,
+      weight: recipeObj.weight,
     };
     updateRecipe(recipeObj.id, payload).then(() => {
       onUpdate();
@@ -105,15 +113,22 @@ export default function ChooseBrewTimeModal({
 ChooseBrewTimeModal.propTypes = {
   recipeObj: PropTypes.shape({
     id: PropTypes.number,
+    dose: PropTypes.number,
     brew_time: PropTypes.number,
-  }),
+    recipe_name: PropTypes.string,
+    grind_id: PropTypes.shape({
+      id: PropTypes.number,
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
+    method_id: PropTypes.shape({
+      id: PropTypes.number,
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
+    weight: PropTypes.number,
+  }).isRequired,
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
-};
-ChooseBrewTimeModal.defaultProps = {
-  recipeObj: PropTypes.shape({
-    id: '',
-    brew_time: 0,
-  }),
 };

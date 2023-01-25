@@ -8,7 +8,7 @@ import { useAuth } from '../../../utils/context/authContext';
 import { getRecipe } from '../../../utils/data/apiData/recipes';
 import ChooseGrindCard from '../../../components/create/recipes/ChooseGrindCard';
 import ChooseMethodCard from '../../../components/create/recipes/ChooseMethodCard';
-import ChooseTempCard from '../../../components/create/recipes/ChooseTempCard';
+import ChooseWeightCard from '../../../components/create/recipes/ChooseWeightCard';
 import CreateNameCard from '../../../components/create/recipes/CreateNameCard';
 import DeleteRecipeModal from '../../../components/modal/DeleteRecipeModal';
 import ChooseBrewTime from '../../../components/create/recipes/ChooseBrewTime';
@@ -37,18 +37,17 @@ export default function CreateRecipe() {
       setRecipe(obj);
     });
   };
-  const findLength = (array) => {
-    const fields = array;
-    fields.forEach((field) => {
-      let length = 0;
-      if (field) { length += 1; }
-      return length;
+  const findLength = () => {
+    const values = Object.values(recipe);
+    let length = 0;
+    values.forEach((i) => {
+      if (i) { length += 1; }
     });
+    return length;
   };
   const recipeProgress = findLength(Object.values(recipe));
   useEffect(() => {
     renderRecipe();
-    findLength(Object.values(recipe));
   }, [user, recipeProgress]);
   return (
     <>
@@ -63,9 +62,9 @@ export default function CreateRecipe() {
       <div>
         <ChooseMethodCard recipeObj={recipe} />
         {recipe.method_id ? (<ChooseGrindCard recipeObj={recipe} />) : ''}
-        {recipe.grind_id ? (<ChooseTempCard onUpdate={renderRecipe} recipeObj={recipe} />) : ''}
+        {recipe.grind_id ? (<ChooseWeightCard onUpdate={renderRecipe} recipeObj={recipe} />) : ''}
         {recipe.weight ? (<ChooseBrewTime onUpdate={renderRecipe} recipeObj={recipe} />) : ''}
-        {recipeProgress < 7 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={recipe} />)}
+        {recipeProgress < 6 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={recipe} />)}
       </div>
       <div>
         {recipeProgress > 8

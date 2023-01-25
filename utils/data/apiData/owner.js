@@ -35,13 +35,10 @@ const getCreatedMethodRecipes = (methodId) => new Promise((resolve, reject) => {
 });
 
 const createOwnerRecipe = (payload, user) => new Promise((resolve, reject) => {
-  const recipe = {
-    recipe_id: payload.id,
-  };
   fetch(`${dbUrl}/owner`, {
     method: 'POST',
     body: JSON.stringify({
-      recipe_id: payload.id
+      recipe_id: payload.id,
     }),
     headers: {
       'content-type': 'application/json',

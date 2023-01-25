@@ -7,14 +7,18 @@ import {
 import { useAuth } from '../../../../utils/context/authContext';
 import { getGrinds } from '../../../../utils/data/apiData/grind';
 import Grind from '../../../../components/read/Grind';
+import { getRecipe } from '../../../../utils/data/apiData/recipes';
 
 export default function ChooseMethod() {
   const { user } = useAuth();
   const router = useRouter();
+  const id = router.query.data;
   const [grinds, setGrinds] = useState([]);
+  const [recipe, setRecipe] = useState({});
   const handleClick = (router.back);
   useEffect(() => {
     getGrinds().then(setGrinds);
+    getRecipe(id).then(setRecipe);
   }, [user]);
   return (
     <>
@@ -29,7 +33,7 @@ export default function ChooseMethod() {
       <div className="grinds-page">
         <div className="grinds">
           {grinds.map((i) => (
-            <Grind key={i.id} grindObj={i} />
+            <Grind key={i.id} grindObj={i} recipe={recipe} />
           ))}
         </div>
       </div>

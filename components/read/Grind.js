@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Button } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Form from 'react-bootstrap/Form';
@@ -11,13 +11,17 @@ import { updateRecipe } from '../../utils/data/apiData/recipes';
 const initialSate = {
   dose: '',
 };
-export default function Grind({ grindObj }) {
+export default function Grind({ grindObj, recipe }) {
   const router = useRouter();
   const id = router.query.data;
   const [formInput, setFormInput] = useState(initialSate);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    if (recipe.dose) setFormInput(recipe);
+  }, [recipe]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +35,11 @@ export default function Grind({ grindObj }) {
   const handleClick = () => {
     const payload = {
       grindId: grindObj.id,
+      methodId: recipe.method_id.id,
+      dose: recipe.dose,
+      recipeName: recipe.recipe_name,
+      brewTime: recipe.brew_time,
+      weight: recipe.weight,
     };
     updateRecipe(id, payload);
     handleShow();
@@ -39,6 +48,8 @@ export default function Grind({ grindObj }) {
     e.preventDefault();
     const payload = {
       ...formInput,
+      grindId: grindObj.id,
+      methodId: recipe.method_id.id,
     };
     updateRecipe(id, payload).then(() => {
       router.push(`/create/recipes/${id}`);
@@ -89,6 +100,22 @@ Grind.propTypes = {
       order: PropTypes.number,
     },
   ),
+  recipe: PropTypes.shape({
+    id: PropTypes.number,
+    brew_time: PropTypes.number,
+    weight: PropTypes.number,
+    dose: PropTypes.number,
+    recipe_name: PropTypes.string,
+    published: PropTypes.bool,
+    method_id: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }),
+    grind_id: PropTypes.shape({
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
+  }).isRequired,
 };
 Grind.defaultProps = {
   grindObj: PropTypes.shape(
@@ -100,20 +127,4 @@ Grind.defaultProps = {
       order: 0,
     },
   ),
-  // recipe: PropTypes.shape({
-  //   id: PropTypes.number,
-  //   brew_time: PropTypes.number,
-  //   weight: PropTypes.number,
-  //   dose: PropTypes.number,
-  //   recipe_name: PropTypes.string,
-  //   published: PropTypes.bool,
-  //   method_id: PropTypes.shape({
-  //     id: PropTypes.number,
-  //     name: PropTypes.string,
-  //   }),
-  //   grind_id: PropTypes.shape({
-  //     grind_size: PropTypes.string,
-  //     image_url: PropTypes.string,
-  //   })
-  // }).isRequired,
 };

@@ -43,7 +43,7 @@ const updateRecipe = (id, data) => new Promise((resolve, reject) => {
     grind_id: data.grindId,
     method_id: data.methodId,
     dose: data.dose,
-  }
+  };
   fetch(`${dbUrl}/recipes/${id}`, {
     method: 'PUT',
     body: JSON.stringify(recipe),

@@ -23,7 +23,7 @@ export default function ChooseBrewTime({ recipeObj, onUpdate }) {
       <Card style={{ width: 'auto' }} onClick={handleShow}>
         <Card.Body>
           <Card.Title>Brew Time:</Card.Title>
-          <Card.Text>{recipeObj.brewTime ? (convertTime(recipeObj.brewTime)) : ''}</Card.Text>
+          <Card.Text>{recipeObj.brew_time ? (convertTime(recipeObj.brew_time)) : ''}</Card.Text>
         </Card.Body>
       </Card>
       <ChooseBrewTimeModal recipeObj={recipeObj} onUpdate={onUpdate} handleClick={handleClick} handleShow={handleShow} handleClose={handleClose} show={show} />
@@ -32,17 +32,7 @@ export default function ChooseBrewTime({ recipeObj, onUpdate }) {
 }
 ChooseBrewTime.propTypes = {
   recipeObj: PropTypes.shape({
-    methodId: PropTypes.string,
-    firebaseKey: PropTypes.string,
-    brewTime: PropTypes.number,
-  }),
+    brew_time: PropTypes.number,
+  }).isRequired,
   onUpdate: PropTypes.func.isRequired,
-};
-
-ChooseBrewTime.defaultProps = {
-  recipeObj: PropTypes.shape({
-    firebaseKey: '',
-    methodId: '',
-    brewTime: 0,
-  }),
 };
