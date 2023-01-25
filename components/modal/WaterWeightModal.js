@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { updateRecipe } from '../../utils/data/apiData/recipes';
 
 const initialSate = {
-  weight: 0,
+  weight: '',
 };
 
 export default function WaterWeightModal({ recipe, onUpdate }) {
@@ -66,7 +66,7 @@ export default function WaterWeightModal({ recipe, onUpdate }) {
         }}
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Settings</Offcanvas.Title>
+          <Offcanvas.Title>How Much Will Recipe Yield?</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div>

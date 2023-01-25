@@ -16,13 +16,16 @@ import { useAuth } from '../../../utils/context/authContext';
 import { getSingleOwnerRecipe } from '../../../utils/data/apiData/owner';
 import { getSteps } from '../../../utils/data/apiData/steps';
 import BrewButton from '../../../components/buttons/BrewButton';
-import { getFavoritebyRecipe } from '../../../utils/data/apiData/favorites';
+import {
+  getFavoritebyRecipe, deleteFavorite, createFavorite, getFavorite,
+} from '../../../utils/data/apiData/favorites';
 import FavoriteButton from '../../../components/buttons/FavoriteButton';
-import { getRecipe } from '../../../utils/data/apiData/recipes';
+import { getRecipe, updateRecipe } from '../../../utils/data/apiData/recipes';
 
 export default function CreateProcess() {
   const { user } = useAuth();
   const [recipe, setRecipe] = useState({});
+  const [author, setAuthor] = useState({});
   const [steps, setSteps] = useState([]);
   const router = useRouter();
   const [favoriteState, setFavoriteState] = useState(false);
@@ -33,7 +36,10 @@ export default function CreateProcess() {
   const renderRecipe = () => {
     getRecipe(id).then((obj) => {
       if (!obj.default) {
-        getSingleOwnerRecipe(obj.id).then(setRecipe);
+        getSingleOwnerRecipe(obj.id).then((userRecipe) => {
+          setAuthor(userRecipe.user_id);
+          setRecipe(userRecipe.recipe_id);
+        });
       }
       setRecipe(obj);
       getSteps(id).then(setSteps);
@@ -47,11 +53,11 @@ export default function CreateProcess() {
         setFavoriteState(false);
       }
     });
-    // if (!recipe?.favoriteId) {
-    //   setFavoriteState(false);
-    // } else {
-    //   setFavoriteState(true);
-    // }
+    if (!recipe?.favoriteId) {
+      setFavoriteState(false);
+    } else {
+      setFavoriteState(true);
+    }
   };
   const convertTime = (total) => {
     if (total >= 3600) {
@@ -75,43 +81,39 @@ export default function CreateProcess() {
       router.back();
     }
   };
-  // const updateFavoritePayload = (favorite) => {
-  //   const payload = {
-  //     favoriteId: favorite.firebaseKey,
-  //   };
-  //   updateRecipe(favorite.recipeId, payload);
-  // };
-  // const handleFavorite = () => {
-  //   const payload = {
-  //     brewTime: recipe.brewTime,
-  //     grindId: recipe.grindId,
-  //     weight: recipe.weight,
-  //     dose: recipe.dose,
-  //     methodId: recipe.methodId,
-  //     processId: recipe.processId,
-  //     uid: recipe.uid,
-  //     recipeName: recipe.recipeName,
-  //     waterTemp: recipe.waterTemp,
-  //     recipeId: recipe.firebaseKey,
-  //     completed: recipe.completed,
-  //   };
-  //   if (favoriteState === true) {
-  //     deleteFavoriteRecipe(recipe.favoriteId).then(() => {
-  //       const deleteLoad = {
-  //         favoriteId: '',
-  //       };
-  //       updateRecipe(recipe.firebaseKey, deleteLoad);
-  //       setFavoriteState(false);
-  //     });
-  //   } else {
-  // createFavoriteRecipe(payload).then((favoriteObj) => {
-  //   getSingleFavoriteRecipe(favoriteObj.data.firebaseKey).then((favorite) => {
-  //     updateFavoritePayload(favorite);
-  //   });
-  // });
-  // setFavoriteState(true);
-  //   }
-  // };
+  const updateFavoritePayload = (favorite) => {
+    const payload = {
+      favoriteId: favorite.id,
+    };
+    updateRecipe(favorite.recipeId, payload);
+  };
+  const handleFavorite = () => {
+    const payload = {
+      brewTime: recipe.brewTime,
+      grindId: recipe.grindId,
+      weight: recipe.weight,
+      dose: recipe.dose,
+      methodId: recipe.methodId,
+      processId: recipe.processId,
+      uid: recipe.uid,
+      recipeName: recipe.recipeName,
+      waterTemp: recipe.waterTemp,
+      recipeId: recipe.id,
+      completed: recipe.completed,
+    };
+    if (favoriteState === true) {
+      deleteFavorite(recipe.favoriteId).then(() => {
+        setFavoriteState(false);
+      });
+    } else {
+      createFavorite(payload, user).then((favoriteObj) => {
+        getFavorite(favoriteObj.data.id).then((favorite) => {
+          updateFavoritePayload(favorite);
+        });
+      });
+      setFavoriteState(true);
+    }
+  };
   const handleSave = () => {
     setShow(false);
     router.push('/');
@@ -119,10 +121,10 @@ export default function CreateProcess() {
   const handleEquipment = () => {
     router.push(`/read/equipment/${recipe.id}`);
   };
-  // useEffect(() => {
-  //   renderRecipe();
-  //   mountedFavState();
-  // }, [user, recipe?.favoriteId]);
+  useEffect(() => {
+    renderRecipe();
+    mountedFavState();
+  }, [user, recipe?.favoriteId]);
   useEffect(() => {
     renderRecipe();
     mountedFavState();
@@ -140,10 +142,14 @@ export default function CreateProcess() {
                 <div className="page-title">
                   {recipe.recipe_name ? (recipe.recipe_name) : ('Create Recipe')}
                 </div>
-                {/* Chnage line below to handlefavorite */}
-                <Nav.Link onClick={handleEquipment} className="nav-fav">
-                  <FavoriteButton favoriteState={favoriteState} />
-                </Nav.Link>
+                {
+                  recipe.published ? (
+                    <Nav.Link onClick={handleFavorite} className="nav-fav">
+                      <FavoriteButton favoriteState={favoriteState} />
+                    </Nav.Link>
+                  )
+                    : ('')
+                }
                 <Nav.Link onClick={handleEquipment} className="nav-cta">
                   <GiManualMeatGrinder />
                 </Nav.Link>
@@ -169,11 +175,11 @@ export default function CreateProcess() {
                         <li> Grind Size:
                           <span>{recipe.grind_id.grind_size}</span>
                         </li>
-                        {!recipe.uid
+                        {recipe.default
                           ? ('')
                           : (
                             <li>Author:
-                              <span>{recipe?.user_id?.name}</span>
+                              <span>{author.name}</span>
                             </li>
                           )}
                       </ul>

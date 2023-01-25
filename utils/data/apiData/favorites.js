@@ -32,25 +32,32 @@ const getFavoritebyRecipe = (uid, recipeId) => new Promise((resolve, reject) => 
     .catch(reject);
 });
 
-const updateFavoriteRecipe = (firebaseKey, payload) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/favorites/${firebaseKey}.json`, payload)
+const updateFavoriteRecipe = (id, payload) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/favorites/${id}.json`, payload)
     .then(resolve)
     .catch(reject);
 });
-const createFavoriteRecipe = (recipeObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/favorites.json`, recipeObj)
-    .then((response) => {
-      const payload = { firebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/favorites/${response.data.name}.json`, payload)
-        .then(resolve);
-    }).catch(reject);
-});
-
-const deleteFavoriteRecipe = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.delete(`${dbUrl}/favorites/${firebaseKey}.json`)
-    .then(() => resolve('deleted'))
+const createFavorite = (data, user) => new Promise((resolve, reject) => {
+  const recipe = {
+    recipe_id: data.recipeId,
+  };
+  fetch(`${dbUrl}/favorites`, {
+    method: 'POST',
+    body: JSON.stringify(recipe),
+    headers: {
+      'content-type': 'application/json',
+      Authorization: user.uid,
+    },
+  })
+    .then((response) => resolve(response.json()))
     .catch((error) => reject(error));
 });
+
+const deleteFavorite = (id) => new Promise((resolve, reject) => {
+  fetch(`'${dbUrl}/favorites/${id}`, {
+    method: 'DELELTE',
+  }).then(resolve).catch(reject);
+});
 export {
-  getFavorites, getFavorite, getFavoritebyRecipe, updateFavoriteRecipe, createFavoriteRecipe, deleteFavoriteRecipe,
+  getFavorites, getFavorite, getFavoritebyRecipe, updateFavoriteRecipe, createFavorite, deleteFavorite,
 };
