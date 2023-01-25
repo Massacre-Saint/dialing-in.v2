@@ -12,7 +12,7 @@ const initialSate = {
   weight: 0,
 };
 
-export default function WaterTempModal({ recipeObj, onUpdate }) {
+export default function WaterWeightModal({ recipe, onUpdate }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,8 +20,8 @@ export default function WaterTempModal({ recipeObj, onUpdate }) {
   const [formInput, setFormInput] = useState(initialSate);
 
   useEffect(() => {
-    if (recipeObj.weight) setFormInput(recipeObj);
-  }, [recipeObj]);
+    if (recipe.weight) setFormInput(recipe);
+  }, [recipe]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,10 +36,15 @@ export default function WaterTempModal({ recipeObj, onUpdate }) {
     e.preventDefault();
     const payload = {
       ...formInput,
+      brewTime: recipe.brew_time,
+      dose: recipe.dose,
+      recipeName: recipe.recipe_name,
+      grindId: recipe.grind_id.id,
+      methodId: recipe.method_id.id,
     };
-    updateRecipe(recipeObj.id, payload).then(() => {
+    updateRecipe(recipe.id, payload).then(() => {
       onUpdate();
-      router.push(`/create/recipes/${recipeObj.id}`);
+      router.push(`/create/recipes/${recipe.id}`);
       handleClose();
     });
   };
@@ -48,7 +53,7 @@ export default function WaterTempModal({ recipeObj, onUpdate }) {
       <Card style={{ width: 'auto' }} onClick={handleShow}>
         <Card.Body>
           <Card.Title>Water:</Card.Title>
-          <Card.Text>{recipeObj?.weight} grams</Card.Text>
+          <Card.Text>{recipe?.weight} grams</Card.Text>
         </Card.Body>
       </Card>
       <Offcanvas
@@ -78,9 +83,22 @@ export default function WaterTempModal({ recipeObj, onUpdate }) {
     </>
   );
 }
-WaterTempModal.propTypes = {
-  recipeObj: PropTypes.shape({
+WaterWeightModal.propTypes = {
+  recipe: PropTypes.shape({
     id: PropTypes.number,
+    dose: PropTypes.number,
+    brew_time: PropTypes.number,
+    recipe_name: PropTypes.string,
+    grind_id: PropTypes.shape({
+      id: PropTypes.number,
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
+    method_id: PropTypes.shape({
+      id: PropTypes.number,
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
     weight: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,

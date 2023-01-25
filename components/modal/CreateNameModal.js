@@ -7,10 +7,10 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
-import { updateRecipe } from '../../utils/data/apiData/userRecipes';
+import { updateRecipe } from '../../utils/data/apiData/recipes';
 
 const initialSate = {
-  recipeName: '',
+  recipe_name: '',
 };
 
 export default function CreateNameModal({ recipeObj, onUpdate }) {
@@ -22,7 +22,7 @@ export default function CreateNameModal({ recipeObj, onUpdate }) {
   const [formInput, setFormInput] = useState(initialSate);
 
   useEffect(() => {
-    if (recipeObj.recipeName) setFormInput(recipeObj);
+    if (recipeObj.recipe_name) setFormInput(recipeObj);
   }, [recipeObj, user]);
 
   const handleChange = (e) => {
@@ -37,10 +37,15 @@ export default function CreateNameModal({ recipeObj, onUpdate }) {
     e.preventDefault();
     const payload = {
       ...formInput,
+      dose: recipeObj.dose,
+      brewTime: recipeObj.brew_time,
+      grindId: recipeObj.grind_id.id,
+      methodId: recipeObj.method_id.id,
+      weight: recipeObj.weight,
     };
-    updateRecipe(recipeObj.firebaseKey, payload).then(() => {
+    updateRecipe(recipeObj.id, payload).then(() => {
       onUpdate();
-      router.push(`/create/recipes/${recipeObj.firebaseKey}`);
+      router.push(`/create/recipes/${recipeObj.id}`);
       handleClose();
     });
   };
@@ -49,7 +54,7 @@ export default function CreateNameModal({ recipeObj, onUpdate }) {
       <Card style={{ width: 'auto' }} onClick={handleShow}>
         <Card.Body>
           <Card.Title>Recipe Name</Card.Title>
-          <Card.Text>{recipeObj.recipeName}</Card.Text>
+          <Card.Text>{recipeObj.recipe_name}</Card.Text>
         </Card.Body>
       </Card>
       <Offcanvas
@@ -67,7 +72,7 @@ export default function CreateNameModal({ recipeObj, onUpdate }) {
           <div>
             <Form onSubmit={handleSubmit}>
               <FloatingLabel controlId="floatingInput1" label="Create Recipe Name" className="mb-3">
-                <Form.Control type="text" placeholder="Example..." name="recipeName" value={formInput.recipeName} onChange={handleChange} required />
+                <Form.Control type="text" placeholder="Example..." name="recipe_name" value={formInput.recipe_name} onChange={handleChange} required />
               </FloatingLabel>
               <Button type="submit" className="btn-med">Submit</Button>
             </Form>
@@ -79,15 +84,21 @@ export default function CreateNameModal({ recipeObj, onUpdate }) {
 }
 CreateNameModal.propTypes = {
   recipeObj: PropTypes.shape({
-    firebaseKey: PropTypes.string,
-    recipeName: PropTypes.string,
-  }),
-  onUpdate: PropTypes.func,
-};
-CreateNameModal.defaultProps = {
-  recipeObj: PropTypes.shape({
-    firebaseKey: '',
-    recipeName: '',
-  }),
-  onUpdate: () => {},
+    id: PropTypes.number,
+    dose: PropTypes.number,
+    brew_time: PropTypes.number,
+    recipe_name: PropTypes.string,
+    grind_id: PropTypes.shape({
+      id: PropTypes.number,
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
+    method_id: PropTypes.shape({
+      id: PropTypes.number,
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
+    weight: PropTypes.number,
+  }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };

@@ -9,14 +9,7 @@ export default function CreateNameCard({ recipeObj, onUpdate }) {
 }
 CreateNameCard.propTypes = {
   recipeObj: PropTypes.shape({
-    RecipeName: PropTypes.number,
-  }),
-  onUpdate: PropTypes.func,
-};
-CreateNameCard.defaultProps = {
-  recipeObj: PropTypes.shape({
-    recipeName: 205,
-  }),
-  onUpdate: () => {},
-
+    recipe_name: PropTypes.string,
+  }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
