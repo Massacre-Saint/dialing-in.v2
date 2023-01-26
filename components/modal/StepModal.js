@@ -7,7 +7,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { createStep } from '../../utils/data/apiData/steps';
 
 const initialSate = {
-  direction: '',
+  description: '',
 };
 
 export default function StepModal({ stepArray, recipeObj, onUpdate }) {
@@ -18,10 +18,6 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
   useEffect(() => {
     setFormInput(initialSate);
   }, [stepArray]);
-  const createOrder = (array) => {
-    const length = array.length + 1;
-    return length;
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,8 +30,7 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
     e.preventDefault();
     const payload = {
       ...formInput,
-      recipeId: recipeObj.firebaseKey,
-      order: createOrder(stepArray),
+      recipeId: recipeObj.id,
     };
     createStep(payload).then(() => {
       onUpdate();
@@ -60,7 +55,7 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
           <div>
             <Form onSubmit={handleSubmit}>
               <FloatingLabel controlId="floatingInput1" label="Create Step" className="mb-3">
-                <Form.Control type="text" value={formInput.direction} onChange={handleChange} placeholder="Example..." name="direction" required />
+                <Form.Control type="text" value={formInput.description} onChange={handleChange} placeholder="Example..." name="description" required />
               </FloatingLabel>
               <Button type="submit" className="btn-lg">Submit</Button>
             </Form>
@@ -72,25 +67,12 @@ export default function StepModal({ stepArray, recipeObj, onUpdate }) {
 }
 StepModal.propTypes = {
   stepArray: PropTypes.arrayOf((PropTypes.shape({
-    direction: PropTypes.string,
-    firebaseKey: PropTypes.string,
-    order: PropTypes.number,
-    recipeId: PropTypes.string,
-  }))),
+    description: PropTypes.string,
+    id: PropTypes.number,
+    recipe_id: PropTypes.number,
+  }))).isRequired,
   recipeObj: PropTypes.shape({
-    firebaseKey: PropTypes.string,
-  }),
-  onUpdate: PropTypes.func,
-};
-StepModal.defaultProps = {
-  stepArray: PropTypes.arrayOf((PropTypes.shape({
-    direction: '',
-    firebaseKey: '',
-    order: 0,
-    recipeId: '',
-  }))),
-  recipeObj: PropTypes.shape({
-    firebaseKey: '',
-  }),
-  onUpdate: () => {},
+    id: PropTypes.number,
+  }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };

@@ -209,13 +209,13 @@ export default function CreateProcess() {
                     </div>
                   </div>
                 </div>
-                {recipe.uid === undefined
+                {recipe.default
                   ? (
                     ''
                   )
                   : (
                     <div className="process-cta-container">
-                      <ViewAllSteps recipe={recipe} />
+                      <ViewAllSteps recipe={recipe} author={author} />
                       <PublishRecipeButton onUpdate={renderRecipe} recipe={recipe} steps={steps} />
                     </div>
                   )}
