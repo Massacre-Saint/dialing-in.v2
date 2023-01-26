@@ -30,7 +30,7 @@ export default function MethodRecipes() {
     getSingleMethod(id).then((data) => setMethod(data));
     getDefaultRecipesByMethod(id).then((data) => setRecipes(data));
     if (user) {
-      getCreatedMethodRecipes(id).then(setUserRecipes);
+      getCreatedMethodRecipes(id).then((data) => setUserRecipes(data));
     }
   };
   const handleClick = () => {
