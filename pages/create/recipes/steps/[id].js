@@ -8,30 +8,37 @@ import { IconContext } from 'react-icons/lib';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 import { useAuth } from '../../../../utils/context/authContext';
 import { getSteps } from '../../../../utils/data/apiData/steps';
-import { getRecipe } from '../../../../utils/data/apiData/userRecipes';
 import StepCard from '../../../../components/read/StepCard';
 import StepModal from '../../../../components/modal/StepModal';
 import GuidedSteps from '../../../../components/read/GuidedSteps';
+import { getRecipe } from '../../../../utils/data/apiData/recipes';
+import { getSingleOwnerRecipe } from '../../../../utils/data/apiData/owner';
 
 export default function ShowSteps() {
   const { user } = useAuth();
   const [steps, setSteps] = useState([]);
   const [recipe, setRecipe] = useState({});
+  const [author, setAuthor] = useState({});
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
   const handleBack = () => {
     router.back();
   };
-  const renderSteps = () => {
-    getSteps(firebaseKey).then((array) => setSteps(array));
-    getRecipe(firebaseKey).then(setRecipe);
+  const renderRoutedData = () => {
+    getSteps(id).then((array) => setSteps(array));
+    getRecipe(id).then((obj) => {
+      if (!obj.default) {
+        getSingleOwnerRecipe(obj.id).then((userRecipe) => {
+          setAuthor(userRecipe.user_id);
+          setRecipe(userRecipe.recipe_id);
+        });
+      }
+      setRecipe(obj);
+    });
   };
-  const sortedSteps = (array) => {
-    const orderedSteps = array.sort((a, b) => ((a.order > b.order) ? 1 : -1));
-    return orderedSteps;
-  };
+
   useEffect(() => {
-    renderSteps();
+    renderRoutedData();
   }, [user]);
   return (
     <>
@@ -51,8 +58,8 @@ export default function ShowSteps() {
                 <GuidedSteps />
               </div>
               {
-                sortedSteps(steps).map((step) => (
-                  <StepCard onUpdate={renderSteps} key={step.firebaseKey} stepObj={step} recipeObj={recipe} />
+                steps.map((step) => (
+                  <StepCard onUpdate={renderRoutedData} key={step.id} stepObj={step} author={author} recipeObj={recipe} />
                 ))
               }
             </>
@@ -66,12 +73,12 @@ export default function ShowSteps() {
             </div>
           )
       }
-      {recipe.completed === true
+      {!recipe.published
         ? (
-          ''
+          <StepModal onUpdate={renderRoutedData} stepArray={steps} recipeObj={recipe} />
         )
         : (
-          <StepModal onUpdate={renderSteps} stepArray={steps} recipeObj={recipe} />
+          ''
         )}
     </>
   );

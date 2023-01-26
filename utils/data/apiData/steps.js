@@ -23,13 +23,20 @@ const updateStep = (firebaseKey, payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createStep = (stepObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/steps.json`, stepObj)
-    .then((response) => {
-      const payload = { firebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/steps/${response.data.name}.json`, payload)
-        .then(resolve);
-    }).catch(reject);
+const createStep = (data) => new Promise((resolve, reject) => {
+  const step = {
+    description: data.description,
+    recipe_id: data.recipeId,
+  };
+  fetch(`${dbUrl}/steps`, {
+    method: 'POST',
+    body: JSON.stringify(step),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch((error) => reject(error));
 });
 const deleteStep = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/steps/${firebaseKey}.json`)

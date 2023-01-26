@@ -3,15 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../utils/context/authContext';
 
-export default function ViewAllSteps({ recipe }) {
+export default function ViewAllSteps({ recipe, author }) {
   const router = useRouter();
   const { user } = useAuth();
   const handleClick = () => {
-    router.push(`/create/recipes/steps/${recipe.firebaseKey}`);
+    router.push(`/create/recipes/steps/${recipe.id}`);
   };
   return (
     <div>
-      {recipe?.completed && recipe.uid === user.uid
+      {recipe?.published && author.uid === user.uid
         ? ('')
         : (
           <button type="button" className="btn-lg" onClick={handleClick}>View All Steps</button>
@@ -21,16 +21,11 @@ export default function ViewAllSteps({ recipe }) {
 }
 
 ViewAllSteps.propTypes = {
-  recipe: PropTypes.shape({
+  author: PropTypes.shape({
     uid: PropTypes.string,
-    completed: PropTypes.bool,
-    firebaseKey: PropTypes.string,
-  }),
-};
-ViewAllSteps.defaultProps = {
+  }).isRequired,
   recipe: PropTypes.shape({
-    uid: '',
-    completed: true,
-    firebaseKey: '',
-  }),
+    published: PropTypes.bool,
+    id: PropTypes.number,
+  }).isRequired,
 };

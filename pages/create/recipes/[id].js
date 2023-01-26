@@ -67,7 +67,7 @@ export default function CreateRecipe() {
         {recipeProgress < 6 ? '' : (<CreateNameCard onUpdate={renderRecipe} recipeObj={recipe} />)}
       </div>
       <div>
-        {recipeProgress > 8
+        {recipeProgress === 7
           ? (
             <>
               <div className="submit-prompt">

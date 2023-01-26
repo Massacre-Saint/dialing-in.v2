@@ -11,7 +11,9 @@ import EditDeleteStepsButtons from '../buttons/EditDeleteStepsButtons';
 const initialSate = {
   direction: '',
 };
-export default function StepCard({ stepObj, onUpdate, recipeObj }) {
+export default function StepCard({
+  stepObj, onUpdate, recipeObj, author,
+}) {
   const [show, setShow] = useState(false);
   const router = useRouter();
   const handleShow = () => setShow(true);
@@ -64,7 +66,7 @@ export default function StepCard({ stepObj, onUpdate, recipeObj }) {
                   <span>{stepObj?.description}</span>
                 </div>
               </div>
-              <EditDeleteStepsButtons handleDelete={handleDelete} handleShow={handleShow} recipeObj={recipeObj} />
+              <EditDeleteStepsButtons handleDelete={handleDelete} handleShow={handleShow} author={author} recipeObj={recipeObj} />
             </div>
           </>
         )}
@@ -98,17 +100,17 @@ StepCard.propTypes = {
     description: PropTypes.string,
     id: PropTypes.number,
     order: PropTypes.number,
-    recipeId: PropTypes.string,
   }).isRequired,
-  onUpdate: PropTypes.func,
+  onUpdate: PropTypes.func.isRequired,
   recipeObj: PropTypes.shape({
     completed: PropTypes.bool,
+  }).isRequired,
+  author: PropTypes.shape({
+    id: PropTypes.number,
   }),
 };
-
 StepCard.defaultProps = {
-  onUpdate: () => {},
-  recipeObj: PropTypes.shape({
-    completed: false,
+  author: PropTypes.shape({
+    id: 123,
   }),
 };

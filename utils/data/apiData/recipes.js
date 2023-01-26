@@ -33,6 +33,20 @@ const createRecipe = () => new Promise((resolve, reject) => {
     .then((response) => resolve(response.json()))
     .catch((error) => reject(error));
 });
+const createRecipefromMethod = (data) => new Promise((resolve, reject) => {
+  const recipe = {
+    method_id: data.methodId,
+  };
+  fetch(`${dbUrl}/recipes`, {
+    method: 'POST',
+    body: JSON.stringify(recipe),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch((error) => reject(error));
+});
 const updateRecipe = (id, data) => new Promise((resolve, reject) => {
   const recipe = {
     id: data.id,
@@ -55,5 +69,5 @@ const updateRecipe = (id, data) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 export {
-  getRecipe, getDefaultRecipesByMethod, getRecipesByMethod, createRecipe, updateRecipe,
+  getRecipe, getDefaultRecipesByMethod, getRecipesByMethod, createRecipe, createRecipefromMethod, updateRecipe,
 };

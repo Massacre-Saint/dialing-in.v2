@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 export default function AddStep({ stepArray, recipe }) {
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
   const handleClick = () => {
-    router.push(`/create/recipes/steps/${firebaseKey}`);
+    router.push(`/create/recipes/steps/${id}`);
   };
   return (
     <>
       {
-      !recipe.completed
+      !recipe.published
         ? (
           <button type="button" onClick={handleClick}>{stepArray.length ? 'View Steps' : 'Add Step'}</button>
         )
@@ -25,21 +25,9 @@ export default function AddStep({ stepArray, recipe }) {
 
 AddStep.propTypes = {
   stepArray: PropTypes.arrayOf((PropTypes.shape({
-    uid: PropTypes.string,
-    firebaseKey: PropTypes.string,
-  }))),
+    id: PropTypes.id,
+  }))).isRequired,
   recipe: PropTypes.shape({
-    uid: PropTypes.string,
-    completed: PropTypes.bool,
-  }),
-};
-AddStep.defaultProps = {
-  stepArray: PropTypes.arrayOf((PropTypes.shape({
-    uid: PropTypes.string,
-    firebaseKey: '',
-  }))),
-  recipe: PropTypes.shape({
-    uid: '',
-    completed: false,
-  }),
+    published: PropTypes.bool,
+  }).isRequired,
 };

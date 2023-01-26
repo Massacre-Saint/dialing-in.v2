@@ -5,12 +5,12 @@ import { AiFillEdit } from 'react-icons/ai';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function EditDeleteStepsButtons({
-  handleDelete, handleShow, recipeObj,
+  handleDelete, handleShow, recipeObj, author,
 }) {
   const { user } = useAuth();
   return (
     <div className="card-delete">
-      {recipeObj.completed || recipeObj.uid !== user.uid
+      {recipeObj.published || author.uid !== user.uid
         ? (
           ''
         )
@@ -28,12 +28,15 @@ EditDeleteStepsButtons.propTypes = {
   handleShow: PropTypes.func.isRequired,
   recipeObj: PropTypes.shape({
     uid: PropTypes.string,
-    completed: PropTypes.bool,
+    published: PropTypes.bool,
+  }).isRequired,
+  author: PropTypes.shape({
+    uid: PropTypes.string,
   }),
 };
+
 EditDeleteStepsButtons.defaultProps = {
-  recipeObj: PropTypes.shape({
-    completed: false,
+  author: PropTypes.shape({
     uid: '',
   }),
 };

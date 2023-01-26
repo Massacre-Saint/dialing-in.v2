@@ -11,9 +11,9 @@ import { useAuth } from '../../../utils/context/authContext';
 import MainNavBar from '../../../components/MainNavBar';
 import DefaultRecipes from '../../../components/read/DefaultRecipes';
 import MethodInfoModal from '../../../components/modal/MethodInfoModal';
-import { createRecipe, getDefaultRecipesByMethod, getRecipe } from '../../../utils/data/apiData/recipes';
+import { createRecipefromMethod, getDefaultRecipesByMethod, getRecipe } from '../../../utils/data/apiData/recipes';
 import { getSingleMethod } from '../../../utils/data/apiData/methods';
-import { getCreatedMethodRecipes } from '../../../utils/data/apiData/owner';
+import { createOwnerRecipe, getCreatedMethodRecipes } from '../../../utils/data/apiData/owner';
 
 export default function MethodRecipes() {
   const { user } = useAuth();
@@ -37,14 +37,14 @@ export default function MethodRecipes() {
     if (!user) {
       router.push('/settings');
     } else {
-      getRoutedData();
       const payload = {
-        uid: user.uid,
         methodId: method.id,
       };
-      createRecipe(payload).then((recipeObj) => {
-        getRecipe(recipeObj.data.id).then((obj) => {
-          router.push(`/create/recipes/${obj.id}`);
+      createRecipefromMethod(payload).then((recipeObj) => {
+        getRecipe(recipeObj.id).then((obj) => {
+          createOwnerRecipe(obj, user).then(() => {
+            router.push(`/create/recipes/${obj.id}`);
+          });
         });
       });
     }
