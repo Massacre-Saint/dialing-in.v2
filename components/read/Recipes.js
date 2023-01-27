@@ -34,11 +34,12 @@ export default function Recipes({ recipeObj, render }) {
     // });
   };
   useEffect(() => {
+    console.warn(recipeObj);
   }, [recipeObj]);
   return (
     <>
       {
-        recipeObj.recipe_id.published === false
+        !recipeObj.recipe_id.published
           ? (
             <Card
               style={{ width: 'auto' }}
@@ -122,8 +123,6 @@ Recipes.propTypes = {
           method_id: PropTypes.shape(
             {
               description: PropTypes.string,
-              dose_max: PropTypes.number,
-              dose_min: PropTypes.number,
               id: PropTypes.number,
               image_url: PropTypes.string,
               name: PropTypes.string,

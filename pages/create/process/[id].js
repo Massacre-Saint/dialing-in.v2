@@ -73,13 +73,11 @@ export default function CreateProcess() {
     router.push(`/create/recipes/${recipe.id}`);
   });
   const handleShow = () => {
-    if (recipe.user_id) {
-      if (!recipe.published) {
+    getSingleOwnerRecipe(recipe.id).then((data) => {
+      if (data && !recipe.published) {
         setShow(true);
-      } else router.push('/read/recipes/userRecipes');
-    } else {
-      router.back();
-    }
+      } else router.back();
+    });
   };
   const updateFavoritePayload = (favorite) => {
     const payload = {
@@ -116,7 +114,7 @@ export default function CreateProcess() {
   };
   const handleSave = () => {
     setShow(false);
-    router.push('/');
+    router.push(`/read/recipes/${recipe.method_id.id}`);
   };
   const handleEquipment = () => {
     router.push(`/read/equipment/${recipe.id}`);
@@ -193,7 +191,7 @@ export default function CreateProcess() {
                           steps.length
                             ? (
                               steps.map((step) => (
-                                <StepCard key={step.id} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
+                                <StepCard key={step.id} author={{}} stepObj={step} onUpdate={renderRecipe} stepArray={steps} recipeObj={recipe} />
                               ))
                             )
                             : (
