@@ -6,8 +6,8 @@ import { IoTimeSharp, IoWaterSharp } from 'react-icons/io5';
 import { Image } from 'react-bootstrap';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/router';
-// import { deleteProcess } from '../../utils/data/apiData/process';
 import { useAuth } from '../../utils/context/authContext';
+import { deleteOwnerRecipe } from '../../utils/data/apiData/owner';
 
 export default function FavRecipesCard({ recipeObj, render }) {
   const router = useRouter();
@@ -25,11 +25,8 @@ export default function FavRecipesCard({ recipeObj, render }) {
   };
   const handleDelete = (e) => {
     e.stopPropagation();
-    // deleteUserRecipeEquipment(recipeObj.recipe_id.id);
-    // deleteRecipeSteps(recipeObj.recipe_id.id).then(() => {
-    //   deleteProcess(recipeObj.processId);
+    deleteOwnerRecipe(recipeObj.id);
     render();
-    // });
   };
   useEffect(() => {
   }, [recipeObj]);

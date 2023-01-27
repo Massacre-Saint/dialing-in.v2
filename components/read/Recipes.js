@@ -7,9 +7,8 @@ import { IoTimeSharp, IoWaterSharp } from 'react-icons/io5';
 import { Image } from 'react-bootstrap';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/router';
-// import { deleteProcess } from '../../utils/data/apiData/process';
-// import { deleteRecipeSteps, deleteUserRecipeEquipment } from '../../utils/data/apiData/mergeData';
 import { useAuth } from '../../utils/context/authContext';
+import { deleteOwnerRecipe } from '../../utils/data/apiData/owner';
 
 export default function Recipes({ recipeObj, render }) {
   const { user } = useAuth();
@@ -27,14 +26,11 @@ export default function Recipes({ recipeObj, render }) {
   };
   const handleDelete = (e) => {
     e.stopPropagation();
-    // deleteUserRecipeEquipment(recipeObj.firebaseKey);
-    // deleteRecipeSteps(recipeObj.firebaseKey).then(() => {
-    //   deleteProcess(recipeObj.processId);
-    render();
-    // });
+    deleteOwnerRecipe(recipeObj.recipe_id.id).then(() => {
+      render();
+    });
   };
   useEffect(() => {
-    console.warn(recipeObj);
   }, [recipeObj]);
   return (
     <>
@@ -144,8 +140,5 @@ Recipes.propTypes = {
       ).isRequired,
     },
   ).isRequired,
-  render: PropTypes.func,
-};
-Recipes.defaultProps = {
-  render: () => {},
+  render: PropTypes.func.isRequired,
 };

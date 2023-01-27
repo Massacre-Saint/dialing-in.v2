@@ -73,7 +73,7 @@ export default function CreateProcess() {
     getSingleOwnerRecipe(recipe.id).then((data) => {
       if (data && !recipe.published) {
         setShow(true);
-      } else router.back();
+      } else router.push(`/read/recipes/${recipe.method_id.id}`);
     });
   };
 
