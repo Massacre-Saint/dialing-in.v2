@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
@@ -21,7 +20,7 @@ const getFavorite = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getFavoritebyRecipe = (uid, recipeId) => new Promise((resolve, reject) => {
+const getFavoritesbyRecipe = (uid, recipeId) => new Promise((resolve, reject) => {
   fetch(`${dbUrl}/favorites?recipeId=${recipeId}`, {
     headers: {
       Authorization: uid,
@@ -32,11 +31,6 @@ const getFavoritebyRecipe = (uid, recipeId) => new Promise((resolve, reject) => 
     .catch(reject);
 });
 
-const updateFavoriteRecipe = (id, payload) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/favorites/${id}.json`, payload)
-    .then(resolve)
-    .catch(reject);
-});
 const createFavorite = (data, user) => new Promise((resolve, reject) => {
   const recipe = {
     recipe_id: data.recipeId,
@@ -54,10 +48,10 @@ const createFavorite = (data, user) => new Promise((resolve, reject) => {
 });
 
 const deleteFavorite = (id) => new Promise((resolve, reject) => {
-  fetch(`'${dbUrl}/favorites/${id}`, {
-    method: 'DELELTE',
+  fetch(`${dbUrl}/favorites/${id}`, {
+    method: 'DELETE',
   }).then(resolve).catch(reject);
 });
 export {
-  getFavorites, getFavorite, getFavoritebyRecipe, updateFavoriteRecipe, createFavorite, deleteFavorite,
+  getFavorites, getFavorite, getFavoritesbyRecipe, createFavorite, deleteFavorite,
 };

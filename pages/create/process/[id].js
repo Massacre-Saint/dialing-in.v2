@@ -17,10 +17,10 @@ import { getSingleOwnerRecipe } from '../../../utils/data/apiData/owner';
 import { getSteps } from '../../../utils/data/apiData/steps';
 import BrewButton from '../../../components/buttons/BrewButton';
 import {
-  getFavoritebyRecipe, deleteFavorite, createFavorite, getFavorite,
+  getFavoritesbyRecipe, deleteFavorite, createFavorite, getFavorite,
 } from '../../../utils/data/apiData/favorites';
 import FavoriteButton from '../../../components/buttons/FavoriteButton';
-import { getRecipe, updateRecipe } from '../../../utils/data/apiData/recipes';
+import { getRecipe } from '../../../utils/data/apiData/recipes';
 
 export default function CreateProcess() {
   const { user } = useAuth();
@@ -29,6 +29,7 @@ export default function CreateProcess() {
   const [steps, setSteps] = useState([]);
   const router = useRouter();
   const [favoriteState, setFavoriteState] = useState(false);
+  const [favorite, setFavorite] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const { id } = router.query;
@@ -46,18 +47,14 @@ export default function CreateProcess() {
     });
   };
   const mountedFavState = () => {
-    getFavoritebyRecipe(user.uid, id).then((response) => {
+    getFavoritesbyRecipe(user.uid, id).then((response) => {
       if (response.length) {
+        getFavorite(response[0].id).then((obj) => setFavorite(obj));
         setFavoriteState(true);
       } else {
         setFavoriteState(false);
       }
     });
-    if (!recipe?.favoriteId) {
-      setFavoriteState(false);
-    } else {
-      setFavoriteState(true);
-    }
   };
   const convertTime = (total) => {
     if (total >= 3600) {
@@ -79,36 +76,17 @@ export default function CreateProcess() {
       } else router.back();
     });
   };
-  const updateFavoritePayload = (favorite) => {
-    const payload = {
-      favoriteId: favorite.id,
-    };
-    updateRecipe(favorite.recipeId, payload);
-  };
+
   const handleFavorite = () => {
     const payload = {
-      brewTime: recipe.brewTime,
-      grindId: recipe.grindId,
-      weight: recipe.weight,
-      dose: recipe.dose,
-      methodId: recipe.methodId,
-      processId: recipe.processId,
-      uid: recipe.uid,
-      recipeName: recipe.recipeName,
-      waterTemp: recipe.waterTemp,
       recipeId: recipe.id,
-      completed: recipe.completed,
     };
     if (favoriteState === true) {
-      deleteFavorite(recipe.favoriteId).then(() => {
+      deleteFavorite(favorite.id).then(() => {
         setFavoriteState(false);
       });
     } else {
-      createFavorite(payload, user).then((favoriteObj) => {
-        getFavorite(favoriteObj.data.id).then((favorite) => {
-          updateFavoritePayload(favorite);
-        });
-      });
+      createFavorite(payload, user).then((obj) => setFavorite(obj));
       setFavoriteState(true);
     }
   };
@@ -119,14 +97,11 @@ export default function CreateProcess() {
   const handleEquipment = () => {
     router.push(`/read/equipment/${recipe.id}`);
   };
+
   useEffect(() => {
     renderRecipe();
     mountedFavState();
-  }, [user, recipe?.favoriteId]);
-  useEffect(() => {
-    renderRecipe();
-    mountedFavState();
-  }, [user, favoriteState]);
+  }, [user]);
   return (
     <>
       {
