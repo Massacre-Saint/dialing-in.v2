@@ -9,7 +9,7 @@ import {
 import MainNavBar from '../../../components/MainNavBar';
 import FavRecipesCard from '../../../components/read/FavRecipesCard';
 import { useAuth } from '../../../utils/context/authContext';
-import { getFavoriteRecipes } from '../../../utils/data/apiData/favorites';
+import { getFavorites } from '../../../utils/data/apiData/favorites';
 
 export default function FavRecipes() {
   const { user } = useAuth();
@@ -19,7 +19,7 @@ export default function FavRecipes() {
     router.push('/');
   };
   const getFavRecipes = () => {
-    getFavoriteRecipes(user?.uid).then(setRecipes);
+    getFavorites(user?.uid).then(setRecipes);
   };
   useEffect(() => {
     getFavRecipes();

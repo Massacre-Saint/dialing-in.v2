@@ -39,10 +39,16 @@ export default function FavRecipesCard({ recipeObj, render }) {
         <div>
           <div className="recipe-title">{recipeObj.recipe_id.recipe_name}</div>
           <div>
-            <div>
-              <Image className="user-photo-small" referrerPolicy="no-referrer" src={recipeObj.user_id.image_url} />
-              {recipeObj.user_id.name}
-            </div>
+            {
+              recipeObj.recipe_id.default
+                ? ('')
+                : (
+                  <div>
+                    <Image className="user-photo-small" referrerPolicy="no-referrer" src={recipeObj.user_id.image_url} />
+                    {recipeObj.user_id.name}
+                  </div>
+                )
+            }
             <span>
               <IoTimeSharp />
               {convertTime(recipeObj.recipe_id.brew_time)}&nbsp;&nbsp;
