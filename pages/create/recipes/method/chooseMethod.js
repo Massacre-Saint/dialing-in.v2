@@ -7,10 +7,10 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
-import deleteRecipe from '../../../../utils/data/apiData/userRecipes';
 import { getMethods } from '../../../../utils/data/apiData/methods';
 import Method from '../../../../components/create/Method';
 import { getRecipe } from '../../../../utils/data/apiData/recipes';
+import { deleteOwnerRecipe } from '../../../../utils/data/apiData/owner';
 
 export default function ChooseMethod() {
   const { user } = useAuth();
@@ -22,7 +22,7 @@ export default function ChooseMethod() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleDelete = () => {
-    deleteRecipe(id).then(() => {
+    deleteOwnerRecipe(id).then(() => {
       router.push('/');
     });
   };

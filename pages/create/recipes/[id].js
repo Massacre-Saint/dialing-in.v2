@@ -12,6 +12,7 @@ import ChooseWeightCard from '../../../components/create/recipes/ChooseWeightCar
 import CreateNameCard from '../../../components/create/recipes/CreateNameCard';
 import DeleteRecipeModal from '../../../components/modal/DeleteRecipeModal';
 import ChooseBrewTime from '../../../components/create/recipes/ChooseBrewTime';
+import { deleteOwnerRecipe } from '../../../utils/data/apiData/owner';
 
 export default function CreateRecipe() {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ export default function CreateRecipe() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleDelete = () => {
+    deleteOwnerRecipe(id);
     handleClose();
     router.push('/');
   };

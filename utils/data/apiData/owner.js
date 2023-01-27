@@ -49,10 +49,16 @@ const createOwnerRecipe = (payload, user) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const deleteOwnerRecipe = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/owner/${id}`, {
+    method: 'DELETE',
+  }).then(resolve).catch(reject);
+});
 export {
   getYourRecipes,
   getSingleOwnerRecipe,
   getRecipesByUser,
   getCreatedMethodRecipes,
   createOwnerRecipe,
+  deleteOwnerRecipe,
 };
