@@ -14,10 +14,12 @@ const initialSate = {
   name: '',
   setting: '',
 };
-export default function EquipmentCard({ obj, onUpdate, recipe }) {
+export default function EquipmentCard({
+  obj, onUpdate, recipe, author,
+}) {
   const router = useRouter();
   const [formInput, setFormInput] = useState(initialSate);
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -25,7 +27,7 @@ export default function EquipmentCard({ obj, onUpdate, recipe }) {
     e.preventDefault();
     const payload = {
       ...formInput,
-      recipeId: firebaseKey,
+      recipeId: id,
     };
     updateEquipment(obj.id, payload).then(() => {
       onUpdate();
@@ -50,7 +52,7 @@ export default function EquipmentCard({ obj, onUpdate, recipe }) {
           <div>{obj?.type}</div>
           <div>{obj?.setting}</div>
         </div>
-        <EditDeleteEquip handleShow={handleShow} obj={obj} onUpdate={onUpdate} recipe={recipe} />
+        <EditDeleteEquip handleShow={handleShow} obj={obj} onUpdate={onUpdate} author={author} recipe={recipe} />
       </div>
       <div>
         <Offcanvas
@@ -92,48 +94,11 @@ EquipmentCard.propTypes = {
     type: PropTypes.string,
     setting: PropTypes.string,
   }).isRequired,
+  author: PropTypes.shape({
+    uid: PropTypes.string,
+  }).isRequired,
   onUpdate: PropTypes.func.isRequired,
-  recipe: PropTypes.shape(
-    {
-      id: PropTypes.number,
-      recipe_id: PropTypes.shape(
-        {
-          brew_time: PropTypes.number,
-          default: PropTypes.bool,
-          dose: PropTypes.number,
-          grind_id: PropTypes.shape(
-            {
-              grind_size: PropTypes.string,
-              id: PropTypes.number,
-              image_url: PropTypes.string,
-              order: PropTypes.number,
-            },
-          ).isRequired,
-          id: PropTypes.number,
-          method_id: PropTypes.shape(
-            {
-              description: PropTypes.string,
-              dose_max: PropTypes.number,
-              dose_min: PropTypes.number,
-              id: PropTypes.number,
-              image_url: PropTypes.string,
-              name: PropTypes.string,
-              weight_max: PropTypes.number,
-            },
-          ).isRequired,
-          published: PropTypes.bool,
-          recipe_name: PropTypes.string,
-          weight: PropTypes.number,
-        },
-      ).isRequired,
-      user_id: PropTypes.shape(
-        {
-          id: PropTypes.number,
-          image_url: PropTypes.string,
-          name: PropTypes.string,
-          uid: PropTypes.string,
-        },
-      ).isRequired,
-    },
-  ).isRequired,
+  recipe: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
 };

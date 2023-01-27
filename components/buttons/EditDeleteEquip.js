@@ -6,17 +6,17 @@ import { deleteEquipment } from '../../utils/data/apiData/recipeEquipment';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function EditDeleteEquip({
-  handleShow, obj, onUpdate, recipe,
+  handleShow, obj, onUpdate, recipe, author,
 }) {
   const { user } = useAuth();
   const handleDelete = () => {
-    deleteEquipment(obj.firebaseKey);
+    deleteEquipment(obj.id);
     onUpdate();
   };
   return (
     <>
       {
-      recipe?.completed === false && recipe.uid === user.uid
+      !recipe?.published && author.uid === user.uid
         ? (
           <div className="card-delete-btn">
             <button type="button" aria-label="delete" className="btn-stripped" onClick={handleDelete}><MdDeleteForever /></button>
@@ -32,11 +32,12 @@ export default function EditDeleteEquip({
 }
 EditDeleteEquip.propTypes = {
   recipe: PropTypes.shape({
-    completed: PropTypes.bool,
-    uid: PropTypes.string,
+    published: PropTypes.bool,
   }).isRequired,
   obj: PropTypes.shape({
-    firebaseKey: PropTypes.string,
+    id: PropTypes.number,
+  }).isRequired,
+  author: PropTypes.shape({
     uid: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,

@@ -31,15 +31,25 @@ const updateEquipment = (firebaseKey, payload) => new Promise((resolve, reject) 
     .then(resolve)
     .catch(reject);
 });
-const createEquipment = (equipObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/recipeEquipment.json`, equipObj)
-    .then((response) => {
-      const payload = { firebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/recipeEquipment/${response.data.name}.json`, payload)
-        .then(resolve);
-    }).catch(reject);
+
+const createEquip = (data) => new Promise((resolve, reject) => {
+  const equip = {
+    type: data.type,
+    name: data.name,
+    setting: data.setting,
+    recipe_id: data.recipeId,
+  };
+  fetch(`${dbUrl}/recipe_equip`, {
+    method: 'POST',
+    body: JSON.stringify(equip),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch((error) => reject(error));
 });
 
 export {
-  getRecipeEquipment, getSingleEquipment, deleteEquipment, updateEquipment, createEquipment, getUserRecipeEquipment,
+  getRecipeEquipment, getSingleEquipment, deleteEquipment, updateEquipment, createEquip, getUserRecipeEquipment,
 };

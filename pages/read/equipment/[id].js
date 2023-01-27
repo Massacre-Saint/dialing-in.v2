@@ -11,6 +11,7 @@ import EquipmentModal from '../../../components/modal/EquipmentModal';
 import { getRecipe } from '../../../utils/data/apiData/recipes';
 import getMethodEquipment from '../../../utils/data/apiData/methodEquipment';
 import { getRecipeEquipment } from '../../../utils/data/apiData/recipeEquipment';
+import { getSingleOwnerRecipe } from '../../../utils/data/apiData/owner';
 
 export default function ShowEquip() {
   const router = useRouter();
@@ -19,17 +20,25 @@ export default function ShowEquip() {
   const [recipe, setRecipe] = useState({});
   const [methodEquip, setMethodEquip] = useState([]);
   const [recipeEquip, setRecipeEquip] = useState([]);
+  const [author, setAuthor] = useState({});
   const renderEquipment = () => {
-    getRecipe(id).then(setRecipe);
-    getMethodEquipment(id).then(setMethodEquip);
-    getRecipeEquipment(id).then(setRecipeEquip);
+    getRecipe(id).then((obj) => {
+      setRecipe(obj);
+      getMethodEquipment(obj.method_id.id).then(setMethodEquip);
+      getRecipeEquipment(id).then(setRecipeEquip);
+    });
   };
-
+  const getAuthor = () => {
+    getSingleOwnerRecipe(id).then((obj) => {
+      setAuthor(obj.user_id);
+    });
+  };
   const handleBack = () => {
     router.back();
   };
   useEffect(() => {
     renderEquipment();
+    getAuthor();
   }, [user]);
   return (
     <>
@@ -55,17 +64,17 @@ export default function ShowEquip() {
                 <h2>Recipe Equipment</h2>
                 <div className="steps">
                   {recipeEquip.map((obj) => (
-                    <EquipmentCard key={obj.id} onUpdate={renderEquipment} recipe={recipe} obj={obj} />
+                    <EquipmentCard key={obj.id} onUpdate={renderEquipment} author={author} recipe={recipe} obj={obj} />
                   ))}
                 </div>
               </div>
               <div>
-                <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
+                <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} author={author} onUpdate={renderEquipment} />
               </div>
             </>
           )
           : (
-            <EquipmentModal recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
+            <EquipmentModal author={author} recipe={recipe} recipeEquip={recipeEquip} onUpdate={renderEquipment} />
           )}
       </div>
 

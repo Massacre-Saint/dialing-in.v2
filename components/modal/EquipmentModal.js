@@ -5,18 +5,19 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { useRouter } from 'next/router';
-import { createEquipment } from '../../utils/data/apiData/recipeEquipment';
+import { createEquip } from '../../utils/data/apiData/recipeEquipment';
 import AddEquipButton from '../buttons/AddEquipButton';
+import { useAuth } from '../../utils/context/authContext';
 
 const initialSate = {
   type: '',
   name: '',
   setting: '',
 };
-export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
-  const router = useRouter();
-  const { firebaseKey } = router.query;
+export default function EquipmentModal({
+  recipe, recipeEquip, onUpdate, author,
+}) {
+  const { user } = useAuth();
   const [show, setShow] = useState(false);
   const [formInput, setFormInput] = useState(initialSate);
   const handleClose = () => setShow(false);
@@ -28,9 +29,9 @@ export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
     e.preventDefault();
     const payload = {
       ...formInput,
-      recipeId: firebaseKey,
+      recipeId: recipe.id,
     };
-    createEquipment(payload).then(() => {
+    createEquip(payload).then(() => {
       onUpdate();
     });
     handleClose();
@@ -44,7 +45,7 @@ export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
   };
   return (
     <>
-      {recipe.uid === undefined || recipe.completed
+      {author.uid !== user.uid || recipe.published
         ? (
           ''
         )
@@ -83,21 +84,19 @@ export default function EquipmentModal({ recipe, recipeEquip, onUpdate }) {
 EquipmentModal.propTypes = {
   onUpdate: PropTypes.func.isRequired,
   recipeEquip: PropTypes.arrayOf((PropTypes.shape({
-    firebaseKey: PropTypes.string,
-  }))),
+    id: PropTypes.number,
+  }))).isRequired,
   recipe: PropTypes.shape({
-    completed: PropTypes.bool,
+    published: PropTypes.bool,
+    id: PropTypes.number,
+  }).isRequired,
+  author: PropTypes.shape({
     uid: PropTypes.string,
-    firebaseKey: PropTypes.string,
   }),
 };
+
 EquipmentModal.defaultProps = {
-  recipeEquip: PropTypes.arrayOf((PropTypes.shape({
-    firebaseKey: '',
-  }))),
-  recipe: PropTypes.shape({
-    completed: false,
+  author: PropTypes.shape({
     uid: '',
-    firebaseKey: '',
   }),
 };
