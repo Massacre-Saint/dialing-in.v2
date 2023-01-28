@@ -18,8 +18,11 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Issues][issues-shield]][https://github.com/Massacre-Saint/Dialing-In/issues]
-[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/massacresaint/]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -27,10 +30,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="/images/Dialing-Logo.svg" alt="Logo" width="100" height="100">
+    <img src="/public/images/Dialing-Logo.svg" alt="Logo" width="300" height="300">
   </a>
 
-<h3 align="center">Front-End Capstone: Dialing In</h3>
+<h1 align="center">Front-End Capstone: Dialing In</h3>
 
   <p align="center">
     <strong>Meant for mobile-only currently.</strong>
@@ -47,7 +50,16 @@
   </p>
 </div>
 
-
+<div>
+  <h2 align="center">***Version 2 New Features***</h1>
+  <ul>
+    <li>Created steps now are updated and created based on current order and dynamically change!</li>
+    <li>Water temp for determining weight has been taken out. Improved UX</li>
+    <li>Server side 
+      <a href="https://github.com/Massacre-Saint/dialing-in-server">here<a/>, Version 2 no longer supports Axios/Firebase
+     </li>
+  </ol>
+</div>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -78,9 +90,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://dialing-in.netlify.app/)
+![Product Name Screen Shot][product-screenshot]
 
-Dialing-In was a school project for Nasvhille Software School's Software Development Bootcamp. This project was my capstone/final to demonstrate simple CRUD with authentication through Axios/Firebase. Dialing-In is an inspired app I wanted to create after my 10+ years as a barista, for my morning routine of brewing coffee.
+Dialing-In was a school, passion project for Nasvhille Software School's Software Development Bootcamp. This project was my capstone/final to demonstrate simple CRUD with authentication through Axios/Firebase. Dialing-In is an inspired app I wanted to create after my 10+ years as a barista, for my morning routine of brewing coffee.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,7 +133,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to List of Contents</a></p>
 
 
 
@@ -135,7 +147,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Favorited Recipes
 - [ ] Messages and Threads
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to List of Contents</a></p>
 
 
 
@@ -153,50 +165,53 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to List of Contents</a></p>
 
 
-<!-- CONTACT -->
+<!-- CONTACT and Repos -->
 ## Contact
 
 Jacob Martin - [https://www.linkedin.com/in/massacresaint/](https://www.linkedin.com/in/massacresaint/) - jacob95martin@gmail.com
 
-Project Link: [https://github.com/Massacre-Saint/Dialing-In](https://github.com/Massacre-Saint/Dialing-In)
+[Version 1](https://github.com/Massacre-Saint/Dialing-In)
+[Version 2](https://github.com/Massacre-Saint/Dialing-In.v2)
+[Version 2 Server](https://github.com/Massacre-Saint/dialing-in-server)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to List of Contents</a></p>
 
 
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [https://react-icons.github.io/react-icons/search](React Icons)
-* [https://fontawesome.com/](Font Awesome)
-* [https://shields.io/](Img Sheilds)
-* [[https://shields.io/](React Bootstrap)
-* Kyle Jordan for the Coffee Method Icons
-* [https://github.com/drteresavasquez] (Dr. Teresa Vawquez)
+* [React Icons](https://react-icons.github.io/react-icons/search)
+* [Font Awesome](https://fontawesome.com/)
+* [Img Sheilds](https://shields.io/)
+* [React Bootstrap](https://shields.io/)
+* Kyle Jordan: Graphics
+* [Dr. Teresa Vawquez](https://github.com/drteresavasquez): Rubber Ducking
+* [Best README Template](https://github.com/othneildrew/Best-README-Template)
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to List of Contents</a></p>
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
+[contributors-shield]: https://img.shields.io/github/contributors/Massacre-Saint/Dialing-In.v2.svg?style=for-the-badge
+[contributors-url]: https://github.com/Massacre-Saint/Dialing-In.v2/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Massacre-Saint/Dialing-In.v2.svg?style=for-the-badge
+[forks-url]: https://github.com/Massacre-Saint/Dialing-In.v2/network/members
+[stars-shield]: https://img.shields.io/github/stars/Massacre-Saint/Dialing-In.v2.svg?style=for-the-badge
+[stars-url]: https://github.com/Massacre-Saint/Dialing-In.v2/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Massacre-Saint/Dialing-In.v2.svg?style=for-the-badge
+[issues-url]: https://github.com/Massacre-Saint/Dialing-In.v2/issues
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/home.png
+[linkedin-url]: https://linkedin.com/in/massacresaint
+[product-screenshot]: /public/images/home.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
