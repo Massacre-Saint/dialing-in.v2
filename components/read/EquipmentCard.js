@@ -29,7 +29,7 @@ export default function EquipmentCard({
       ...formInput,
       recipeId: id,
     };
-    updateEquipment(obj.id, payload).then(() => {
+    updateEquipment(payload, obj.id).then(() => {
       onUpdate();
     });
     handleClose();

@@ -27,7 +27,6 @@ EditDeleteStepsButtons.propTypes = {
   handleDelete: PropTypes.func.isRequired,
   handleShow: PropTypes.func.isRequired,
   recipeObj: PropTypes.shape({
-    uid: PropTypes.string,
     published: PropTypes.bool,
   }).isRequired,
   author: PropTypes.shape({

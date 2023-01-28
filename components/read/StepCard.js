@@ -35,8 +35,9 @@ export default function StepCard({
     e.preventDefault();
     const payload = {
       ...formInput,
+      recipeId: recipeObj.id,
     };
-    updateStep(stepObj.id, payload).then(() => {
+    updateStep(payload, stepObj.id).then(() => {
       onUpdate();
       handleClose();
     });
@@ -85,7 +86,7 @@ export default function StepCard({
           <div>
             <Form onSubmit={handleSubmit}>
               <FloatingLabel controlId="floatingInput1" label="Create Step" className="mb-3">
-                <Form.Control onChange={handleChange} type="text" placeholder="Example..." value={formInput.direction} name="direction" required />
+                <Form.Control onChange={handleChange} type="text" placeholder="Example..." value={formInput.description} name="description" required />
               </FloatingLabel>
               <Button type="submit" variant="success">Submit</Button>
             </Form>
@@ -103,6 +104,7 @@ StepCard.propTypes = {
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
   recipeObj: PropTypes.shape({
+    id: PropTypes.number,
     completed: PropTypes.bool,
   }).isRequired,
   author: PropTypes.shape({
