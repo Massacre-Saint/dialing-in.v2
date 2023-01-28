@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { clientCredentials } from '../../client';
 
 const dbUrl = clientCredentials.databaseURL;
@@ -17,10 +16,20 @@ const getStep = (id) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updateStep = (firebaseKey, payload) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/steps/${firebaseKey}.json`, payload)
-    .then(resolve)
-    .catch(reject);
+const updateStep = (data, id) => new Promise((resolve, reject) => {
+  const step = {
+    description: data.description,
+    recipe_id: data.recipeId,
+  };
+  fetch(`${dbUrl}/steps/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(step),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
 });
 
 const createStep = (data) => new Promise((resolve, reject) => {
@@ -38,10 +47,11 @@ const createStep = (data) => new Promise((resolve, reject) => {
     .then((response) => resolve(response.json()))
     .catch((error) => reject(error));
 });
-const deleteStep = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.delete(`${dbUrl}/steps/${firebaseKey}.json`)
-    .then(() => resolve('deleted'))
-    .catch((error) => reject(error));
+
+const deleteStep = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/steps/${id}`, {
+    method: 'DELETE',
+  }).then(resolve).catch(reject);
 });
 
 export {

@@ -20,16 +20,23 @@ const getSingleEquipment = (firebaseKey) => new Promise((resolve, reject) => {
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
-const deleteEquipment = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.delete(`${dbUrl}/recipeEquipment/${firebaseKey}.json`)
-    .then(() => resolve('deleted'))
-    .catch((error) => reject(error));
-});
 
-const updateEquipment = (firebaseKey, payload) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/recipeEquipment/${firebaseKey}.json`, payload)
-    .then(resolve)
-    .catch(reject);
+const updateEquipment = (data, id) => new Promise((resolve, reject) => {
+  const equip = {
+    type: data.type,
+    name: data.name,
+    setting: data.setting,
+    recipe_id: data.recipeId,
+  };
+  fetch(`${dbUrl}/recipe_equip/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(equip),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
 });
 
 const createEquip = (data) => new Promise((resolve, reject) => {
@@ -48,6 +55,12 @@ const createEquip = (data) => new Promise((resolve, reject) => {
   })
     .then((response) => resolve(response.json()))
     .catch((error) => reject(error));
+});
+
+const deleteEquipment = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/recipe_equip/${id}`, {
+    method: 'DELETE',
+  }).then(resolve).catch(reject);
 });
 
 export {
