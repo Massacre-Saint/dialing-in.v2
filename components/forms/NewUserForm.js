@@ -45,7 +45,7 @@ export default function NewUserForm({ obj, user }) {
     <>
       <div className="profile-card">
         <div className="profile-card-header">
-          <Image className="profile-picture-lg" layout="responsive" src={user?.photoUrl} />
+          <Image className="profile-picture-lg" layout="responsive" src={user.photoURL} />
           <h1>{obj.name}</h1>
         </div>
         <div>
@@ -80,7 +80,7 @@ export default function NewUserForm({ obj, user }) {
                 aria-label="Favorite Method"
                 name="methodId"
                 onChange={handleChange}
-                value={formInput.methodId}
+                value={formInput.methodId.id}
                 bsPrefix="form-box"
                 required
               >
@@ -112,25 +112,18 @@ export default function NewUserForm({ obj, user }) {
 NewUserForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
-    methodId: PropTypes.string,
+    method_id: PropTypes.shape({
+      id: PropTypes.number,
+      grind_size: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
     favRoast: PropTypes.string,
     favShop: PropTypes.string,
     desciption: PropTypes.string,
-    imageUrl: PropTypes.string,
+    image_url: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
   user: PropTypes.shape({
-    photoUrl: PropTypes.string,
+    photoURL: PropTypes.string,
   }).isRequired,
 };
-// NewUserForm.defaultProps = {
-//   obj: PropTypes.shape({
-//     uid: '',
-//     method_id: '',
-//     fav_roast: '',
-//     fav_shop: '',
-//     desciption: '',
-//     image_url: '',
-//     name: '',
-//   }),
-// };

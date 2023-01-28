@@ -25,12 +25,12 @@ const updateUser = (pk, data) => new Promise((resolve, reject) => {
     fav_roast: data.favRoast,
     fav_shop: data.favShop,
     description: data.description,
-    method_id: data.methodId
-  }
+    method_id: data.methodId,
+  };
   fetch(`${dbUrl}/users/${pk}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify(user),
   })
     .then((response) => resolve(response))
     .catch((error) => reject(error));

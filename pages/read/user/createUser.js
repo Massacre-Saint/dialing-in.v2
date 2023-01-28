@@ -15,15 +15,7 @@ export default function CreateUser() {
   useEffect(() => {
     checkUser(user.uid).then((obj) => {
       getUser(obj.id).then((data) => {
-        setUserProfile({
-          id: data.id,
-          uid: data.uid,
-          favRoast: data.fav_roast,
-          favShop: data.favShop,
-          imageUrl: data.image_url,
-          name: data.name,
-          methodId: data.method_id,
-        });
+        setUserProfile(data);
       });
     });
   }, [user]);
