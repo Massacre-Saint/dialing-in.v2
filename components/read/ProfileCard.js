@@ -25,6 +25,7 @@ export default function ProfileCard() {
   useEffect(() => {
     checkUser(user.uid).then((obj) => {
       getUser(obj.id).then(setUserProfile);
+      console.warn(user);
     });
   }, [user]);
   return (
@@ -43,7 +44,7 @@ export default function ProfileCard() {
             ? (
               <div className="profile-card">
                 <div className="profile-card-header">
-                  <Image className="profile-picture-lg" layout="responsive" src={userProfile.imageUrl} />
+                  <Image className="profile-picture-lg" layout="responsive" src={user.photoURL} />
                   <h1>{userProfile.name}</h1>
                 </div>
                 <div>

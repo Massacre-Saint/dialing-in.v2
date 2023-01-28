@@ -18,7 +18,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Issues][issues-shield]][https://github.com/Massacre-Saint/Dialing-In/issues]
+[![Issues][issues-shield]][https://github.com/Massacre-Saint/Dialing-In.v2/issues/new?assignees=Massacre-Saint&labels=bug&template=bug_report.md&title=]
 [![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/massacresaint/]
 
 
