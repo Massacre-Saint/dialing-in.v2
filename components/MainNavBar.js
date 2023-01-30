@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import Link from 'next/link';
 import {
-  Navbar, Container, Nav,
+  Navbar, Container,
 } from 'react-bootstrap';
 import { BiBookReader } from 'react-icons/bi';
 import { AiOutlineHome, AiOutlineHeart } from 'react-icons/ai';
@@ -18,28 +19,28 @@ export default function MainNavBar() {
         user
           ? (
             <Container>
-              <Nav.Link href="/read/recipes/userRecipes" className="nav-item">
-                <BiBookReader id="user-recipe" />
-              </Nav.Link>
-              <Nav.Link href="/read/recipes/favRecipes" className="nav-item">
-                <AiOutlineHeart />
-              </Nav.Link>
-              <Nav.Link href="/" id="home" className="nav-item">
-                <AiOutlineHome />
-              </Nav.Link>
-              <Nav.Link className="nav-item">
+              <Link passHref href="/read/recipes/userRecipes" className="nav-item">
+                <BiBookReader color="eb5e28" size={30} id="user-recipe" />
+              </Link>
+              <Link passHref href="/read/recipes/favRecipes" className="nav-item">
+                <AiOutlineHeart color="eb5e28" size={30} />
+              </Link>
+              <Link passHref href="/" id="home" className="nav-item">
+                <AiOutlineHome color="eb5e28" size={30} />
+              </Link>
+              <Link passHref href="/settings" className="nav-item">
                 <SettingsModal />
-              </Nav.Link>
+              </Link>
             </Container>
           )
           : (
             <Container>
-              <Nav.Link href="/" className="nav-item">
-                <AiOutlineHome />
-              </Nav.Link>
-              <Nav.Link href="/settings" className="nav-item">
-                <FiLogIn />
-              </Nav.Link>
+              <Link passHref href="/" className="nav-item">
+                <AiOutlineHome color="eb5e28" size={30} />
+              </Link>
+              <Link passHref href="/settings" className="nav-item">
+                <FiLogIn color="eb5e28" size={30} />
+              </Link>
             </Container>
           )
       }
