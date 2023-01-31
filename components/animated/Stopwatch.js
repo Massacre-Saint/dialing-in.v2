@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { BsFillPlayFill, BsStopFill } from 'react-icons/bs';
 import { BiReset } from 'react-icons/bi';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import RatingsCommentsModal from './modal/RatingsCommentsModal';
+import { RatingsCommentsModal } from '../modal';
 
 export default function Stopwatch({ recipe }) {
   const [time, setTime] = useState(0);

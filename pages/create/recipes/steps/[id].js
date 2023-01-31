@@ -8,9 +8,7 @@ import { IconContext } from 'react-icons/lib';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 import { useAuth } from '../../../../utils/context/authContext';
 import { getSteps } from '../../../../utils/data/apiData/steps';
-import StepCard from '../../../../components/read/StepCard';
-import StepModal from '../../../../components/modal/StepModal';
-import GuidedSteps from '../../../../components/read/GuidedSteps';
+import { StepCard, StepModal, GuidedSteps } from '../../../../components';
 import { getRecipe } from '../../../../utils/data/apiData/recipes';
 import { getSingleOwnerRecipe } from '../../../../utils/data/apiData/owner';
 

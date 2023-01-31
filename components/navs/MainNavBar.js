@@ -7,8 +7,8 @@ import {
 import { BiBookReader } from 'react-icons/bi';
 import { AiOutlineHome, AiOutlineHeart } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
-import { useAuth } from '../utils/context/authContext';
-import SettingsModal from './modal/SettingsModal';
+import { useAuth } from '../../utils/context/authContext';
+import { SettingsModal } from '../modal';
 
 export default function MainNavBar() {
   const { user } = useAuth();

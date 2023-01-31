@@ -5,9 +5,8 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+import { Method, MainNavBar } from '../components';
 import { getMethods } from '../utils/data/apiData/methods';
-import Method from '../components/read/Method';
-import MainNavbar from '../components/MainNavBar';
 import { useAuth } from '../utils/context/authContext';
 import { createRecipe, getRecipe } from '../utils/data/apiData/recipes';
 import { createOwnerRecipe } from '../utils/data/apiData/owner';
@@ -52,7 +51,7 @@ export default function Methods() {
           ))}
         </div>
       </div>
-      <MainNavbar />
+      <MainNavBar />
     </>
   );
 }

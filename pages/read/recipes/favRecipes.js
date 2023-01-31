@@ -6,8 +6,7 @@ import { IconContext } from 'react-icons';
 import {
   Navbar, Nav,
 } from 'react-bootstrap';
-import MainNavBar from '../../../components/MainNavBar';
-import FavRecipesCard from '../../../components/read/FavRecipesCard';
+import { MainNavBar, FavRecipesCard } from '../../../components';
 import { useAuth } from '../../../utils/context/authContext';
 import { getFavorites } from '../../../utils/data/apiData/favorites';
 

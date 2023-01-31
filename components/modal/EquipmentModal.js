@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { createEquip } from '../../utils/data/apiData/recipeEquipment';
-import AddEquipButton from '../buttons/AddEquipButton';
+import AddEquipButton from '../buttons';
 import { useAuth } from '../../utils/context/authContext';
 
 const initialSate = {

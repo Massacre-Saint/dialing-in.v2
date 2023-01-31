@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
 import { getGrinds } from '../../../../utils/data/apiData/grind';
-import Grind from '../../../../components/read/Grind';
+import { Grind } from '../../../../components';
 import { getRecipe } from '../../../../utils/data/apiData/recipes';
 
 export default function ChooseMethod() {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useAuth } from './context/authContext';
-import Loading from '../components/Loading';
+import { Loading } from '../components/index';
 
 const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) => {
   const { userLoading } = useAuth();

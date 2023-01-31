@@ -5,8 +5,7 @@ import {
   Navbar, Nav, Image,
 } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
-import ProfileCard from '../components/read/ProfileCard';
-import AuthenticationButton from '../components/buttons/AuthenticationButton';
+import { ProfileCard, AuthenticationButton } from '../components';
 import { checkUser, registerUser } from '../utils/auth';
 
 function Settings() {

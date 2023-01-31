@@ -5,9 +5,8 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import MainNavbar from '../../../components/MainNavBar';
 import { useAuth } from '../../../utils/context/authContext';
-import Recipes from '../../../components/read/Recipes';
+import { MainNavBar, Recipes } from '../../../components';
 import { getYourRecipes } from '../../../utils/data/apiData/owner';
 import { createRecipe, getRecipe } from '../../../utils/data/apiData/recipes';
 
@@ -61,7 +60,7 @@ export default function UserRecipes() {
             )
         }
       </div>
-      <MainNavbar />
+      <MainNavBar />
     </>
   );
 }

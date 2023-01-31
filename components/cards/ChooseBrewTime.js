@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
-import ChooseBrewTimeModal from '../../modal/ChooseBrewTimeModal';
+import { ChooseBrewTimeModal } from '../modal';
 
 export default function ChooseBrewTime({ recipeObj, onUpdate }) {
   const [show, setShow] = useState(false);

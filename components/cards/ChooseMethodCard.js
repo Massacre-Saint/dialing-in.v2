@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
-import ChooseMethodModal from '../../modal/ChooseMethodModal';
-import { updateRecipe } from '../../../utils/data/apiData/recipes';
+import { ChooseMethodModal } from '../modal';
+import { updateRecipe } from '../../utils/data/apiData/recipes';
 
 export default function ChooseMethodCard({ recipeObj }) {
   const [recipeMethod, setRecipeMethod] = useState({});

@@ -6,12 +6,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../utils/context/authContext';
 import { getRecipe } from '../../../utils/data/apiData/recipes';
-import ChooseGrindCard from '../../../components/create/recipes/ChooseGrindCard';
-import ChooseMethodCard from '../../../components/create/recipes/ChooseMethodCard';
-import ChooseWeightCard from '../../../components/create/recipes/ChooseWeightCard';
-import CreateNameCard from '../../../components/create/recipes/CreateNameCard';
-import DeleteRecipeModal from '../../../components/modal/DeleteRecipeModal';
-import ChooseBrewTime from '../../../components/create/recipes/ChooseBrewTime';
+import {
+  ChooseBrewTime, ChooseGrindCard, ChooseMethodCard, ChooseWeightCard, CreateNameCard, DeleteRecipeModal,
+} from '../../../components';
 import { deleteOwnerRecipe } from '../../../utils/data/apiData/owner';
 
 export default function CreateRecipe() {
