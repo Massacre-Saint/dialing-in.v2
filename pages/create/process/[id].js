@@ -7,19 +7,15 @@ import {
 import { GiManualMeatGrinder } from 'react-icons/gi';
 import { TbCoffeeOff } from 'react-icons/tb';
 import { IconContext } from 'react-icons/lib';
-import PublishRecipeButton from '../../../components/buttons/PublishRecipeButton';
-import ViewAllSteps from '../../../components/buttons/ViewAllSteps';
-import MainNavBar from '../../../components/MainNavBar';
-import UserProcessModal from '../../../components/modal/UserProcessModal';
-import StepCard from '../../../components/read/StepCard';
+import {
+  PublishRecipeButton, ViewAllSteps, MainNavBar, UserProcessModal, StepCard, BrewButton, FavoriteButton,
+} from '../../../components';
 import { useAuth } from '../../../utils/context/authContext';
 import { getSingleOwnerRecipe } from '../../../utils/data/apiData/owner';
 import { getSteps } from '../../../utils/data/apiData/steps';
-import BrewButton from '../../../components/buttons/BrewButton';
 import {
   getFavoritesbyRecipe, deleteFavorite, createFavorite, getFavorite,
 } from '../../../utils/data/apiData/favorites';
-import FavoriteButton from '../../../components/buttons/FavoriteButton';
 import { getRecipe } from '../../../utils/data/apiData/recipes';
 
 export default function CreateProcess() {

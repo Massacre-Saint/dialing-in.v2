@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
 import { getMethods } from '../../../../utils/data/apiData/methods';
-import Method from '../../../../components/create/Method';
+import { Method } from '../../../../components';
 import { getRecipe } from '../../../../utils/data/apiData/recipes';
 import { deleteOwnerRecipe } from '../../../../utils/data/apiData/owner';
 

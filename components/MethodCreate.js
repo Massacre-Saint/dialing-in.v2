@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { updateRecipe } from '../../utils/data/apiData/recipes';
+import { updateRecipe } from '../utils/data/apiData/recipes';
 
 export default function Method({ methodObj, recipe }) {
   const router = useRouter();

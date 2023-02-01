@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRouter } from 'next/router';
-import EditDeleteEquip from '../buttons/EditDeleteEquip';
+import { EditDeleteEquip } from '../buttons';
 import { updateEquipment } from '../../utils/data/apiData/recipeEquipment';
 
 const initialSate = {

@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react';
 import {
   Navbar, Nav,
 } from 'react-bootstrap';
-import Stopwatch from '../../components/Stopwatch';
+import { Stopwatch, StepCard } from '../../components';
 import { useAuth } from '../../utils/context/authContext';
 import { getSteps } from '../../utils/data/apiData/steps';
-import StepCard from '../../components/read/StepCard';
 import { getRecipe } from '../../utils/data/apiData/recipes';
 
 export default function Brew() {

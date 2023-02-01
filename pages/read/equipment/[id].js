@@ -5,9 +5,7 @@ import {
   Navbar, Nav,
 } from 'react-bootstrap';
 import { useAuth } from '../../../utils/context/authContext';
-import MethodEquipCard from '../../../components/read/MethodEquipCard';
-import EquipmentCard from '../../../components/read/EquipmentCard';
-import EquipmentModal from '../../../components/modal/EquipmentModal';
+import { MethodEquipCard, EquipmentCard, EquipmentModal } from '../../../components';
 import { getRecipe } from '../../../utils/data/apiData/recipes';
 import getMethodEquipment from '../../../utils/data/apiData/methodEquipment';
 import { getRecipeEquipment } from '../../../utils/data/apiData/recipeEquipment';

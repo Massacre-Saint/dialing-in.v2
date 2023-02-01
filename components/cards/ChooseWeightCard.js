@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import PropTypes from 'prop-types';
-import WaterWeightModal from '../../modal/WaterWeightModal';
+import { WaterWeightModal } from '../modal';
 
 export default function ChooseTempCard({ recipeObj, onUpdate }) {
   return (

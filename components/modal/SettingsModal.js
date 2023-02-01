@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { FiSettings } from 'react-icons/fi';
 import { useRouter } from 'next/router';
-import AuthenticationButton from '../buttons/AuthenticationButton';
+import { AuthenticationButton } from '../buttons';
 
 export default function SettingsModal() {
   const router = useRouter();
