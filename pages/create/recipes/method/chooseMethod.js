@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { useAuth } from '../../../../utils/context/authContext';
 import { getMethods } from '../../../../utils/data/apiData/methods';
-import { Method } from '../../../../components';
+import { MethodCreate } from '../../../../components';
 import { getRecipe } from '../../../../utils/data/apiData/recipes';
 import { deleteOwnerRecipe } from '../../../../utils/data/apiData/owner';
 
@@ -43,7 +43,7 @@ export default function ChooseMethod() {
       <div>
         <div className="method-container">
           {methods.map((i) => (
-            <Method key={i.id} methodObj={i} recipe={userRecipe} />
+            <MethodCreate key={i.id} methodObj={i} recipe={userRecipe} />
           ))}
         </div>
       </div>

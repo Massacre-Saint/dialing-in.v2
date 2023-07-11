@@ -6,7 +6,8 @@ import {
 } from 'react-bootstrap';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { useAuth } from '../../../utils/context/authContext';
-import { MainNavBar, Recipes } from '../../../components';
+import { MainNavBar } from '../../../components';
+import Recipes from '../../../components/cards/Recipes';
 import { getYourRecipes } from '../../../utils/data/apiData/owner';
 import { createRecipe, getRecipe } from '../../../utils/data/apiData/recipes';
 
