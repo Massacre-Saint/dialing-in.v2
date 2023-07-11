@@ -38,6 +38,7 @@ export default function NewUserForm({ obj, user }) {
     const payload = {
       ...formInput,
     };
+    console.warn(payload, formInput);
     updateUser(obj.id, payload).then(() => router.push('/settings'));
   };
 

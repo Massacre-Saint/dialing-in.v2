@@ -25,7 +25,6 @@ export default function ProfileCard() {
   useEffect(() => {
     checkUser(user.uid).then((obj) => {
       getUser(obj.id).then(setUserProfile);
-      console.warn(user);
     });
   }, [user]);
   return (

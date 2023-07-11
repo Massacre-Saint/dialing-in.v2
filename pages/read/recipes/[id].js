@@ -8,11 +8,12 @@ import {
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../utils/context/authContext';
 import {
-  Recipes, MainNavBar, DefaultRecipes, MethodInfoModal,
+  MainNavBar, DefaultRecipes, MethodInfoModal,
 } from '../../../components';
 import { createRecipefromMethod, getDefaultRecipesByMethod, getRecipe } from '../../../utils/data/apiData/recipes';
 import { getSingleMethod } from '../../../utils/data/apiData/methods';
 import { createOwnerRecipe, getCreatedMethodRecipes } from '../../../utils/data/apiData/owner';
+import Recipes from '../../../components/cards/Recipes';
 
 export default function MethodRecipes() {
   const { user } = useAuth();
